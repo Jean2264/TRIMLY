@@ -1,0 +1,26 @@
+.page-navigation
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+.page-navigation button{
+    padding: .1rem;
+    width: auto;
+}
+
+.next-button.enabled
+{
+   background-color: var(--color-search);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: .5rem;
+}
+
+.next-button.disabled{
+   
+    display: none;
+}

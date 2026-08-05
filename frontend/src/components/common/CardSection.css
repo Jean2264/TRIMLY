@@ -1,0 +1,7 @@
+.card-section
+{
+    background: var( --color-surface);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-card);
+    padding: 1rem;
+}

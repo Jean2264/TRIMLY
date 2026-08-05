@@ -1,0 +1,11 @@
+.select-date
+{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    overflow-x: auto;
+    align-items: center;
+    flex-shrink: 0;
+
+}
+

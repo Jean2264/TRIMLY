@@ -1,0 +1,23 @@
+.employee-services
+{
+    
+    display:flex; 
+    border-radius: 10px;
+    gap:.5rem;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scrollbar-width: none;  
+}
+
+.employee-services::-webkit-scrollbar
+{
+    display:none;
+}
+
+.employee-service-container {
+    
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+

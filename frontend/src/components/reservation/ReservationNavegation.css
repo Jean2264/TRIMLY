@@ -1,0 +1,47 @@
+.reservation-navegation
+{
+  display:flex;
+    justify-content:space-between;
+    width:100%;
+
+}
+.reservation-navegation .btn-next
+{
+   
+    padding: .5rem;
+    text-align: center;
+justify-content: center;
+    background-color: var(--color-text);
+    border-radius: 10px;
+    color: var(--color-text-card);
+    
+}
+.success-navigation
+{
+    justify-content:center;
+}
+
+.reservation-navegation {
+    display: flex;
+    justify-content: space-between;
+}
+
+.reservation-navegation.only-next {
+    justify-content: flex-end;
+}
+
+.not-visible
+{
+    display: none;
+}
+
+.reservation-navegation button:disabled{
+    cursor: not-allowed;
+    background: var(--color-disable);
+    color: var(--color-text-card);
+}
+
+.reservation-navegation button
+{
+    width: auto;
+}

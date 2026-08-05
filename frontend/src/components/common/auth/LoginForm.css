@@ -1,0 +1,129 @@
+.login-form
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 2rem;
+    
+}
+
+.login-form .logo span{
+    font-size: 2rem;
+    font-weight: 800;
+
+}
+
+.login-header
+{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    align-items: center;
+}
+
+.login-body
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.login-body label {
+  font-size: 0.85rem;
+
+  margin-bottom: 6px;
+  margin-top: 16px;
+}
+
+.login-body [role="alert"] {
+  color: #ff1b1b;
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+.login-body .btn-login {
+  margin-top: 24px;
+  align-self: center;   /* lo saca del stretch del flex-column */
+  width: 60%;           /* o el ancho que prefieras, en vez de 100% */
+  background: var(--color-search);
+  color: var(--color-text-card);
+  border: none;
+  border-radius: 8px;
+ 
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.login-body .btn-login:hover
+{
+    background: var(--color-card-secundary);
+}
+.login-body .btn-login:focus
+{
+    background: var(--color-card-secundary);
+}
+.pass{
+   margin-top: 1rem;
+    align-items: center;
+    text-align: center;
+    font-size: .90rem;
+}
+
+.pass-group
+{
+    display: flex;
+  
+    border: 1px solid #7a7a7a;
+    border-radius: 8px;
+    height: 35px;
+    min-height:35px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pass-group:focus-within {
+  outline: none; /* quita el azul default */
+  border-color: #4a90e2; /* color del borde al enfocar */
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3); /* halo suave */}
+
+.pass-group input
+{
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+   
+    flex: 1;
+    outline: none;
+    background: transparent;
+
+}
+.input
+{
+    padding: 0.5rem;
+     border: 1px solid #7a7a7a;
+    border-radius: 8px;
+   min-height:35px;
+    align-items: center;
+   transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    margin-bottom: 1rem;
+}
+.input:focus {
+  outline: none; /* quita el azul default */
+  border-color: #4a90e2; /* color del borde al enfocar */
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3); /* halo suave */
+}
+.ojo{
+    border: none;
+    outline: none;
+}
+
+.link-button
+{
+    font-size: .95rem;
+    color: blue;
+    cursor: pointer;
+}

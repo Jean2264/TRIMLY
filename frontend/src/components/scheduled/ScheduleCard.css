@@ -1,0 +1,15 @@
+.Schedule-card
+{
+   border: 1px solid rgb(228, 228, 228);
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    flex-shrink: 0;
+     transition: all 0.2s ease;
+     background: var(--color-surface);
+    color: var(--color-text);
+    box-shadow: var(--shadow-card);
+    font-weight: 600;
+   gap: 1rem;
+}

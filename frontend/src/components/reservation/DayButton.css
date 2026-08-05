@@ -1,0 +1,36 @@
+.day-button{
+    width: 34px;
+    height: 34px;
+    display: flex;
+    gap: 0.2rem;
+    flex-direction: column;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+     flex-shrink: 0;
+     padding: 0.5rem;
+    background-color: white;
+     color: var(--color--select);
+    
+     border: 1px solid var( --color--select);
+     box-sizing: var(--shadow-card);
+}
+
+.day-button.selected{
+    width: 37px;
+    height: 37px;
+    background-color:var(--color-search);
+    transform: scale(1.02);
+    border: 2px solid white;
+    color: var(--color-white-secundary);
+}
+
+.day-letter{
+    font-weight: 700;
+    line-height: 1;
+}
+
+.day-name{
+    font-size: 0.75rem;
+    line-height: 1;
+}

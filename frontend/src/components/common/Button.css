@@ -1,0 +1,28 @@
+.button{
+    width:auto;
+
+    padding:.5rem 1rem;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border:none;
+    border-radius:12px;
+
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    color:rgb(42, 42, 42);
+    border:1px solid rgb(42, 42, 42);
+    font-size:1rem;
+    font-weight:600;
+
+    transition:.2s;
+}
+
+.button:hover{
+    filter:brightness(.95);
+}
+
+.button:active{
+    transform:scale(.98);
+}

@@ -1,0 +1,28 @@
+:root{
+
+    --color-background: #111827;
+    --color-surface: #1F2937;
+    --color-surface-secundary: #2D3748;
+
+    --color-primary: #3B82F6;
+    --color-select: #2563EB;
+
+    --color-white-secundary: #374151;
+
+    --color-text: #F9FAFB;
+    --color-text-secondary: #D1D5DB;
+
+    --color-border: #374151;
+
+    --color-success: #22C55E;
+    --color-background-success: #16351F;
+
+    --border-radius: 10px;
+
+    --shadow-card: 0 4px 12px rgba(0,0,0,.35);
+
+    --spacing-xs: .5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+}

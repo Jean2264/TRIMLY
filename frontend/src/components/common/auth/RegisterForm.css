@@ -1,0 +1,110 @@
+.register-form{
+     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 1.5rem;
+ 
+}
+
+.register-form .logo span
+{
+    font-size: 2rem;
+    font-weight: 800;
+}
+.ojo{
+    border: none;
+    outline: none;
+}
+
+.register-body{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.requeride
+{
+    margin-bottom: 1rem;
+}
+.span-requeride
+{
+    color: rgb(179, 3, 3);
+}
+
+.name-full-name{
+    display: flex;
+    gap: .5rem;
+}
+
+.name,
+.full-name{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.name input,
+.full-name input{
+    width: 100%;
+}
+
+.register-body .btn-login {
+  margin-top: 24px;
+  align-self: center;   /* lo saca del stretch del flex-column */
+  width: 60%;           /* o el ancho que prefieras, en vez de 100% */
+  background: var(--color-search);
+  color: var(--color-text-card);
+  border: none;
+  border-radius: 8px;
+ 
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.register-body .btn-login:hover
+{
+    background: var(--color-card-secundary);
+}
+.register-body .btn-login:focus
+{
+    background: var(--color-card-secundary);
+}
+
+.pass-group
+{
+    display: flex;
+  
+    border: 1px solid #7a7a7a;
+    border-radius: 8px;
+    height: 35px;
+    min-height:35px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.pass-group:focus-within {
+  outline: none; /* quita el azul default */
+  border-color: #4a90e2; /* color del borde al enfocar */
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3); /* halo suave */}
+
+
+.input
+{
+    padding: 0.5rem;
+     border: 1px solid #7a7a7a;
+    border-radius: 8px;
+   min-height:35px;
+    align-items: center;
+   transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    margin-bottom: 1rem;
+}
+.input:focus {
+  outline: none; /* quita el azul default */
+  border-color: #4a90e2; /* color del borde al enfocar */
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3); /* halo suave */
+}

@@ -1,0 +1,6 @@
+.public-layout{
+    width: 100%;
+    max-width: 430px; /*porque en promedio un movil tiene un ancho entre 320px y 480px*/
+    min-height: 100vh; /*para que ocupe toda la altura de la pantalla*/
+    margin: 0 auto; /*para centrarlo horizontalmente*/
+}

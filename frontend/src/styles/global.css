@@ -1,0 +1,46 @@
+
+@import "./themes/light.css";
+/* @import "./themes/dark.css"; */
+/* @import "./themes/blue.css"; */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: "Inter", sans-serif;
+}
+
+button{
+    cursor: pointer;
+}
+
+img{
+    display: block;
+    max-width: 100%;
+}
+h1{
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+h2{
+    font-size: 1.3rem;
+    font-weight: 600;
+  
+}
+
+h3{
+    font-size: 1.10rem;
+    font-weight: 600;
+}
+
+p{
+    font-size: .95rem;
+    font-weight: 400;
+    line-height: 1.5;
+}

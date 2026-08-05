@@ -1,0 +1,12 @@
+
+.logo
+{
+    display: flex;
+    gap: 0.5rem;
+  background-color: transparent;
+}
+
+.logo span
+{
+  font-weight: 600;
+}

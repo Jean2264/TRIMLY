@@ -1,0 +1,15 @@
+.reservation-seccess
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+}
+
+.h
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+align-items: center;
+}

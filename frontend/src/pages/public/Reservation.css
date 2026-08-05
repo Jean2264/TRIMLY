@@ -1,0 +1,44 @@
+.reservation
+{
+     display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+
+ /*Este no funciona*/
+.reservation .logo span{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.reservation-content
+{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+    padding: 1rem;
+}
+
+
+.confirm-section
+{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.reservation-navegation
+{
+    display:flex;
+    justify-content:space-between;
+    width:100%;
+}
+
+
+.success-navigation
+{
+    justify-content:center;
+}

@@ -1,0 +1,162 @@
+Folder: C:\Users\paiva\Documents\Cursada2026\Apps\Gestion_Turnos
++---dist
+|   |   +---assets
+|   |       index-BP2fQCt2.js
+|   |       index-DioXsAut.css
+|       favicon.svg
+|       icons.svg
+|       index.html
++---docs
+|       01-vision-del-producto.md
+|       01-vision-del-producto.pdf
+|       02-requerimientos.md
+|       03-modelo-datos.md
+|       04-DER.dio
+|       05-MR.dio
+|       06-modulos.md
+|       07-flujos.md
+|       08-pantallas.md
+|       09-componentes.md
+|       10-roadmap.md
+|       CHANGELOG.md
+|       DECISIONS.md
+|       PROJECT_TREE.txt
++---public
+|       favicon.svg
+|       icons.svg
++---src
+|   |   +---assets
+|   |   \---img
+|   |           barber.jpg
+|   |           Google_Maps.jpg
+|   |   +---components
+|   |   |   +---common
+|   |   |   |   +---auth
+|   |   |   |       AuthModal.css
+|   |   |   |       AuthModal.jsx
+|   |   |   |       LoginForm.css
+|   |   |   |       LoginForm.jsx
+|   |   |   |       RegisterForm.css
+|   |   |   |       RegisterForm.jsx
+|   |   |       BtnClose.css
+|   |   |       BtnClose.jsx
+|   |   |       Button.jsx
+|   |   |       Card.jsx
+|   |   |       CardSection.css
+|   |   |       CardSection.jsx
+|   |   |       Footer.css
+|   |   |       Footer.jsx
+|   |   |       Greeting.css
+|   |   |       Greeting.jsx
+|   |   |       Header.css
+|   |   |       Header.jsx
+|   |   |       Input.jsx
+|   |   |       Location.css
+|   |   |       location.jsx
+|   |   |       Logo.css
+|   |   |       Logo.jsx
+|   |   |       Modal.jsx
+|   |   |       PageNavigation.css
+|   |   |       PageNavigation.jsx
+|   |   |       SearchBar.css
+|   |   |       SearchBar.jsx
+|   |   |       SeeMoreButton.css
+|   |   |       SeeMoreButton.jsx
+|   |   |       Snipper.jsx
+|   |   |       StepIndicator.jsx
+|   |   |   +---contacts
+|   |   |       ContactCard.css
+|   |   |       ContactCard.jsx
+|   |   |       ContactSection.css
+|   |   |       ContactSection.jsx
+|   |   |   +---employees
+|   |   |       EmployeeCard.css
+|   |   |       EmployeeCard.jsx
+|   |   |       EmployeeCaroucel.css
+|   |   |       EmployeeCaroucel.jsx
+|   |   |       EmployeeInfo.css
+|   |   |       EmployeeInfo.jsx
+|   |   |       EmployeeProfile.css
+|   |   |       EmployeeProfile.jsx
+|   |   |       EmployeeProfileHeader.css
+|   |   |       EmployeeProfileHeader.jsx
+|   |   |       EmployeeServiceCard.css
+|   |   |       EmployeeServiceCard.jsx
+|   |   |       EmployeeServices.css
+|   |   |       EmployeeServices.jsx
+|   |   |   +---reservation
+|   |   |       ConfirmReservation.jsx
+|   |   |       DayButton.css
+|   |   |       DayButton.jsx
+|   |   |       ReservationNavegation.css
+|   |   |       ReservationNavegation.jsx
+|   |   |       ReservationStep.css
+|   |   |       ReservationStep.jsx
+|   |   |       ReservationStepHeader.css
+|   |   |       ReservationStepHeader.jsx
+|   |   |       ReservationSummary.css
+|   |   |       ReservationSummary.jsx
+|   |   |       SelectDate.css
+|   |   |       SelectDate.jsx
+|   |   |       SelectEmployee.css
+|   |   |       SelectEmployee.jsx
+|   |   |       SelecTime.css
+|   |   |       SelectSchedule.css
+|   |   |       SelectSchedule.jsx
+|   |   |       SelectTime.jsx
+|   |   |       StepContent.jsx
+|   |   |       TimeButton.css
+|   |   |       TimeButton.jsx
+|   |   |   +---scheduled
+|   |   |       ScheduleCard.css
+|   |   |       ScheduleCard.jsx
+|   |   |       ScheduleRow.css
+|   |   |       ScheduleRow.jsx
+|   |   \---services
+|   |           ServiceCard.css
+|   |           ServiceCard.jsx
+|   |           ServiceCaroucel.css
+|   |           ServiceCarrousel.jsx
+|   |           ServiceInfo.jsx
+|   |   +---context
+|   |       AuthProvider.jsx
+|   |   +---layouts
+|   |       AdminLayout.jsx
+|   |       PublicLayout.css
+|   |       PublicLayout.jsx
+|   |   +---pages
+|   |   |   +---admin
+|   |   |       Appointments.jsx
+|   |   |       Clients.jsx
+|   |   |       Dashboard.jsx
+|   |   |       Employees.jsx
+|   |   |       Services.jsx
+|   |   \---public
+|   |           Home.css
+|   |           Home.jsx
+|   |           Login.jsx
+|   |           Register.jsx
+|   |           Reservation.css
+|   |           Reservation.jsx
+|   |           ReservationSuccess.css
+|   |           ReservationSuccess.jsx
+|   |   +---routes
+|   |       AdminRoutes.jsx
+|   |       PublicRoutes.jsx
+|   |   +---sections
+|   |       HomeTop.css
+|   |       HomeTop.jsx
+|   |   +---styles
+|   |   |   +---themes
+|   |   |       dark.css
+|   |   |       light.css
+|   |       global.css
+|       App.jsx
+|       main.jsx
+    .gitignore
+    eslint.config.js
+    index.html
+    package.json
+    package-lock.json
+    README.md
+    vite.config.js

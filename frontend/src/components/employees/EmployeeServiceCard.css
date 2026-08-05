@@ -1,0 +1,38 @@
+.employee-service-card
+{
+    min-width:  140px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface-secundary);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-card);
+    border-radius: var(--border-radius);
+    gap: 0.5rem;
+    flex-shrink: 0;
+    cursor: pointer;
+    
+   
+}
+.employee-service-card h3{
+    text-align: center ;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.employee-service-card.selected
+{
+    background-color: var(--color-search);
+    color: white;
+}
+
+.employee-service-card:hover
+{
+    
+    background: var(--color-search);
+    color: white;
+}
+.employee-service-card h3{
+    font-size: 1rem;
+}

@@ -1,0 +1,26 @@
+
+
+.reservation-summary
+{
+    background-color: white;
+    border-radius: 10px;
+    padding: 1rem;
+    gap: 1rem;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    
+    
+}
+
+.reservation-summary.confirmation
+{
+    margin-top: 0.2rem;
+ box-shadow:none;
+ background:none;
+}
+.reservation-summary h2{
+    text-align: center;
+    margin-bottom: 12px;
+}

@@ -1,0 +1,70 @@
+.service-card {
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    box-shadow: var(--shadow-card);
+
+     background-color: var(--color-search);
+     color: var(--color-text-card);
+
+    padding: 1rem;
+
+    min-width: 280px;
+    max-width: 300px;
+    min-height: 170px;
+    height: auto;
+
+    flex-shrink: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+/*
+*/
+.service-info{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.service-info hr{
+    margin-bottom: 1rem;
+}
+
+.service-info h3{
+    text-align: center;
+    margin-bottom: .2rem;
+      color: var(--color-text-card);
+}
+
+
+
+.service-info p{
+    margin-bottom: .5rem;
+    font-size: 14px;
+}
+
+
+
+.price ins {
+  text-decoration: none; /* elimina el subrayado */
+  color: #01b413;        /* color destacado */
+  font-weight:bold;
+  font-size: 20px;
+    margin-right: .2rem;
+}
+
+
+
+.service-info button{
+    margin-top: 1rem;
+    align-self: center;
+    width: 50%;
+    height: auto;
+    padding: .5rem;
+
+    background: var(--color-button-card);
+    color: white;
+
+    border: var(--color-shadow-button-card);
+    border-radius: 6px;
+}

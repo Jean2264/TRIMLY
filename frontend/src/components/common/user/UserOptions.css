@@ -1,0 +1,23 @@
+.user-options{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.user-option{
+    width:100%;
+    padding: .5rem 0;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1rem;
+
+    color: var(--color-text);
+    cursor: pointer;
+}
+
+.user-option:hover{
+    filter: brightness(.95);
+    color: var(--color-primary);
+}
