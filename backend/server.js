@@ -2,7 +2,7 @@ import app from "./src/app.js";
 import "./src/config/db.js";
 
 //Mi servidor queda esperando peticiones HTTP en el puerto 3000.
-app.listen(3000, ()=>{
+app.listen(3000,"0.0.0.0", ()=>{
     console.log("Servidor iniciado");
 });
 
