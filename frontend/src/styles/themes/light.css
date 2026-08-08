@@ -1,9 +1,9 @@
 :root{
 
-    /* Colores */
+    /* Colores default*/
     --color-background: #F5F5F5;
     --color-button-card:rgba(255, 255, 255, 0.18);
-    --color-shadow-button-card: 1px solid rgb(255,255,255, 0.20);
+    --color-shadow-button-card: 2px solid rgb(255,255,255, 0.20);
     --color-surface: #ffffff;
     --color-surface-secundary: #f7f8fa;
     --color-primary: #2563EB;
@@ -20,6 +20,23 @@
     --color-text-card:#F9FAFB;
     --color-background-success: #ebffeb;
 
+    /*Service*/
+    --color-card-service: #101111;
+    --color-card-service-hover: #1d1b1b;
+    --color-text-service: #fdf8f2;
+    --color-text-service-sucess: #7da314;
+
+    /*search box*/
+    --color-search-box: #ffffff;
+    --color-serch-box-hover: #f1f5f9;
+    --color-search-box-border: #e5e7eb;
+    --color-button-search: #0c0c0c;
+
+
+    /*employee*/
+    --color-card-employee:#ffffff;
+     --color-card-employee-hover: #f1f5f9;
+    --color-card-employee-border: #e5e7eb;
     /* Bordes */
     --border-radius: 10px;
 

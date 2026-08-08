@@ -8,5 +8,6 @@ button{
 }
 
 button .more{
-   font-size: 1.2rem;
+   font-size: 2rem;
+   font-weight: 3rem;
 }

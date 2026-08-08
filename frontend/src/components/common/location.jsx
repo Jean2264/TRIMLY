@@ -1,6 +1,6 @@
 import { Form } from "react-router-dom";
 import "./Location.css";
-import loc from "../../assets/img/Google_Maps.jpg";
+import loc from "../../assets/img/map.png";
 
 function Location()
 {

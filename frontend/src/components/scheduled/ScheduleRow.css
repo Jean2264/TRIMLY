@@ -4,3 +4,20 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.Schedule-Row p{
+    color: var(--color-text);
+}
+
+.Schedule-Row button{
+    border:1px solid var(--color-search-box-border);
+    background-color: var(--color-button-search);
+    text-decoration: none;
+    
+    border-radius: 12px;
+    color: var(--color-text-search);
+}
+
+.Schedule-Row i{
+    font-size: 1rem;
+}

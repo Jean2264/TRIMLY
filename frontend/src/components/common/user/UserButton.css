@@ -4,7 +4,7 @@
     border-radius:10px;
     width: auto;
     height: auto;
-    background:var(--color-text);
+    background:var(--color-button-search);
     color:var(--color-text-card);
 
     cursor:pointer;

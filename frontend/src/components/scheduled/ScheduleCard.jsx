@@ -6,6 +6,7 @@ function ScheduleCard()
     return(
         <div className="Schedule-card">
        <ScheduleRow />
+       <hr/>
        <ScheduleRow/>
         </div>
     )

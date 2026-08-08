@@ -4,7 +4,7 @@ function SeeMoreButton({onClick,  ariaLabel =""})
 {
 
     return(
-        <button className="btn" aria-label={ariaLabel} onClick={onClick}><i className="bi bi-chevron-double-right more"></i></button>
+        <button className="btn" aria-label={ariaLabel} onClick={onClick}><i class="bi bi-arrow-right-short more"></i></button>
     )
 }
 

@@ -24,7 +24,8 @@ padding: 1rem;
     
     justify-content: start;
     box-shadow: var(--shadow-card);
-    background: #373b46;
+    border: 1px solid var(--color-card-employee-border);
+    background: var(--color-card-employee);
    
   
     ;
@@ -32,12 +33,12 @@ padding: 1rem;
 
 .employee .employee-card .employee-icon
 {
-    color:var(--color-text-card);
+    color:var(--color-text);
 }
 
 .employee .employee-card .employee-info
 {
-    color:var(--color-text-card);
+    color:var(--color-text);
 }
 
 .employee .Employee-track
@@ -49,12 +50,19 @@ section
 {
  display: flex;
  flex-direction: column;
-    gap: 1rem;
+    gap: .2rem;
+    
 }
-
+section h2{
+font-size: 1.2rem;
+}
 .section-header
 {
+ 
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.section-header h2{
+    font-size: 1.2rem;
 }
