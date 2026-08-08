@@ -1,7 +1,7 @@
 :root{
 
     /* Colores default*/
-    --color-background: #F5F5F5;
+    --color-background: #f7f7f7;
     --color-button-card:rgba(255, 255, 255, 0.18);
     --color-shadow-button-card: 2px solid rgb(255,255,255, 0.20);
     --color-surface: #ffffff;
@@ -10,7 +10,7 @@
     --color-select: #1e56cd;
     --color-white-secundary: #fdf8f2;
     --color-text: #1F2937;
-    --color-text-secondary: #6B7280;
+    --color-text-secondary: #3c3c3c;
     --color-border: #ececec;
     --color-success: #5cb85c;
     --color-search: #111827;

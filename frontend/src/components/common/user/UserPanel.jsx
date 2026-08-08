@@ -42,10 +42,13 @@ function UserPanel(){
             <hr/>
 
             <section>
+                <h2>Me</h2>
                 <UserOptions/>
             </section>
 
-            <hr/>
+           <section>
+            <h2>General</h2>
+           </section>
 
             <footer>
                 <UserFooter/>

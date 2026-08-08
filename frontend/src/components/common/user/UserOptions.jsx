@@ -6,6 +6,7 @@ function UserOptions() {
 
         <div className="user-options">
             <button className="user-option">Mis turnos</button>
+            <hr/>
             <button className="user-option">Configuración</button>
         </div>
 

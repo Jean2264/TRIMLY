@@ -1,0 +1,14 @@
+
+
+
+.user-option{
+    width:100%;
+   
+    border: none;
+    text-align: left;
+   
+    font-size: 1rem;
+
+    color: var(--color-text);
+    cursor: pointer;
+}

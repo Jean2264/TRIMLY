@@ -1,12 +1,14 @@
+import "./UserFooter.css";
+
 function UserFooter() {
     return (
-        <footer className="user-footer">
+        <div className="user-options">
 
             <button className="user-option">
                <i className="bi bi-box-arrow-right"></i> Cerrar sesión
             </button>
 
-        </footer>
+        </div>
     );
 }
 

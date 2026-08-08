@@ -12,7 +12,9 @@
     display:flex;
     align-items:center;
     color:rgb(42, 42, 42);
-    border:1px solid rgb(42, 42, 42);
+    background: var(--color-search-box);
+    border:1px solid var(--color-card-employee-border);
+    box-shadow: var(--shadow-card);
     font-size:1rem;
     font-weight:600;
 
