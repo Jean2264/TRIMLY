@@ -11,7 +11,8 @@ function HomeTop()
             <section className="top-section">
                 <Header />
                 <Greeting/>
-                <SearchBar />
+                <SearchBar
+                title="Buscar servicios o barberos..." />
                 </section>
         );
 }

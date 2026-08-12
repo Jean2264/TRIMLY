@@ -1,10 +1,10 @@
 import "./SearchBar.css";
 
-function SearchBar()
+function SearchBar({title})
 {
     return (
         <div className="search-bar">
-            <input className="input-search" type="text" placeholder="Buscar servicios o barberos..." />
+            <input className="input-search" type="text" placeholder={title} />
 
             <button className="  search-btn"><i className="bi bi-search"></i></button>
         </div>

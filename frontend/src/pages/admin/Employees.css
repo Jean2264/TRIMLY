@@ -1,0 +1,22 @@
+.employees{
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.employees-header
+{
+
+   margin-bottom: 24px;
+   padding: 1rem;
+    justify-content: space-between;
+}
+
+.search-bar.search-bar{
+    max-width: 400px;
+}
+
+.primary-button{
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+}
