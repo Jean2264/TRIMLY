@@ -1,6 +1,6 @@
-import "./panelLayout.css";
+import "./PanelLayout.css";
 
-function panelLayout({children, sidebar, header}){
+function PanelLayout({children, sidebar, header}){
 
     return(
     <div className="panel-layout">
@@ -22,4 +22,4 @@ function panelLayout({children, sidebar, header}){
     )
 }
 
-export default panelLayout;
+export default PanelLayout;

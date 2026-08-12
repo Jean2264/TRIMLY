@@ -37,6 +37,13 @@
     --color-card-employee:#ffffff;
      --color-card-employee-hover: #f1f5f9;
     --color-card-employee-border: #e5e7eb;
+
+
+    /*stats*/
+    --color-card-stat:#ffffff;
+     --color-card-stat-hover: #f1f5f9;
+    --color-card-stat-border: #e5e7eb;
+
     /* Bordes */
     --border-radius: 10px;
 

@@ -1,11 +1,15 @@
-import panelLayout from "../components/common/panel-layout/panelLayout";
+import PanelLayout from "../components/common/panel-layout/PanelLayout";
+import AdminSidebar from "../components/admin/AdminSidebar";
+import Header from "../components/common/Header";
 import {Outlet} from "react-router-dom";
 
 function AdminLayout(){
     return(
-        <panelLayout>
+        <PanelLayout 
+        header={<Header/>}
+        sidebar={<AdminSidebar/>}>
             <Outlet/>
-        </panelLayout>
+        </PanelLayout>
     )
 }
 

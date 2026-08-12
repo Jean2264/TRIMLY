@@ -1,0 +1,38 @@
+.dashboard
+{
+    width: 100%;
+}
+
+.dashboard h1{
+    margin-top: 0;
+}
+
+.dashboard-stats{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.stat-card{
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--color-card-stat);
+    border: var(--color-card-stat-border);
+    box-shadow: var(--shadow-card);
+}
+.stat-card:hover{
+
+    background: var(--color-card-stat-hover);
+}
+.stat-card span{
+    display: block;
+    color: #666;
+
+}
+
+.stat-card strong{
+    display: block;
+    margin-top: 8px;
+    font-size: 2rem;
+}
