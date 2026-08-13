@@ -1,0 +1,71 @@
+.employee-modal
+{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.employee-modal h2{
+    margin-top: 1rem
+}
+.employee-information
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+label{
+    display: flex;
+    flex-direction: column;
+    font-size: 0.85rem;
+
+  
+  
+}
+
+.inputt{
+     padding: 0.5rem;
+     border: 1px solid #7a7a7a;
+    border-radius: 8px;
+   min-height:35px;
+    align-items: center;
+   transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    
+}
+.inputt:hover{
+    outline: none; /* quita el azul default */
+  border-color: #4a90e2; /* color del borde al enfocar */
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3); /* halo suave */
+}
+.inputt:focus {
+  outline: none; /* quita el azul default */
+  border-color: #4a90e2; /* color del borde al enfocar */
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3); /* halo suave */
+}
+
+.form-actions{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-actions button
+{
+    border-radius: 10px;
+    width: 40%;
+    color: var(--color-text-search);
+    height: 40px;
+    padding: .5rem;
+}
+.cancelar{
+    background: rgba(0, 137, 243, 0.695);
+    
+}
+
+.guardar{
+    background: rgba(0, 138, 243, 0.985);
+}

@@ -5,18 +5,68 @@
 
 .employees-header
 {
-
-   margin-bottom: 24px;
-   padding: 1rem;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
+    margin-bottom: 24px;
+    padding: 1rem;
 }
 
 .search-bar.search-bar{
     max-width: 400px;
+    height: 40px;
+}
+
+.search-bar.search-bar button{
+    height: 40px;
 }
 
 .primary-button{
     border: none;
+    width: auto;
+    height: 40px;
     border-radius: 8px;
-    padding: 10px 16px;
+    padding: .5rem;
+    color: var(--color-text-card);
+    background-color: var(--color-button-search);
+}
+
+/*Table*/
+.employees-table-wrapper{
+    width: 100%;
+    background: var(--color-card-employee);
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.employees-table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.employees-table th,
+.employees-table td{
+    padding: 12px 16px;
+    text-align: left;
+}
+
+.employees-table th{
+    font-weight: 600;
+}
+
+.employees-table tbody tr{
+    border-top:  1px solid var(--color-border);
+}
+
+.employee-actions{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.employee-actions button{
+    border: none;
+    background: none;
+    padding: 6px;
+    cursor: pointer;
 }
