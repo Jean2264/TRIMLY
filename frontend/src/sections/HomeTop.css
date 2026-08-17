@@ -5,8 +5,16 @@
   
     /*background: var(--color-surface);*/
     padding-bottom: 2rem;
-  
+    
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
    /* box-shadow: var(--shadow-card);*/
+}
+
+.top-section .search-bar{
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  
 }
