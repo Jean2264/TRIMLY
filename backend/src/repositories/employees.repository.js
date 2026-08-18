@@ -1,7 +1,7 @@
 import pool from '../config/db.js';
 
 
-async function  insertEmployee(employeeData) {
+export async function  insertEmployee(employeeData) {
 
 const {
     dni,
