@@ -6,13 +6,18 @@ import EmployeeModal from "../../components/employee-panel/EmployeeModal";
 function Employees(){
 
     const [isEmployeeModalOpen, setIsEmployeeModalOpen]= useState(false);
+    const [selectedEmployeeId,setSelectedEmployeeId ] = useState(null);
+    const [employeeModalMode, setEmployeeModalMode] = useState(null);
     return(
         <section className="employees">
            <div className="employees-header">
             <SearchBar
             title="Buscar empleado"/>
             <button className="primary-button"
-            onClick={()=> setIsEmployeeModalOpen(true)}>
+             onClick={()=>{
+                    setEmployeeModalMode("create");
+                    setIsEmployeeModalOpen(true);
+                }}>
                 Nuevo empleado
             </button>
            </div>
@@ -21,6 +26,7 @@ function Employees(){
             <table className="employees-table">
     <thead>
         <tr>
+            
             <th>DNI</th>
             <th>Nombre</th>
             <th>Apellido</th>
@@ -41,9 +47,19 @@ function Employees(){
         <td>05/08/2026</td>
         <td>
             <div className="employee-actions">
-                <button aria-label="Ver empleado"><i class="bi bi-eye"></i></button>
-                <button aria-label="Editar empleado"><i class="bi bi-pencil-square"></i></button>
-                <button aria-label="Eliminar empleado"><i class="bi bi-trash"></i></button>
+                <button aria-label="Ver empleado"
+                onClick={()=>{
+                    setEmployeeModalMode("view");
+                    setIsEmployeeModalOpen(true);
+                }}
+                ><i className="bi bi-eye"></i></button>
+                <button aria-label="Editar empleado"
+                 onClick={()=>{
+                    setEmployeeModalMode("edit");
+                    setIsEmployeeModalOpen(true);
+                }}
+                ><i className="bi bi-pencil-square"></i></button>
+                <button aria-label="Eliminar empleado"><i className="bi bi-trash"></i></button>
             </div>
         </td>
     </tr>
@@ -51,8 +67,18 @@ function Employees(){
 </table>
            </div>
            {isEmployeeModalOpen&&(
-            <AuxModal>
-                <EmployeeModal title="Alta de empleado"/>
+            <AuxModal
+            title={
+                     employeeModalMode === "create"
+                    ? "Alta de empleado"
+                    : employeeModalMode === "view"
+                    ? "Inspección de empleado"
+                    : "Edición de empleado"
+                }
+            onClose={()=> setIsEmployeeModalOpen(false)}>
+                <EmployeeModal 
+                onClose={()=> setIsEmployeeModalOpen(false)}
+                />
             </AuxModal>
            )}
         </section>

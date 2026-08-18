@@ -5,9 +5,7 @@
     gap: 2rem;
 }
 
-.employee-modal h2{
-    margin-top: 1rem
-}
+
 .employee-information
 {
     display: flex;
@@ -15,14 +13,22 @@
     gap: 1rem;
     margin-bottom: 2rem;
 }
+.employee-information h3{
+    text-align: center;
+}
 
 label{
     display: flex;
     flex-direction: column;
     font-size: 0.85rem;
+    gap: .5rem;
+  
+  
+}
 
-  
-  
+.span-required
+{
+    color: rgb(179, 3, 3);
 }
 
 .inputt{
@@ -31,6 +37,7 @@ label{
     border-radius: 8px;
    min-height:35px;
     align-items: center;
+    color: var( --color-text);
    transition: border-color 0.15s ease, box-shadow 0.15s ease;
     
 }
@@ -62,10 +69,17 @@ label{
     padding: .5rem;
 }
 .cancelar{
-    background: rgba(0, 137, 243, 0.695);
+     color: var(--color-text-card);
+    background-color: var(--color-button-search-disabled);
     
 }
 
 .guardar{
-    background: rgba(0, 138, 243, 0.985);
+     color: var(--color-text-card);
+    background-color: var(--color-button-search);
+}
+
+.input-error{
+  color: rgb(214, 3, 3);
+  font-size: 0.80rem;   
 }

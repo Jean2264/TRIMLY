@@ -1,12 +1,14 @@
 import "./AuxModal.css";
 import BtnClose from "./BtnClose";
 
-function AuxModal({children}){
+function AuxModal({children, onClose, title}){
     return(
         
          <div className="aux-overley">
             <div className="aux-modal">
-                <BtnClose/>
+                 <h2>{title}</h2>
+                <BtnClose
+                onClick={onClose}/>
                 <div className="aux-content">
                     {children}
                 </div>

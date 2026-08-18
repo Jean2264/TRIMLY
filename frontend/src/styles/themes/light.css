@@ -31,6 +31,7 @@
     --color-serch-box-hover: #f1f5f9;
     --color-search-box-border: #e5e7eb;
     --color-button-search: #0c0c0c;
+    --color-button-search-disabled: #04040482;
 
 
     /*employee*/
@@ -50,6 +51,9 @@
     /* Sombras */
     --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
 
+
+    --color-sidebar:#ffffff;
+    --color-sidebar-button:#1F2937;
     /* Espaciados */
     --spacing-xs: .5rem;
     --spacing-sm: 1rem;

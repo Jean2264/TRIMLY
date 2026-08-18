@@ -15,7 +15,10 @@
 {
     
     width: 200px;
+    
     flex-shrink: 0;
+   box-shadow: 5px 0 10px rgba(0,0,0,0.08);
+    background-color: var(--color-card-employee);
 }
 
 .panel-content
@@ -25,6 +28,12 @@
     padding: 24px;
 }
 
+.panel-header{
+    position: relative;
+    z-index: 1000;
+}
 .panel-header header{
     box-shadow: var(--shadow-card);
+    background-color: var(--color-card-employee);
+   
 }
