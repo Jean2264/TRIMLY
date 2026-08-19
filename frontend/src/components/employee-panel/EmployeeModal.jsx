@@ -2,7 +2,7 @@ import "./EmployeeModal.css";
 import BtnClose from "../common/BtnClose";
 import { useState } from "react";
 
-function EmployeeModal({title, onClose}){
+function EmployeeModal({title, onClose, onEmployeeCreated}){
 
     const [formData, setFormData]= useState({
         dni:"",
@@ -14,6 +14,9 @@ function EmployeeModal({title, onClose}){
     });
     
     const [errors, setErrors]= useState({});
+    const [isSubmited, setIsSubmited]= useState(false);
+    const [generalError, setGeneralError]= useState("");
+    
 
     function handleChange(e) {
     const { name, value } = e.target;
@@ -56,6 +59,7 @@ function EmployeeModal({title, onClose}){
 
    async function handleSubmit(e){
         e.preventDefault();
+        setGeneralError("");
 
         try{
             const response = await fetch("http://localhost:3000/employees",{
@@ -69,20 +73,59 @@ function EmployeeModal({title, onClose}){
             const data = await response.json();
 
             if(!response.ok){
-                setErrors(data.errors);
+                if(data.errors){
+                    setErrors(data.errors);
+                }
+
+                setGeneralError(data.message || "No se pudo crear el empleado");
                 return;
             }
+
+            //Exito
+            setIsSubmited(true);
+            if(onEmployeeCreated){
+                onEmployeeCreated();
+            }
+            setTimeout(()=>{
+                onClose();
+            },2000)  
+    
+
             console.log(data);
         } catch(error){
             console.error("Error al crear empleado:", error);
+            //si falla la red o el servidor esta apagadado
+            setGeneralError("Ocurrió un error al conectar con el servidor. Intentá de nuevo.")
+
         }
     }
         return(
             <div className="employee-modal">
 
-               
-               
-                <form onSubmit={handleSubmit}>
+               {isSubmited ?(
+                    <div className="succes-message">
+
+                        <div className="status-icon-correct">
+                            <i className="bi bi-check-circle-fill"></i>
+                        </div>
+
+                        <h3>¡Empleado creado correctamente!</h3>
+                    </div>
+                ) : (
+                    <form onSubmit={handleSubmit}>
+                {/**si hay un error general, muestro este banner arriba */}
+                {generalError && (
+                    <div className="succes-message">
+
+                        <div className="status-icon-incorrect">
+                            <i className="bi bi-x-circle-fill"></i>
+                        </div>
+                        <p>
+                            {generalError}
+                        </p>
+                    </div>
+                )}
+
                     <section className="employee-information">
                         <h3>Información del empleado</h3>
 
@@ -162,6 +205,9 @@ function EmployeeModal({title, onClose}){
                         <button className="guardar" type="submit">Guardar</button>
                     </div>
                 </form>
+                )}
+               
+                
             </div>
         )
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBar from "../../components/common/SearchBar";
 import "./Employees.css";
 import AuxModal from "../../components/common/AuxModal";
@@ -8,6 +8,27 @@ function Employees(){
     const [isEmployeeModalOpen, setIsEmployeeModalOpen]= useState(false);
     const [selectedEmployeeId,setSelectedEmployeeId ] = useState(null);
     const [employeeModalMode, setEmployeeModalMode] = useState(null);
+    const [employees, setEmployees]= useState([]);
+
+    //1. peticion GET
+    const loadEmployees= async ()=>{
+        try{
+            const response= await fetch("http://localhost:3000/employees");
+
+            if(response.ok){
+                const data= await response.json();
+                setEmployees(data);
+            }
+        }catch(error){
+            console.error("Error cargando empleados", error);
+        }
+    }
+
+    //2. cargar los datos al montar el componente
+    useEffect(()=>{
+        loadEmployees();
+    },[]);
+
     return(
         <section className="employees">
            <div className="employees-header">
@@ -23,6 +44,8 @@ function Employees(){
            </div>
 
            <div className="employees-table-wrapper">
+
+            {/**Tabla empleados */}
             <table className="employees-table">
     <thead>
         <tr>
@@ -38,14 +61,24 @@ function Employees(){
     </thead>
 
     <tbody>
-         <tr>
-        <td>12345678</td>
-        <td>Carlos</td>
-        <td>Pérez</td>
-        <td>11 1234-5678</td>
-        <td>5 años</td>
-        <td>05/08/2026</td>
-        <td>
+        {employees.length===0? (
+             <tr>
+                <td colSpan="7" style={{textAlign: "center"}}>
+                    No hay empleados registrados.
+                </td>
+                </tr>
+        ):(
+            employees.map((emp)=>(
+                <tr key={emp.idempleado || emp.dni}>
+                        <td>{emp.dni}</td>
+                        <td>{emp.nombre}</td>
+                        <td>{emp.apellido}</td>
+                        <td>{emp.telefono}</td>
+                        <td>{emp.experiencia} años</td>
+                        <td>
+                            {emp.fecha_alta? new Date(emp.fecha_alta).toLocaleDateString("es-AR"): "-"}
+                        </td>
+                        <td>
             <div className="employee-actions">
                 <button aria-label="Ver empleado"
                 onClick={()=>{
@@ -62,7 +95,12 @@ function Employees(){
                 <button aria-label="Eliminar empleado"><i className="bi bi-trash"></i></button>
             </div>
         </td>
-    </tr>
+                    </tr>
+            ))
+        )}
+        
+        
+    
     </tbody>
 </table>
            </div>
@@ -78,6 +116,7 @@ function Employees(){
             onClose={()=> setIsEmployeeModalOpen(false)}>
                 <EmployeeModal 
                 onClose={()=> setIsEmployeeModalOpen(false)}
+                onEmployeeCreated={loadEmployees}
                 />
             </AuxModal>
            )}

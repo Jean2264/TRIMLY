@@ -23,34 +23,34 @@ try{
     //1. Crear usuario
     const usuariorResult= await client.query(
         `
-        INSERT INTO "Usuario"
+        INSERT INTO "usuario"
         (
 
-            "Email",
-            "PasswordHash"
+            "email",
+            "passwordhash"
         )
             VALUES  ($1, $2)
-            RETURNING "IdUsuario";
+            RETURNING "idusuario";
         `,
         [email, passwordHash]
     );
 
-    const usuarioId= usuariorResult.rows[0].IdUsuario;
+    const usuarioId= usuariorResult.rows[0].idusuario;
 
 
     //2. Crear empleado
 
     const empleadoResult= await client.query(
         `
-         INSERT INTO "Empleado"
+         INSERT INTO "empleado"
          (
-            "UsuarioId",
-            "IdRol",
-            "DNI",
-            "Nombre",
-            "Apellido",
-            "Telefono",
-            "Experiencia"
+            "usuarioid",
+            "idrol",
+            "dni",
+            "nombre",
+            "apellido",
+            "telefono",
+            "experiencia"
          )
             VALUES ( $1, $2, $3, $4, $5, $6, $7)
             RETURNING *;
@@ -68,4 +68,27 @@ try{
     client.release();
 }
     
+}
+
+//Mostrar empleados
+export async function getAllEmployees() {
+    
+    const query=`
+    
+    SELECT
+        e."idempleado",
+        e."dni",
+        e."nombre",
+        e."apellido",
+        e."telefono",
+        e."experiencia",
+        u."email"
+        FROM "empleado" e 
+        INNER JOIN "usuario" u ON e."usuarioid"= u."idusuario"
+        ORDER BY e."nombre" ASC;
+    `;
+
+    const result= await pool.query(query);
+
+    return result.rows;
 }

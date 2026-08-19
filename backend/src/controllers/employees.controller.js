@@ -1,4 +1,4 @@
-import { createEmployee } from "../services/employees.service.js";
+import { createEmployee, fetchAllEmployees } from "../services/employees.service.js";
 
 async function createEmployees(req,res){
    
@@ -25,6 +25,20 @@ async function createEmployees(req,res){
     }
 }
 
+ async function getEmployees(req, res) {
+    try{
+
+        const employees= await fetchAllEmployees();
+
+        res.status(200).json(employees);
+
+    }catch(error){
+        console.error("Error al obtener empleados:", error);
+    res.status(500).json({ message: "Error al obtener la lista de empleados" });
+    }
+}
+
 export{
-    createEmployees
+    createEmployees,
+    getEmployees,
 };

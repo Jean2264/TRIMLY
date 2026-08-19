@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import crypto from "crypto";
-import {insertEmployee} from "../repositories/employees.repository.js";
+import {insertEmployee, getAllEmployees} from "../repositories/employees.repository.js";
 
 
 function generateTemporaryPassword(){
@@ -80,4 +80,11 @@ export async function createEmployee(employeeData) {
         employee,
         temporaryPassword
     };
+}
+
+export async function  fetchAllEmployees() {
+    
+    const employees= await getAllEmployees();
+
+    return employees;
 }
