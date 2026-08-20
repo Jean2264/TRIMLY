@@ -70,3 +70,19 @@
     padding: 6px;
     cursor: pointer;
 }
+
+.delete-success{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.delete-error{
+     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}

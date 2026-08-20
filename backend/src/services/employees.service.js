@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import crypto from "crypto";
-import {insertEmployee, getAllEmployees} from "../repositories/employees.repository.js";
+import {insertEmployee, getAllEmployees, fetchEmployee as getEmployeeById, updateEmployee, deleteEmployee} from "../repositories/employees.repository.js";
 
 
 function generateTemporaryPassword(){
@@ -87,4 +87,20 @@ export async function  fetchAllEmployees() {
     const employees= await getAllEmployees();
 
     return employees;
+}
+//renombro la importacion de nombre para prevenir conflicto de redundancia
+export async function  fetchEmployee(id) {
+    const employee= await getEmployeeById(id);
+    return employee;
+}
+
+export async function  updateEmployeeInfo(employeeId, employeeData) {
+    
+    const employee= await updateEmployee(employeeId, employeeData);
+    return employee;
+}
+
+export async function  deleteEmployeeState(employeeId) {
+    const employee= await deleteEmployee(employeeId);
+    return employee;
 }

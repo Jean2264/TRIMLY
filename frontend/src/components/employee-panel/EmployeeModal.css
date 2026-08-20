@@ -38,9 +38,17 @@ label{
    min-height:35px;
     align-items: center;
     color: var( --color-text);
+    font-size: 1rem;
+    font-weight: 550;
    transition: border-color 0.15s ease, box-shadow 0.15s ease;
     
 }
+
+.inputt-readonly
+{color: var(--color-text-readonly);
+font-weight: 400;
+}
+
 .inputt:hover{
     outline: none; /* quita el azul default */
   border-color: #4a90e2; /* color del borde al enfocar */

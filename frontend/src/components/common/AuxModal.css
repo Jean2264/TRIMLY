@@ -13,15 +13,16 @@
     position: relative;
     background: var(--color-card-employee);
     border-radius: 12px;
-    padding: 1rem;
+    padding: .5rem;
     width: 90%;
-    max-width: 350px;
+    width: auto;
+    height: auto;
     max-height: 90vh;
     
 }
 .aux-content{
    margin-top: 1rem;
-    padding: 2rem;
+    padding: 1rem;
     width: 100%;
    overflow-y: auto;
     max-height: calc(90vh - 4rem);

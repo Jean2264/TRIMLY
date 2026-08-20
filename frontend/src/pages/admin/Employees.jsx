@@ -10,6 +10,9 @@ function Employees(){
     const [employeeModalMode, setEmployeeModalMode] = useState(null);
     const [employees, setEmployees]= useState([]);
 
+    const [isDeleteModalOpen, setIsDeleteModalOpen]= useState(false);
+    const [deleteResult, setDeleteResult]= useState(null);
+
     //1. peticion GET
     const loadEmployees= async ()=>{
         try{
@@ -28,6 +31,59 @@ function Employees(){
     useEffect(()=>{
         loadEmployees();
     },[]);
+
+
+
+    //Funcion para dar de baja a empleado
+    const deleteEmployee= async ()=>{
+        try{
+
+            const response= await fetch(`http://localhost:3000/employees/${selectedEmployeeId}`,
+                {method: "DELETE",
+                    headers:{
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
+
+
+            const data= await response.json();
+
+            if(response.ok){
+                setDeleteResult("success");
+                await loadEmployees();
+                return;
+            }
+
+            if(response.status===400){
+                setDeleteResult("error");
+                console.error(data);
+                return;
+            }
+
+            if(response.status===401)
+            {
+                setDeleteResult("error");
+                console.error("No autorizado");
+                return;
+            }
+
+            if(response.status===500)
+            {
+                setDeleteResult("error");
+                console.error("Error del servidor");
+                return;
+            }
+        }catch(error){
+        console.error("Error al dar de baja", error);
+        setDeleteResult("error");
+    }
+    }
+
+    const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setDeleteResult(null);
+};
 
     return(
         <section className="employees">
@@ -76,23 +132,33 @@ function Employees(){
                         <td>{emp.telefono}</td>
                         <td>{emp.experiencia} años</td>
                         <td>
-                            {emp.fecha_alta? new Date(emp.fecha_alta).toLocaleDateString("es-AR"): "-"}
+                            {emp.fechaalta? new Date(emp.fechaalta).toLocaleDateString("es-AR"): "-"}
                         </td>
                         <td>
             <div className="employee-actions">
                 <button aria-label="Ver empleado"
                 onClick={()=>{
+                    setSelectedEmployeeId(emp.idempleado);
                     setEmployeeModalMode("view");
                     setIsEmployeeModalOpen(true);
                 }}
                 ><i className="bi bi-eye"></i></button>
+
+
                 <button aria-label="Editar empleado"
                  onClick={()=>{
+                    setSelectedEmployeeId;(emp.employeeId);
                     setEmployeeModalMode("edit");
                     setIsEmployeeModalOpen(true);
                 }}
                 ><i className="bi bi-pencil-square"></i></button>
-                <button aria-label="Eliminar empleado"><i className="bi bi-trash"></i></button>
+
+                <button aria-label="Eliminar empleado"
+                onClick={()=>{
+                    setSelectedEmployeeId(emp.idempleado);
+                    setIsDeleteModalOpen(true);
+                }}
+                ><i className="bi bi-trash"></i></button>
             </div>
         </td>
                     </tr>
@@ -115,9 +181,57 @@ function Employees(){
                 }
             onClose={()=> setIsEmployeeModalOpen(false)}>
                 <EmployeeModal 
+                employeeId={selectedEmployeeId}
+                mode={employeeModalMode}
                 onClose={()=> setIsEmployeeModalOpen(false)}
-                onEmployeeCreated={loadEmployees}
+                onEmployeeSaved={loadEmployees}
                 />
+            </AuxModal>
+           )}
+           {isDeleteModalOpen &&(
+            <AuxModal
+            title="Dar de baja empleado"
+            onClose={closeDeleteModal}>
+                {deleteResult=== null ?(
+                    <div className="delete-confirmation">
+                    <p>
+                        ¿Estás seguro de que querés dar de baja este empleado?
+                    </p>
+
+
+                    <div className="form-actions">
+                        <button
+                        className="cancelar"
+                        type="button"
+                        onClick={closeDeleteModal}>
+                            Cancelar
+                        </button>
+
+                        <button
+                        className="guardar"
+                        type="button"
+                        onClick={deleteEmployee}>
+                                Dar de baja
+                        </button>
+                    </div>
+                </div>
+                ): deleteResult === "success" ?(
+                    <div className="delete-success">
+                        <div className="status-icon-correct">
+                            <i className="bi bi-check-circle-fill"></i>
+                        </div>
+                        <p>El empleado fue dado de baja correctamente.</p>
+
+                       
+                    </div>
+                ):(
+                    <div className="delete-error">
+                        <div className="status-icon-incorrect">
+                            <i className="bi bi-x-circle-fill"></i>
+                        </div>
+                            <p>No se pudo dar de baja al empleado.</p>
+                    </div>
+                )}
             </AuxModal>
            )}
         </section>

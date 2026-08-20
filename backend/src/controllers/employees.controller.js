@@ -1,4 +1,4 @@
-import { createEmployee, fetchAllEmployees } from "../services/employees.service.js";
+import { createEmployee, fetchAllEmployees, fetchEmployee, updateEmployeeInfo, deleteEmployeeState } from "../services/employees.service.js";
 
 async function createEmployees(req,res){
    
@@ -11,7 +11,7 @@ async function createEmployees(req,res){
             });
         }
 
-        res.status(200).json({
+        res.status(201).json({
             message: "Empleado creado correctamente",
             employee: result.employee
         });
@@ -38,7 +38,83 @@ async function createEmployees(req,res){
     }
 }
 
+
+async function seeEmployee(req, res) {
+    
+    try{
+        const {id}= req.params; //<-- leo el id desde params
+    const employee= await fetchEmployee(id);
+
+        if(!employee){
+            return res.status(404).json({message:"Empleado no encontrado"});
+        }
+
+    res.status(200).json(employee);
+    }catch(error){
+        console.error("Error al obtener empleado:", error);
+    res.status(500).json({ message: "Error al obtener la informacion del empleado" });
+    }
+}
+
+async function updateEmployee(req, res) {
+    
+    try{
+
+        const {id}= req.params;
+
+        const employeeData= req.body;
+
+        const result= await updateEmployeeInfo(id, employeeData);
+
+        if(!result.success){
+            return res.status(404).json({
+                errors: result.errors
+            });
+        }
+
+        return res.status(200).json({
+            message: "Empleado actualizado correctamente"
+        });
+    }catch(error){
+        console.error("Error al actualizar empleado: ",error);
+
+
+        return res.status(500).json({
+            message: "Error al actualizar el empleado"
+        });
+    }
+}
+
+async function  deleteEmployee(req, res) {
+    
+    try{
+
+        const {id}= req.params;
+
+        const result = await deleteEmployeeState(id);
+        if(!result.success){
+                return res.status(404).json({
+                    errors: result.errors
+                });
+        }
+
+        return res.status(200).json({
+             message: "Empleado dado de baja correctamente"
+        });
+    }catch(error){
+        console.error("Error al dar de baja empleado: ",error);
+
+
+        return res.status(500).json({
+            message: "Error al dar de baja al el empleado"
+        });
+    }
+}
+
 export{
     createEmployees,
     getEmployees,
+    seeEmployee,
+    updateEmployee,
+    deleteEmployee,
 };
