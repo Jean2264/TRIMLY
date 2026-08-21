@@ -16,7 +16,7 @@ function RegisterForm({onLogin})
                 <p>Únete a Trimly y agenda tus turnos fácilmente.</p>
              </div>
              <form className="register-body">
-                <p className="requeride">Completa todos los campos marcados con (<span className="span-requeride">*</span>) para poder registrarte</p>
+                <p className="requeride">Completa todos los campos marcados con (<span className="span-requerided">*</span>) para poder registrarte</p>
                 <div className="name-full-name">
                      <div className="name">
                            <label htmlFor="username">Nombre<span className="span-requerided">*</span></label>
@@ -44,29 +44,29 @@ function RegisterForm({onLogin})
                 <label htmlFor="password">Contraseña<span className="span-requerided">*</span></label>
                 <div className="pass-group">                   
                     <input
-                         id="password"
-                          type={showPassword? "text" : "password"}
-                           placeholder="Ingrese su contraseña"
+                        id="password"
+                        type={showPassword? "text" : "password"}
+                        placeholder="Ingrese su contraseña"
                     />
 
-                   <button
-                         type="button"
-                         className="ojo"
-                         onClick={() => setShowPassword(!showPassword)}
-                     >
-                         <i
-                             className={
-                                 showPassword
-                                 ? "bi bi-eye-slash"
-                                 : "bi bi-eye"
-                             }
-                         />
-                     </button>
-                                          
+                <button
+                        type="button"
+                        className="ojo"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        <i
+                            className={
+                                showPassword
+                                ? "bi bi-eye-slash"
+                                : "bi bi-eye"
+                            }
+                        />
+                    </button>
+                    
                 </div>
 
                 {/**confirmar contrasenia */}
-                <label htmlFor="password">Confirmar contraseña<span className="span-requeride">*</span></label>
+                <label htmlFor="password">Confirmar contraseña<span className="span-requerided">*</span></label>
                 <div className="pass-group">                   
                     <input
                          id="password"

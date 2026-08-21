@@ -188,7 +188,7 @@ function EmployeeModal({employeeId, mode, onClose, onEmployeeSaved}){
                     <section className="employee-information">
                         <h3>Información del empleado</h3>
                         
-                        <label>
+                        <label className="labell">
                             <span className="label-text">
                             DNI {mode === "create" && (
                                 <span className="span-required">*</span>
@@ -203,7 +203,7 @@ function EmployeeModal({employeeId, mode, onClose, onEmployeeSaved}){
                             {errors.dni && <p className="input-error">{errors.dni}</p>}
                         </label>
 
-                        <label>
+                        <label className="labell">
                             <span className="label-text">
                             Nombre 
                             {mode === "create" && (
@@ -218,7 +218,7 @@ function EmployeeModal({employeeId, mode, onClose, onEmployeeSaved}){
                             {errors.nombre && <p className="input-error">{errors.nombre}</p>}
                         </label>
 
-                        <label>
+                        <label className="labell">
                             <span className="label-text">
                             Apellido 
                             {mode === "create" && (
@@ -233,7 +233,7 @@ function EmployeeModal({employeeId, mode, onClose, onEmployeeSaved}){
                             {errors.apellido && <p className="input-error">{errors.apellido}</p>}
                         </label>
 
-                        <label>
+                        <label className="labell">
                             <span className="label-text">
                             Telefono 
                             {(mode === "create" || mode === "edit") && (
@@ -248,7 +248,7 @@ function EmployeeModal({employeeId, mode, onClose, onEmployeeSaved}){
                             {errors.telefono && <p className="input-error">{errors.telefono}</p>}
                         </label>
 
-                        <label>
+                        <label className="labell">
                             <span className="label-text">
                             Experiencia 
                             {(mode === "create" || mode === "edit") && (
@@ -267,7 +267,7 @@ function EmployeeModal({employeeId, mode, onClose, onEmployeeSaved}){
                     <section className="account-information">
                         <h3>Información de la cuenta</h3>
 
-                        <label>
+                        <label className="labell">
                             <span className="label-text">
                             Email
                             {(mode === "create" || mode === "edit") && (

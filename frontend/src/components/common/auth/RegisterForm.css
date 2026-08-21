@@ -75,6 +75,7 @@
 .username
 {
     display: flex;
+    flex-direction: row;
 }
 .pass-group
 {

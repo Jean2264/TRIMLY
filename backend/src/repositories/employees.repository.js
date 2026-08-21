@@ -86,6 +86,7 @@ export async function getAllEmployees() {
         u."email"
         FROM "empleado" e 
         INNER JOIN "usuario" u ON e."usuarioid"= u."idusuario"
+        WHERE e."estado"=True
         ORDER BY e."nombre" ASC;
     `;
 
