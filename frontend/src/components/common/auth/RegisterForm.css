@@ -28,7 +28,7 @@
 {
     margin-bottom: 1rem;
 }
-.span-requeride
+.span-requerided
 {
     color: rgb(179, 3, 3);
 }
@@ -72,7 +72,10 @@
 {
     background: var(--color-card-secundary);
 }
-
+.username
+{
+    display: flex;
+}
 .pass-group
 {
     display: flex;

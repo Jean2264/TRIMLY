@@ -19,21 +19,21 @@ function RegisterForm({onLogin})
                 <p className="requeride">Completa todos los campos marcados con (<span className="span-requeride">*</span>) para poder registrarte</p>
                 <div className="name-full-name">
                      <div className="name">
-                           <label htmlFor="username">Nombre<span className="span-requeride">*</span></label>
+                           <label htmlFor="username">Nombre<span className="span-requerided">*</span></label>
                            <input className="input" id="username" type="text" placeholder="Ingrese su nombre"/>
      
                      </div>
 
                      <div className="full-name">
-                         <label htmlFor="fullname">Apellido<span className="span-requeride">*</span></label>
+                         <label htmlFor="fullname">Apellido<span className="span-requerided">*</span></label>
                          <input className="input" id="fullname" type="text" placeholder="Ingrese su apellido"/>
      
                      </div>    
                 </div>
-                <label htmlFor="username">Usuario<span className="span-requeride">*</span></label>
+                <label htmlFor="username">Usuario<span className="span-requerided">*</span></label>
                 <input className="input" id="username" type="text" placeholder="Ingrese un nombre de usuario"/>
 
-                <label htmlFor="email">Correo electrónico<span className="span-requeride">*</span></label>
+                <label htmlFor="email">Correo electrónico<span className="span-requerided">*</span></label>
                 <input
                     className="input"
                     id="email"
@@ -41,7 +41,7 @@ function RegisterForm({onLogin})
                     placeholder="Ingrese su correo electrónico"
                 />
 
-                <label htmlFor="password">Contraseña<span className="span-requeride">*</span></label>
+                <label htmlFor="password">Contraseña<span className="span-requerided">*</span></label>
                 <div className="pass-group">                   
                     <input
                          id="password"
