@@ -71,7 +71,9 @@ try{
 }
 
 //Mostrar empleados
-export async function getAllEmployees() {
+export async function getAllEmployees(page=1, limit=20) {
+
+    const offset= (page-1) * limit;
     
     const query=`
     
@@ -87,12 +89,26 @@ export async function getAllEmployees() {
         FROM "empleado" e 
         INNER JOIN "usuario" u ON e."usuarioid"= u."idusuario"
         WHERE e."estado"=True
-        ORDER BY e."nombre" ASC;
+        ORDER BY e."nombre" ASC
+        LIMIT $1
+        OFFSET $2;
     `;
 
-    const result= await pool.query(query);
+    const countQuery= `
+    SELECT COUNT(*) AS total
+    FROM "empleado"
+    WHERE "estado"= TRUE;`;
 
-    return result.rows;
+
+    const [employeeResult, countResult]= await Promise.all([
+        pool.query(query, [limit, offset]),
+        pool.query(countQuery)
+    ]);
+
+    return {
+        employees: employeeResult.rows,
+        totalRecords: Number(countResult.rows[0].total)
+    };
 }
 
 export async function fetchEmployee(id) {

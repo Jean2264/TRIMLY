@@ -14,7 +14,7 @@ function Pagination({ page, totalPages, onPageChange }) {
 
         // Estamos al principio
         if (page <= 3) {
-            return [1, 2, 3, "...", totalPages];
+            return [1, 2, 3,4, "...", totalPages];
         }
 
         // Estamos cerca del final
@@ -22,6 +22,7 @@ function Pagination({ page, totalPages, onPageChange }) {
             return [
                 1,
                 "...",
+                totalPages-3,
                 totalPages - 2,
                 totalPages - 1,
                 totalPages

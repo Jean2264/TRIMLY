@@ -3,12 +3,17 @@ import SearchBar from "../../components/common/SearchBar";
 import "./Employees.css";
 import AuxModal from "../../components/common/AuxModal";
 import EmployeeModal from "../../components/employee-panel/EmployeeModal";
+import Pagination from "../../components/common/Pagination";
 function Employees(){
 
     const [isEmployeeModalOpen, setIsEmployeeModalOpen]= useState(false);
     const [selectedEmployeeId,setSelectedEmployeeId ] = useState(null);
     const [employeeModalMode, setEmployeeModalMode] = useState(null);
     const [employees, setEmployees]= useState([]);
+    const [page, setPage]= useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [totalRecords, setTotalRecords] = useState(0);
+    
 
     const [isDeleteModalOpen, setIsDeleteModalOpen]= useState(false);
     const [deleteResult, setDeleteResult]= useState(null);
@@ -16,11 +21,13 @@ function Employees(){
     //1. peticion GET
     const loadEmployees= async ()=>{
         try{
-            const response= await fetch("http://localhost:3000/employees");
+            const response= await fetch("http://localhost:3000/employees?page=1&limit=2");
 
             if(response.ok){
                 const data= await response.json();
-                setEmployees(data);
+                setEmployees(data.employees);
+                setTotalPages(data.totalPages);
+                setTotalRecords(data.totalRecords);
             }
         }catch(error){
             console.error("Error cargando empleados", error);
@@ -30,7 +37,7 @@ function Employees(){
     //2. cargar los datos al montar el componente
     useEffect(()=>{
         loadEmployees();
-    },[]);
+    },[page]);
 
 
 
@@ -147,7 +154,7 @@ function Employees(){
 
                 <button aria-label="Editar empleado"
                  onClick={()=>{
-                    setSelectedEmployeeId;(emp.employeeId);
+                    setSelectedEmployeeId(emp.employeeId);
                     setEmployeeModalMode("edit");
                     setIsEmployeeModalOpen(true);
                 }}
@@ -169,6 +176,14 @@ function Employees(){
     
     </tbody>
 </table>
+           </div>
+
+           <div className="nav">
+            <Pagination
+            page={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+            />
            </div>
            {isEmployeeModalOpen&&(
             <AuxModal

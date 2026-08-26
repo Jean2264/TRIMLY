@@ -27,10 +27,20 @@ async function createEmployees(req,res){
 
  async function getEmployees(req, res) {
     try{
+        const page= await Number(req.query.page)||1;
+        const limit= await Number(req.query.limit)||20;
+        const employees= await fetchAllEmployees(page, limit);
 
-        const employees= await fetchAllEmployees();
 
-        res.status(200).json(employees);
+        const totalPage= Math.ceil(employees.totalRecords /limit);
+
+        res.status(200).json({
+            employees: employees.employees,
+            totalRecords: employees.totalRecords,
+            page,
+            limit,
+            totalPage
+        });
 
     }catch(error){
         console.error("Error al obtener empleados:", error);

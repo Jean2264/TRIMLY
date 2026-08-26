@@ -82,9 +82,9 @@ export async function createEmployee(employeeData) {
     };
 }
 
-export async function  fetchAllEmployees() {
+export async function  fetchAllEmployees(page=1, limit=20) {
     
-    const employees= await getAllEmployees();
+    const employees= await getAllEmployees(page, limit);
 
     return employees;
 }
