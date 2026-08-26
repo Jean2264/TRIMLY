@@ -19,20 +19,25 @@ function Employees(){
     const [deleteResult, setDeleteResult]= useState(null);
 
     //1. peticion GET
-    const loadEmployees= async ()=>{
-        try{
-            const response= await fetch("http://localhost:3000/employees?page=1&limit=2");
+   const loadEmployees = async () => {
+    try {
+        const response = await fetch(
+            `http://localhost:3000/employees?page=${page}&limit=2`
+        );
 
-            if(response.ok){
-                const data= await response.json();
-                setEmployees(data.employees);
-                setTotalPages(data.totalPages);
-                setTotalRecords(data.totalRecords);
-            }
-        }catch(error){
-            console.error("Error cargando empleados", error);
+        if (response.ok) {
+            const data = await response.json();
+
+           
+
+            setEmployees(data.employees);
+            setTotalPages(data.totalPage);
+            setTotalRecords(data.totalRecords);
         }
+    } catch (error) {
+        console.error("Error cargando empleados", error);
     }
+};
 
     //2. cargar los datos al montar el componente
     useEffect(()=>{
