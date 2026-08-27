@@ -4,6 +4,37 @@ import "./Employees.css";
 import AuxModal from "../../components/common/AuxModal";
 import EmployeeModal from "../../components/employee-panel/EmployeeModal";
 import Pagination from "../../components/common/Pagination";
+import DataTable from "../../components/common/DataTable";
+
+const employeeColumns=[
+    {
+        header:"DNI",
+        accessor: "dni"
+    },
+    {
+        header:"Nombre",
+        accessor: "nombre"
+    },
+    {
+        header:"Apellido",
+        accessor: "apellido"
+    },
+    {
+        header:"Teléfono",
+        accessor: "telefono"
+    },
+    {
+        header:"Experiencia",
+        accessor: "experiencia"
+    },
+    {
+        header:"Fecha de alta",
+        accessor: "fechaalta",
+        render: (emp)=>
+            emp.fechaalta ? new Date(emp.fechaalta).toLocaleDateString("es-AR") : "-"
+    }
+];
+
 function Employees(){
 
     const [isEmployeeModalOpen, setIsEmployeeModalOpen]= useState(false);
@@ -13,6 +44,8 @@ function Employees(){
     const [page, setPage]= useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [totalRecords, setTotalRecords] = useState(0);
+    const [searchInput, setSearchInput]= useState("");
+    const [search, setSeacrh]= useState("");
     
 
     const [isDeleteModalOpen, setIsDeleteModalOpen]= useState(false);
@@ -22,27 +55,27 @@ function Employees(){
    const loadEmployees = async () => {
     try {
         const response = await fetch(
-            `http://localhost:3000/employees?page=${page}&limit=2`
+            `http://localhost:3000/employees?search=${encodeURIComponent(search)}&page=${page}&limit=2`
         );
 
+        const data = await response.json();
+
         if (response.ok) {
-            const data = await response.json();
-
-           
-
             setEmployees(data.employees);
             setTotalPages(data.totalPage);
             setTotalRecords(data.totalRecords);
+        } else {
+            console.error(data);
         }
     } catch (error) {
-        console.error("Error cargando empleados", error);
+        console.error("Error cargando empleados:", error);
     }
 };
 
     //2. cargar los datos al montar el componente
     useEffect(()=>{
         loadEmployees();
-    },[page]);
+    },[page, search]);
 
 
 
@@ -101,7 +134,14 @@ function Employees(){
         <section className="employees">
            <div className="employees-header">
             <SearchBar
-            title="Buscar empleado"/>
+            title="Buscar empleado"
+            value={searchInput}
+            onChange={setSearchInput}
+            onSearch={()=>{
+                setSeacrh(searchInput)
+                setPage(1)
+            }}
+            />
             <button className="primary-button"
              onClick={()=>{
                     setEmployeeModalMode("create");
@@ -159,7 +199,7 @@ function Employees(){
 
                 <button aria-label="Editar empleado"
                  onClick={()=>{
-                    setSelectedEmployeeId(emp.employeeId);
+                    setSelectedEmployeeId(emp.idempleado);
                     setEmployeeModalMode("edit");
                     setIsEmployeeModalOpen(true);
                 }}

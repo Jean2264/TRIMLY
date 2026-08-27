@@ -71,43 +71,63 @@ try{
 }
 
 //Mostrar empleados
-export async function getAllEmployees(page=1, limit=20) {
+export async function getAllEmployees(search = "", page = 1, limit = 20) {
 
-    const offset= (page-1) * limit;
-    
-    const query=`
-    
-    SELECT
-        e."idempleado",
-        e."dni",
-        e."nombre",
-        e."apellido",
-        e."telefono",
-        e."experiencia",
-        e."fechaalta",
-        u."email"
-        FROM "empleado" e 
-        INNER JOIN "usuario" u ON e."usuarioid"= u."idusuario"
-        WHERE e."estado"=True
+    const offset = (page - 1) * limit;
+
+    const searchValue = `%${search}%`;
+
+    const query = `
+        SELECT
+            e."idempleado",
+            e."dni",
+            e."nombre",
+            e."apellido",
+            e."telefono",
+            e."experiencia",
+            e."fechaalta",
+            u."email"
+        FROM "empleado" e
+        INNER JOIN "usuario" u
+            ON e."usuarioid" = u."idusuario"
+        WHERE e."estado" = TRUE
+        AND (
+            e."dni" ILIKE $1
+            OR e."nombre" ILIKE $1
+            OR e."apellido" ILIKE $1
+            OR u."email" ILIKE $1
+        )
         ORDER BY e."nombre" ASC
-        LIMIT $1
-        OFFSET $2;
+        LIMIT $2
+        OFFSET $3;
     `;
 
-    const countQuery= `
-    SELECT COUNT(*) AS total
-    FROM "empleado"
-    WHERE "estado"= TRUE;`;
+    const countQuery = `
+        SELECT COUNT(*) AS total
+        FROM "empleado" e
+        INNER JOIN "usuario" u
+            ON e."usuarioid" = u."idusuario"
+        WHERE e."estado" = TRUE
+        AND (
+            e."dni" ILIKE $1
+            OR e."nombre" ILIKE $1
+            OR e."apellido" ILIKE $1
+            OR u."email" ILIKE $1
+        );
+    `;
 
-
-    const [employeeResult, countResult]= await Promise.all([
-        pool.query(query, [limit, offset]),
-        pool.query(countQuery)
+    const [employeeResult, countResult] = await Promise.all([
+        pool.query(query, [searchValue, limit, offset]),
+        pool.query(countQuery, [searchValue])
     ]);
+
+    const totalRecords = Number(countResult.rows[0].total);
 
     return {
         employees: employeeResult.rows,
-        totalRecords: Number(countResult.rows[0].total)
+        totalRecords,
+        page,
+        limit
     };
 }
 

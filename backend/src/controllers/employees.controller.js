@@ -27,9 +27,10 @@ async function createEmployees(req,res){
 
  async function getEmployees(req, res) {
     try{
-        const page= await Number(req.query.page)||1;
-        const limit= await Number(req.query.limit)||20;
-        const employees= await fetchAllEmployees(page, limit);
+        const search=  req.query.search||"";
+        const page=  Number(req.query.page)||1;
+        const limit=  Number(req.query.limit)||20;
+        const employees= await fetchAllEmployees( search,page, limit);
 
 
         const totalPage= Math.ceil(employees.totalRecords /limit);
