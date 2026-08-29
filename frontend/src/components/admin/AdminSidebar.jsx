@@ -9,12 +9,14 @@ function AdminSidebar(){
             <NavLink to="/admin/employees" className="btn-option">Empleados
 
             </NavLink>
+
+             <NavLink to="/admin/services" className="btn-option">Servicios
+
+            </NavLink>
             <NavLink  to="/admin/clients" className="btn-option">Clientes
 
             </NavLink>
-            <NavLink to="/admin/services" className="btn-option">Servicios
-
-            </NavLink>
+           
             <NavLink to="/admin/appointments" className="btn-option">Turnos
             </NavLink>
         </nav>

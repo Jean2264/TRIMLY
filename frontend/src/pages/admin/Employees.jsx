@@ -40,6 +40,7 @@ function Employees(){
     const [isEmployeeModalOpen, setIsEmployeeModalOpen]= useState(false);
     const [selectedEmployeeId,setSelectedEmployeeId ] = useState(null);
     const [employeeModalMode, setEmployeeModalMode] = useState(null);
+    
     const [employees, setEmployees]= useState([]);
     const [page, setPage]= useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -50,6 +51,53 @@ function Employees(){
 
     const [isDeleteModalOpen, setIsDeleteModalOpen]= useState(false);
     const [deleteResult, setDeleteResult]= useState(null);
+
+
+    const columns = [
+    ...employeeColumns,
+    {
+        header: "Acciones",
+        accessor: "acciones",
+        render: (emp) => (
+            <div className="employee-actions">
+
+                <button
+                    aria-label="Ver empleado"
+                    onClick={() => {
+                        setSelectedEmployeeId(emp.idempleado);
+                        setEmployeeModalMode("view");
+                        setIsEmployeeModalOpen(true);
+                    }}
+                >
+                    <i className="bi bi-eye"></i>
+                </button>
+
+                <button
+                    aria-label="Editar empleado"
+                    onClick={() => {
+                        setSelectedEmployeeId(emp.idempleado);
+                        setEmployeeModalMode("edit");
+                        setIsEmployeeModalOpen(true);
+                    }}
+                >
+                    <i className="bi bi-pencil-square"></i>
+                </button>
+
+                <button
+                    aria-label="Eliminar empleado"
+                    onClick={() => {
+                        setSelectedEmployeeId(emp.idempleado);
+                        setIsDeleteModalOpen(true);
+                    }}
+                >
+                    <i className="bi bi-trash"></i>
+                </button>
+
+            </div>
+        )
+    }
+];
+
 
     //1. peticion GET
    const loadEmployees = async () => {
@@ -151,77 +199,11 @@ function Employees(){
             </button>
            </div>
 
-           <div className="employees-table-wrapper">
-
-            {/**Tabla empleados */}
-            <table className="employees-table">
-    <thead>
-        <tr>
-            
-            <th>DNI</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Teléfono</th>
-            <th>Experiencia</th>
-            <th>Fecha de alta</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        {employees.length===0? (
-             <tr>
-                <td colSpan="7" style={{textAlign: "center"}}>
-                    No hay empleados registrados.
-                </td>
-                </tr>
-        ):(
-            employees.map((emp)=>(
-                <tr key={emp.idempleado || emp.dni}>
-                        <td>{emp.dni}</td>
-                        <td>{emp.nombre}</td>
-                        <td>{emp.apellido}</td>
-                        <td>{emp.telefono}</td>
-                        <td>{emp.experiencia} años</td>
-                        <td>
-                            {emp.fechaalta? new Date(emp.fechaalta).toLocaleDateString("es-AR"): "-"}
-                        </td>
-                        <td>
-            <div className="employee-actions">
-                <button aria-label="Ver empleado"
-                onClick={()=>{
-                    setSelectedEmployeeId(emp.idempleado);
-                    setEmployeeModalMode("view");
-                    setIsEmployeeModalOpen(true);
-                }}
-                ><i className="bi bi-eye"></i></button>
-
-
-                <button aria-label="Editar empleado"
-                 onClick={()=>{
-                    setSelectedEmployeeId(emp.idempleado);
-                    setEmployeeModalMode("edit");
-                    setIsEmployeeModalOpen(true);
-                }}
-                ><i className="bi bi-pencil-square"></i></button>
-
-                <button aria-label="Eliminar empleado"
-                onClick={()=>{
-                    setSelectedEmployeeId(emp.idempleado);
-                    setIsDeleteModalOpen(true);
-                }}
-                ><i className="bi bi-trash"></i></button>
-            </div>
-        </td>
-                    </tr>
-            ))
-        )}
-        
-        
-    
-    </tbody>
-</table>
-           </div>
+           <DataTable
+           columns={columns}
+           data={employees}
+           rowKey="idempleado"
+           />
 
            <div className="nav">
             <Pagination
