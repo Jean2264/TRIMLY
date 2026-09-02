@@ -1,9 +1,7 @@
-import pool from '../config/db.js';
+import pool from "../config/db.js";
 
-
-export async function  insertEmployee(employeeData) {
-
-const {
+export async function insertEmployee(employeeData) {
+  const {
     dni,
     nombre,
     apellido,
@@ -11,18 +9,17 @@ const {
     experiencia,
     email,
     passwordHash,
-    idRol
-}= employeeData;
+    idRol,
+  } = employeeData;
 
-const client= await pool.connect();
+  const client = await pool.connect();
 
-try{
-
+  try {
     await client.query("BEGIN");
 
     //1. Crear usuario
-    const usuariorResult= await client.query(
-        `
+    const usuariorResult = await client.query(
+      `
         INSERT INTO "usuario"
         (
 
@@ -32,16 +29,15 @@ try{
             VALUES  ($1, $2)
             RETURNING "idusuario";
         `,
-        [email, passwordHash]
+      [email, passwordHash],
     );
 
-    const usuarioId= usuariorResult.rows[0].idusuario;
-
+    const usuarioId = usuariorResult.rows[0].idusuario;
 
     //2. Crear empleado
 
-    const empleadoResult= await client.query(
-        `
+    const empleadoResult = await client.query(
+      `
          INSERT INTO "empleado"
          (
             "usuarioid",
@@ -55,29 +51,27 @@ try{
             VALUES ( $1, $2, $3, $4, $5, $6, $7)
             RETURNING *;
         `,
-        [usuarioId, idRol, dni, nombre, apellido,telefono,experiencia]
+      [usuarioId, idRol, dni, nombre, apellido, telefono, experiencia],
     );
 
     await client.query("COMMIT");
 
     return empleadoResult.rows[0];
-}catch(error){
+  } catch (error) {
     await client.query("ROLLBACK");
     throw error;
-}finally{
+  } finally {
     client.release();
-}
-    
+  }
 }
 
 //Mostrar empleados
 export async function getAllEmployees(search = "", page = 1, limit = 20) {
+  const offset = (page - 1) * limit;
 
-    const offset = (page - 1) * limit;
+  const searchValue = `%${search}%`;
 
-    const searchValue = `%${search}%`;
-
-    const query = `
+  const query = `
         SELECT
             e."idempleado",
             e."dni",
@@ -102,7 +96,7 @@ export async function getAllEmployees(search = "", page = 1, limit = 20) {
         OFFSET $3;
     `;
 
-    const countQuery = `
+  const countQuery = `
         SELECT COUNT(*) AS total
         FROM "empleado" e
         INNER JOIN "usuario" u
@@ -116,26 +110,24 @@ export async function getAllEmployees(search = "", page = 1, limit = 20) {
         );
     `;
 
-    const [employeeResult, countResult] = await Promise.all([
-        pool.query(query, [searchValue, limit, offset]),
-        pool.query(countQuery, [searchValue])
-    ]);
+  const [employeeResult, countResult] = await Promise.all([
+    pool.query(query, [searchValue, limit, offset]),
+    pool.query(countQuery, [searchValue]),
+  ]);
 
-    const totalRecords = Number(countResult.rows[0].total);
+  const totalRecords = Number(countResult.rows[0].total);
 
-    return {
-        employees: employeeResult.rows,
-        totalRecords,
-        page,
-        limit
-    };
+  return {
+    employees: employeeResult.rows,
+    totalRecords,
+    page,
+    limit,
+  };
 }
 
 export async function fetchEmployee(id) {
-    
-    const query= await pool.query(
-
-        `
+  const query = await pool.query(
+    `
     
     SELECT
         e."idempleado",
@@ -149,18 +141,17 @@ export async function fetchEmployee(id) {
         INNER JOIN "usuario" u ON e."usuarioid"= u."idusuario"
 
         Where e."idempleado"= $1
-    `, [id]
-    );
+    `,
+    [id],
+  );
 
-    return query.rows[0];
+  return query.rows[0];
 }
 
 // Update de employee
 export async function updateEmployee(employeeId, employeeData) {
-    
-
-    //A modo de ejemplo de como verificar duplicidad de DNI entre registros
-    /**const dniResult = await client.query(
+  //A modo de ejemplo de como verificar duplicidad de DNI entre registros
+  /**const dniResult = await client.query(
             `
             SELECT "idempleado"
             FROM "empleado"
@@ -169,80 +160,73 @@ export async function updateEmployee(employeeId, employeeData) {
             `,
             [dni, employeeId]
         ); */
-//El <> $2 significa: "buscame ese DNI, pero ignorá al empleado que estoy editando"
+  //El <> $2 significa: "buscame ese DNI, pero ignorá al empleado que estoy editando"
 
-    //Creo cliente de conexion
-    const client = await pool.connect();
+  //Creo cliente de conexion
+  const client = await pool.connect();
 
-    try{
+  try {
+    await client.query("BEGIN");
 
-        await client.query("BEGIN");
+    const { telefono, experiencia, email } = employeeData;
 
-        const {
+    //1. Obtener el UsuarioId del empleado para poder hacer
+    //el UPDATE de la tabla Usuario
 
-            telefono,
-            experiencia,
-            email
-        } = employeeData;
-
-        //1. Obtener el UsuarioId del empleado para poder hacer 
-        //el UPDATE de la tabla Usuario
-
-        const employeeResult= await client.query(
-            `
+    const employeeResult = await client.query(
+      `
             SELECT "usuarioid"
             FROM "empleado"
             WHERE "idempleado"= $1
             `,
-            [employeeId]
-        );
+      [employeeId],
+    );
 
-        if(employeeResult.rows.length===0){
-            await client.query("ROLLBACK");
+    if (employeeResult.rows.length === 0) {
+      await client.query("ROLLBACK");
 
-            return{
-                success: false,
-                errors:{
-                    general: "Empleado no encontrado"
-                }
-            };
-        }
+      return {
+        success: false,
+        errors: {
+          general: "Empleado no encontrado",
+        },
+      };
+    }
 
-        const usuarioId= employeeResult.rows[0].usuarioid;
+    const usuarioId = employeeResult.rows[0].usuarioid;
 
-        //2. Verfificar Email duplicado
+    //2. Verfificar Email duplicado
 
-        const emailResult= await client.query(
-            `
+    const emailResult = await client.query(
+      `
             SELECT "idusuario"
             FROM "usuario"
             WHERE "email"= $1
             AND "idusuario" <> $2
             `,
-            [email, usuarioId]
-        );
+      [email, usuarioId],
+    );
 
-        //3. Construir errores
-        const errors= {};
+    //3. Construir errores
+    const errors = {};
 
-        if(emailResult.rows.length>0){
-            errors.email ="Ya existe un usuario con ese email."
-        }
+    if (emailResult.rows.length > 0) {
+      errors.email = "Ya existe un usuario con ese email.";
+    }
 
-        //4. Si hay errores -> Rollback
-        if(Object.keys(errors).length>0){
+    //4. Si hay errores -> Rollback
+    if (Object.keys(errors).length > 0) {
+      await client.query("ROLLBACK");
 
-            await client.query("ROLLBACK");
+      return {
+        success: false,
+        errors,
+      };
+    }
 
-            return{
-                success:false,
-                errors
-            };
-        }
-
-        //5. Actualizar empleado
-        await client.query(
-            `
+    //5. Actualizar empleado
+    await client.query(
+      `
             
             UPDATE "empleado"
             SET
@@ -250,112 +234,99 @@ export async function updateEmployee(employeeId, employeeData) {
                 "experiencia"=$2
             WHERE "idempleado"=$3    
             `,
-            [
-                telefono,
-                experiencia,
-                employeeId
-            ]
-        );
+      [telefono, experiencia, employeeId],
+    );
 
-        //6. Actualizar usuario
-        await client.query(
-            `
+    //6. Actualizar usuario
+    await client.query(
+      `
             
             UPDATE "usuario"
             SET
                 "email"=$1
             WHERE "idusuario"=$2
             `,
-            [
-                email,
-                usuarioId
-            ]
-        );
+      [email, usuarioId],
+    );
 
+    //7. Confirmar transaccion
+    await client.query("COMMIT");
 
-        //7. Confirmar transaccion
-        await client.query("COMMIT");
+    return {
+      success: true,
+    };
+  } catch (error) {
+    await client.query("ROLLBACK");
 
-        return{
-            success:true
-        };
-
-    }catch(error){
-        await client.query("ROLLBACK");
-
-        throw error;
-    } finally{
-        client.release();
-    }
+    throw error;
+  } finally {
+    client.release();
+  }
 }
 
+export async function deleteEmployee(employeeId) {
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
 
-export async function  deleteEmployee(employeeId) {
-    
-    const client= await pool.connect();
-    try{
+    //1. Obtener el id del usuario
 
-
-        await client.query("BEGIN");
-
-
-        //1. Obtener el id del usuario
-       
-        const employeeResult= await client.query(`
+    const employeeResult = await client.query(
+      `
             
             SELECT "usuarioid"
             FROM "empleado"
             WHERE "idempleado"=$1
-            `,[employeeId]
-        );
+            `,
+      [employeeId],
+    );
 
-        if(employeeResult.rows.length===0){
-            await client.query("ROLLBACK");
+    if (employeeResult.rows.length === 0) {
+      await client.query("ROLLBACK");
 
-            return{
-                success: false,
-                errors:{
-                    general:"Empleado no encontrado"
-                }
-            }
-        }
+      return {
+        success: false,
+        errors: {
+          general: "Empleado no encontrado",
+        },
+      };
+    }
 
-        
-        const usuarioId= employeeResult.rows[0].usuarioid;
+    const usuarioId = employeeResult.rows[0].usuarioid;
 
-
-        
-        //2. dar de baja empleado
-        await client.query(
-            `
+    //2. dar de baja empleado
+    await client.query(
+      `
             UPDATE "empleado"
             SET "estado"=FALSE
             WHERE "idempleado"=$1
-            `, [employeeId]
-        );
+            `,
+      [employeeId],
+    );
 
-        //3. dar de baja usuario
-        await client.query(`
+    //3. dar de baja usuario
+    await client.query(
+      `
             
             UPDATE "usuario"
             SET "estado"= FALSE
             WHERE "idusuario"=$1
-            `,[usuarioId]);
+            `,
+      [usuarioId],
+    );
 
-        //4. confirmar COMMIT
+    //4. confirmar COMMIT
 
     await client.query("COMMIT");
 
-    return{
-        success:true
+    return {
+      success: true,
     };
+  } catch (error) {
+    await client.query("ROLLBACK");
 
-    
-    }catch(error){
-        await client.query("ROLLBACK");
-
-        throw error;
-    }finally{
-       client.release();
-    }
+    throw error;
+  } finally {
+    client.release();
+  }
 }

@@ -4,6 +4,7 @@ import cors from "cors";
 import healthRoutes from "./routes/health.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import EmployeesRoutes from "./routes/employees.routes.js";
+import serviceRoutes from "./routes/service.routes.js";
 
 //Usamos el express que importamos
 const app = express();
@@ -13,10 +14,11 @@ app.use(express.json());
 
 app.use("/health", healthRoutes);
 app.use("/auth", authRoutes);
-app.use("/employees", EmployeesRoutes)
+app.use("/employees", EmployeesRoutes);
+app.use("/services", serviceRoutes);
 
-app.get("/", (req, res)=>{
-   res.send("Servidor iniciado wii"); 
-}) 
+app.get("/", (req, res) => {
+  res.send("Servidor iniciado wii");
+});
 
 export default app;
