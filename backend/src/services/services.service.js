@@ -14,21 +14,33 @@ function validateServiceData(serviceData) {
   if (!nombre || typeof nombre !== "string" || nombre.trim() === "") {
     errors.nombre = "El nombre del servicio es obligatorio.";
   }
-  // Validar descripcion
+  /*/ Validar descripcion
   if (
     !descripcion ||
     typeof descripcion !== "string" ||
     descripcion.trim() === ""
   ) {
     errors.descripcion = "La descripción del servicio es obligatoria.";
-  }
+  } */
   // Validar costo
-  if (!costo || typeof costo !== "number" || costo <= 0) {
+  if (
+    costo === undefined ||
+    costo === null ||
+    typeof costo !== "number" ||
+    !Number.isFinite(costo) ||
+    costo <= 0
+  ) {
     errors.costo =
       "El costo del servicio es obligatorio y debe ser un número positivo.";
   }
   // Validar duracion
-  if (!duracion || typeof duracion !== "number" || duracion <= 0) {
+  if (
+    duracion === undefined ||
+    duracion === null ||
+    typeof duracion !== "number" ||
+    !Number.isInteger(duracion) ||
+    duracion <= 0
+  ) {
     errors.duracion =
       "La duración del servicio es obligatoria y debe ser un número positivo.";
   }
@@ -59,5 +71,13 @@ export async function createService(serviceData) {
   return {
     ok: true,
     service: result,
+  };
+}
+
+export async function getServices(search = "", page = 1, limit = 20) {
+  const result = await getAllServices(search, page, limit);
+  return {
+    ok: true,
+    ...result,
   };
 }

@@ -1,4 +1,4 @@
-import pool from "../config/db";
+import pool from "../config/db.js";
 
 /**Metodo para insertar un servicio */
 export async function insertService(serviceData) {

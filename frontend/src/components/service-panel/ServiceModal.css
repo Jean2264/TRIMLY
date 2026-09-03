@@ -1,0 +1,32 @@
+.service-information {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.service-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.service-label {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.5rem;
+}
+
+.service-input {
+  padding: 0.5rem;
+  border: 1px solid #7a7a7a;
+  border-radius: 8px;
+  min-height: 35px;
+  align-items: center;
+  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: 550;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}

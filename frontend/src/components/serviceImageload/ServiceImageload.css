@@ -1,0 +1,51 @@
+.service-image-load {
+  width: 100%;
+  min-height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px dashed var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/*Area donde estaria la imagen*/
+
+.service-image-load-icon {
+  width: 70px;
+  height: 70px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--color-card-service);
+}
+
+.service-image-load-icon i {
+  font-size: 30px;
+  color: var(--color-text-service);
+}
+
+/*Para la drecha*/
+.service-image-load-content {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 1rem;
+}
+
+.service-image-load-content span {
+  font-size: 16px;
+}
+
+.service-image-load-content button {
+  border: none;
+  background-color: none;
+
+  font-size: 32px;
+  cursor: pointer;
+}

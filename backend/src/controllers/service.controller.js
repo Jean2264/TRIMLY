@@ -1,4 +1,4 @@
-import { createService } from "../services/services.service.js";
+import { createService, getServices } from "../services/services.service.js";
 
 async function createServices(req, res) {
   try {
@@ -24,4 +24,19 @@ async function createServices(req, res) {
   }
 }
 
-export { createServices };
+async function getServicesController(req, res) {
+  try {
+    const { search = "", page = 1, limit = 20 } = req.query;
+
+    const result = await getServices(search, Number(page), Number(limit));
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Error al obtener servicios",
+    });
+  }
+}
+
+export { createServices, getServicesController };
