@@ -16,14 +16,14 @@ import "./Services.css";
 	FechaAlta TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP */
 
 const formatDuration = (totalMinutes) => {
-  if (totalMinutes <= 60) {
-    return `${totalMinutes}min`;
+  if (totalMinutes < 60) {
+    return `${totalMinutes} min`;
   }
 
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
 
-  return minutes === 0 ? `${hours}h` : `${hours}h ${minutes}min`;
+  return minutes === 0 ? `${hours} h` : `${hours} h ${minutes} min`;
 };
 
 const serviceColumns = [
@@ -66,7 +66,7 @@ function Services() {
           <button
             aria-label="Ver servicio"
             onClick={() => {
-              setselectedServiceId(service.idservicio);
+              setSelectedServiceId(service.idservicio);
               setServiceModalMode("view");
               setIsServiceModalOpen(true);
             }}
@@ -77,7 +77,7 @@ function Services() {
           <button
             aria-label="Editar servicio"
             onClick={() => {
-              setselectedServiceId(service.idservicio);
+              setSelectedServiceId(service.idservicio);
               setServiceModalMode("edit");
               setIsServiceModalOpen(true);
             }}
@@ -88,7 +88,7 @@ function Services() {
           <button
             aria-label="Eliminar servicio"
             onClick={() => {
-              setselectedServiceId(service.idservicio);
+              setSelectedServiceId(service.idservicio);
               setServiceModalMode("delete");
               setIsServiceModalOpen(true);
             }}
@@ -185,6 +185,7 @@ function Services() {
           onClose={() => setIsServiceModalOpen(false)}
         >
           <ServiceModal
+            mode={serviceModalMode}
             onClose={() => setIsServiceModalOpen(false)}
             onServiceSaved={loadServices}
           />

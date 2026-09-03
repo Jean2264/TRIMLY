@@ -45,6 +45,31 @@ function ServiceModal({ serviceId, mode, onClose, onServiceSaved }) {
     return minutosTotales;
   }
 
+  /**Cargar datos del servicio si está en modo de edición o visualización */
+  async function loadService() {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/services/${serviceId}`,
+      );
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error(data.message);
+        return;
+      }
+
+      setFormData({
+        nombre: data.nombre,
+        costo: data.costo.toString().replace(".", ","),
+        duracion: data.duracion.toString(),
+        descripcion: data.descripcion,
+        duracion: data.duracion.toString(),
+      });
+    } catch (error) {
+      console.error("Error al obtener servicio:", error);
+    }
+  }
+
   /**
    * Validacion y actualización de campos
    */
@@ -98,6 +123,12 @@ function ServiceModal({ serviceId, mode, onClose, onServiceSaved }) {
       [name]: newValue,
     });
   }
+
+  useEffect(() => {
+    if (mode === "view" || mode === "edit") {
+      loadService();
+    }
+  }, [mode, serviceId]);
 
   /**
    * Envío del formulario
@@ -190,6 +221,7 @@ function ServiceModal({ serviceId, mode, onClose, onServiceSaved }) {
         <form onSubmit={handleSubmit} className="service-form">
           <section className="service-information">
             <h3>Información del servicio</h3>
+            <h2>Id: {serviceId}</h2>
 
             <label className="service-label">
               <span>

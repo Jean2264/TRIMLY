@@ -1,4 +1,8 @@
-import { createService, getServices } from "../services/services.service.js";
+import {
+  createService,
+  getServices,
+  getServicebyId,
+} from "../services/services.service.js";
 
 async function createServices(req, res) {
   try {
@@ -39,4 +43,22 @@ async function getServicesController(req, res) {
   }
 }
 
-export { createServices, getServicesController };
+//mostrar servicio en modal por medio de su id
+
+async function seeService(req, res) {
+  try {
+    const { id } = req.params;
+    const service = await getServicebyId(id);
+
+    if (!service) {
+      return res.status(404).json({ message: "servicio no encontradi" });
+    }
+
+    res.status(200).json(service);
+  } catch (error) {
+    console.error("error al obtener servicio:", error);
+    res.status(500).json({ message: "Error al obtener el servicio" });
+  }
+}
+
+export { createServices, getServicesController, seeService };

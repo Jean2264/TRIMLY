@@ -74,6 +74,12 @@ export async function createService(serviceData) {
   };
 }
 
+//mostrar info de servicio en el modal
+export async function getServicebyId(id) {
+  const service = await fetchService(id);
+  return service;
+}
+
 export async function getServices(search = "", page = 1, limit = 20) {
   const result = await getAllServices(search, page, limit);
   return {
