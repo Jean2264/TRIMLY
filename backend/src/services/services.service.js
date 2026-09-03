@@ -31,7 +31,7 @@ function validateServiceData(serviceData) {
     costo <= 0
   ) {
     errors.costo =
-      "El costo del servicio es obligatorio y debe ser un número positivo.";
+      "El costo del servicio es obligatorio y el punto decimal debe ser un punto (.) como separador decimal.";
   }
   // Validar duracion
   if (
@@ -59,7 +59,7 @@ export async function createService(serviceData) {
       errors,
     };
   }
-
+  console.log("Duración recibida en service:", duracion);
   const result = await insertService({
     nombre,
     descripcion,

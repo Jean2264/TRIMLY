@@ -22,7 +22,7 @@ export async function insertService(serviceData) {
             VALUES ($1, $2, $3, $4, $5)
             RETURNING "idservicio";
             `,
-      [nombre, descripcion, costo, foto, duracion],
+      [nombre, descripcion, costo, foto, `${duracion} minutes`],
     );
 
     const serviceId = serviceResult.rows[0].idservicio;
@@ -66,7 +66,7 @@ export async function getAllServices(search = "", page = 1, limit = 20) {
         "costo",
         "foto",
         "estado",
-        "duracion",
+        ROUND(EXTRACT(EPOCH FROM "duracion") / 60)::INTEGER AS "duracion",
         "fechaalta"
     FROM "servicio"
     WHERE "estado" = TRUE
@@ -114,7 +114,7 @@ export async function fetchService(id) {
         "costo",
         "foto",
         "estado",
-        "duracion",
+        ROUND(EXTRACT(EPOCH FROM "duracion") / 60)::INTEGER AS "duracion",
         "fechaalta"
     FROM "servicio"
     WHERE "idservicio" = $1
@@ -145,7 +145,7 @@ export async function updateService(serviceId, serviceData) {
     descripcion,
     costo,
     foto,
-    duracion,
+    `${duracion} minutes`,
     serviceId,
   ]);
 

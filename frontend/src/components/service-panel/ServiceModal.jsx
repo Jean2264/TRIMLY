@@ -71,25 +71,23 @@ function ServiceModal({ serviceId, mode, onClose, onServiceSaved }) {
       newValue = newValue.slice(0, 15);
     }
 
-    //duracion
+    //dcosto
     if (name === "costo") {
       newValue = value.replace(/[^0-9.,]/g, "").slice(0, 15);
     }
 
     //duracion
     if (name === "duracion") {
-      newValue = value.replace(/[^0-9]/g, "");
+      newValue = value.replace(/[^0-9:]/g, "");
 
-      //permitir solamente un ":"
       const partes = newValue.split(":");
 
       if (partes.length > 2) {
         newValue = partes[0] + ":" + partes[1];
       }
 
-      //maximo 3 digitos en cada parte
       if (partes.length === 2) {
-        newValue = partes[0].slice(0, 2) + ":" + partes[1].slice(0, 3);
+        newValue = partes[0].slice(0, 2) + ":" + partes[1].slice(0, 2);
       } else {
         newValue = newValue.slice(0, 4);
       }
@@ -119,7 +117,9 @@ function ServiceModal({ serviceId, mode, onClose, onServiceSaved }) {
       duracion: duracionEnMinutos,
       costo: costoNumerico,
     };
-
+    console.log("Duración ingresada:", formData.duracion);
+    console.log("Duración convertida:", duracionEnMinutos);
+    console.log("Datos enviados:", serviceData);
     try {
       const isEdit = mode === "edit";
 
