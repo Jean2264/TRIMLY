@@ -4,6 +4,7 @@ import ServiceModal from "../../components/service-panel/ServiceModal";
 import AuxModal from "../../components/common/AuxModal";
 import { useEffect, useState } from "react";
 import "./Services.css";
+import Pagination from "../../components/common/Pagination";
 
 /**Defino las columnas que va a tener la DataTable */
 /**IdServicio SERIAL PRIMARY KEY,
@@ -39,6 +40,7 @@ const serviceColumns = [
     header: "Costo",
     accessor: "costo",
   },
+
   {
     header: "Duración",
     accessor: "duracion",
@@ -89,8 +91,7 @@ function Services() {
             aria-label="Eliminar servicio"
             onClick={() => {
               setSelectedServiceId(service.idservicio);
-              setServiceModalMode("delete");
-              setIsServiceModalOpen(true);
+              setIsDeleteModalOpen(true);
             }}
           >
             <i className="bi bi-trash"></i>
@@ -119,6 +120,9 @@ function Services() {
   const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
 
+  /**Para DELETE */
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteResult, setDeleteResult] = useState(null);
   /**Columna de acciones para el datatable */
   /**const columns=[
         ...serviceColumns,
@@ -132,8 +136,7 @@ function Services() {
   const loadServices = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/services?
-                search=${encodeURIComponent(search)}&page=${page}& limit=2`,
+        `http://localhost:3000/services?search=${encodeURIComponent(search)}&page=${page}&limit=2`,
       );
 
       const data = await response.json();
@@ -157,10 +160,74 @@ function Services() {
   useEffect(() => {
     loadServices();
   }, [page, search]);
+
+  //funcion para dar de baja a un servicio
+  const deleteServicio = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/services/${selectedServiceId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setDeleteResult("success");
+        await loadServices();
+
+        setTimeout(() => {
+          closeDeleteModal();
+        }, 2000);
+
+        return;
+      }
+
+      if (response.status === 400) {
+        setDeleteResult("error");
+        console.error(data);
+        return;
+      }
+
+      if (response.status === 401) {
+        setDeleteResult("error");
+        console.error("no autorizado");
+        return;
+      }
+
+      if (response.status === 500) {
+        setDeleteResult("error");
+        console.error("Error del servidor");
+      }
+    } catch (error) {
+      console.error("Error al dar de baja", error);
+
+      setDeleteResult("error");
+    }
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setDeleteResult(null);
+  };
+
   return (
     <section className="services">
       <div className="services-header">
-        <SearchBar title="Buscar servicio" />
+        <SearchBar
+          title="Buscar servicio"
+          value={searchInput}
+          onChange={setSearchInput}
+          onSearch={() => {
+            setSearch(searchInput);
+            setPage(1);
+            console.log("searchInput:", searchInput);
+          }}
+        />
         <button
           className="primary-button"
           onClick={() => {
@@ -173,6 +240,7 @@ function Services() {
       </div>
 
       <DataTable columns={columns} data={services} rowKey="idservicio" />
+      <Pagination page={page} totalPages={totalPage} onPageChange={setPage} />
       {isServiceModalOpen && (
         <AuxModal
           title={
@@ -186,9 +254,51 @@ function Services() {
         >
           <ServiceModal
             mode={serviceModalMode}
+            serviceId={selectedServiceId}
             onClose={() => setIsServiceModalOpen(false)}
             onServiceSaved={loadServices}
           />
+        </AuxModal>
+      )}
+      {isDeleteModalOpen && (
+        <AuxModal title="Dar de baja empleado" onClose={closeDeleteModal}>
+          {deleteResult === null ? (
+            <div className="delete-confirmation">
+              <p>¿Estás seguro de que querés dar de baja este servicio?</p>
+
+              <div className="form-actions">
+                <button
+                  className="cancelar"
+                  type="button"
+                  onClick={closeDeleteModal}
+                >
+                  Cancelar
+                </button>
+
+                <button
+                  className="guardar"
+                  type="button"
+                  onClick={deleteServicio}
+                >
+                  Dar de baja
+                </button>
+              </div>
+            </div>
+          ) : deleteResult === "success" ? (
+            <div className="delete-success">
+              <div className="status-icon-correct">
+                <i className="bi bi-check-circle-fill"></i>
+              </div>
+              <p>El servicio fue dado de baja correctamente.</p>
+            </div>
+          ) : (
+            <div className="delete-error">
+              <div className="status-icon-incorrect">
+                <i className="bi bi-x-circle-fill"></i>
+              </div>
+              <p>No se pudo dar de baja al servicio.</p>
+            </div>
+          )}
         </AuxModal>
       )}
     </section>

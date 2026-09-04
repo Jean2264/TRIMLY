@@ -2,6 +2,8 @@ import {
   createService,
   getServices,
   getServicebyId,
+  updateserviceInfo,
+  deleteServiceSt,
 } from "../services/services.service.js";
 
 async function createServices(req, res) {
@@ -30,11 +32,20 @@ async function createServices(req, res) {
 
 async function getServicesController(req, res) {
   try {
-    const { search = "", page = 1, limit = 20 } = req.query;
+    const search = req.query.search || "";
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 20;
 
-    const result = await getServices(search, Number(page), Number(limit));
+    const services = await getServices(search, page, limit);
+    const totalPage = Math.ceil(services.totalRecords / limit);
 
-    res.status(200).json(result);
+    res.status(200).json({
+      services: services.services,
+      tottalRecors: services.totalRecords,
+      page,
+      limit,
+      totalPage,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -61,4 +72,60 @@ async function seeService(req, res) {
   }
 }
 
-export { createServices, getServicesController, seeService };
+async function updateService(req, res) {
+  try {
+    const { id } = req.params;
+
+    const serviceData = req.body;
+
+    const result = await updateserviceInfo(id, serviceData);
+
+    if (!result.success) {
+      return res.status(404).json({
+        erros: result.errors,
+      });
+    }
+
+    return res.status(200).json({
+      message: "Servicio actualizado correctamente",
+    });
+  } catch (error) {
+    console.error("Error al actualizar servicio", error);
+
+    return res.status(500).json({
+      message: "Error al actualizar el servicio",
+    });
+  }
+}
+
+async function deleteServiceState(req, res) {
+  try {
+    const { id } = req.params;
+
+    const result = await deleteServiceSt(id);
+
+    if (!result.success) {
+      return res.status(404).json({
+        errors: result.errors,
+      });
+    }
+
+    return res.status(200).json({
+      message: "servicio dado de baja correctamente",
+    });
+  } catch (error) {
+    console.error("Error al dar de baja empleado", error);
+
+    return res.status(500).json({
+      message: "Error al dar de baja el servicio",
+    });
+  }
+}
+
+export {
+  createServices,
+  getServicesController,
+  seeService,
+  updateService,
+  deleteServiceState,
+};

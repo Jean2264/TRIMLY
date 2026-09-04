@@ -137,6 +137,11 @@ function Employees() {
       if (response.ok) {
         setDeleteResult("success");
         await loadEmployees();
+
+        setTimeout(() => {
+          closeDeleteModal();
+        }, 2000);
+
         return;
       }
 

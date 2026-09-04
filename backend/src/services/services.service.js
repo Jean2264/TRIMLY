@@ -87,3 +87,13 @@ export async function getServices(search = "", page = 1, limit = 20) {
     ...result,
   };
 }
+
+export async function updateserviceInfo(serviceId, serviceData) {
+  const service = await updateService(serviceId, serviceData);
+  return service;
+}
+
+export async function deleteServiceSt(serviceId) {
+  const service = await deleteService(serviceId);
+  return service;
+}

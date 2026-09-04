@@ -159,7 +159,8 @@ function ServiceModal({ serviceId, mode, onClose, onServiceSaved }) {
         : `http://localhost:3000/services`;
 
       const method = isEdit ? "PUT" : "POST";
-
+      if (mode == "edit") {
+      }
       const response = await fetch(url, {
         method: method,
         headers: {
@@ -226,13 +227,14 @@ function ServiceModal({ serviceId, mode, onClose, onServiceSaved }) {
             <label className="service-label">
               <span>
                 Nombre del servicio
-                <span className="span-required">*</span>
+                {mode === "create" && <span className="span-required">*</span>}
               </span>
 
               <input
                 className="service-input"
                 type="text"
                 name="nombre"
+                readOnly={mode !== "create"}
                 value={formData.nombre}
                 onChange={handleChange}
               />
@@ -245,13 +247,14 @@ function ServiceModal({ serviceId, mode, onClose, onServiceSaved }) {
             <label className="service-label">
               <span>
                 Costo del servicio
-                <span className="span-required">*</span>
+                {mode !== "view" && <span className="span-required">*</span>}
               </span>
 
               <input
                 className="service-input"
                 type="text"
                 name="costo"
+                readOnly={mode === "view"}
                 value={formData.costo}
                 onChange={handleChange}
               />
@@ -268,6 +271,7 @@ function ServiceModal({ serviceId, mode, onClose, onServiceSaved }) {
                 className="service-input"
                 type="text"
                 name="descripcion"
+                readOnly={mode === "view"}
                 value={formData.descripcion}
                 onChange={handleChange}
               />
@@ -280,13 +284,14 @@ function ServiceModal({ serviceId, mode, onClose, onServiceSaved }) {
             <label className="service-label">
               <span>
                 Duración del servicio
-                <span className="span-required">*</span>
+                {mode !== "view" && <span className="span-required">*</span>}
               </span>
 
               <input
                 className="service-input"
                 type="text"
                 name="duracion"
+                readOnly={mode === "view"}
                 value={formData.duracion}
                 onChange={handleChange}
               />
@@ -310,15 +315,17 @@ function ServiceModal({ serviceId, mode, onClose, onServiceSaved }) {
             )}
           </section>
 
-          <div className="form-actions">
-            <button className="cancelar" type="button" onClick={onClose}>
-              Cancelar
-            </button>
+          {mode !== "view" && (
+            <div className="form-actions">
+              <button className="cancelar" type="button" onClick={onClose}>
+                Cancelar
+              </button>
 
-            <button className="guardar" type="submit">
-              Guardar
-            </button>
-          </div>
+              <button className="guardar" type="submit">
+                Guardar
+              </button>
+            </div>
+          )}
         </form>
       )}
     </div>

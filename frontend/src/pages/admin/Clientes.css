@@ -1,0 +1,7 @@
+.clients-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 1rem;
+  justify-content: space-between;
+}
