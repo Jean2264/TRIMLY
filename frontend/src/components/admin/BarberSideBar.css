@@ -1,0 +1,32 @@
+.admin-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-sidebar);
+  width: 100%;
+  padding-top: 2rem;
+  gap: 2rem;
+}
+
+.btn-option {
+  background: none;
+  border: none;
+  width: 100%;
+  padding: 0.5rem;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
+
+.btn-option:hover {
+  background: var(--color-sidebar-button);
+  color: white;
+  border: 1px solid var(--color-search-box-border);
+}
+
+.btn-option:focus {
+  background: var(--color-sidebar-button);
+  color: white;
+  border: 1px solid var(--color-search-box-border);
+}
