@@ -5,10 +5,10 @@ function BarberSideBar() {
   return (
     <nav className="admin-sidebar">
       <NavLink to="/barber/turnos" className="btn-option">
-        Mis turnos
+        Inicio
       </NavLink>
       <NavLink to="/barber/agenda" className="btn-option">
-        Mi agenda
+        Mis servicios
       </NavLink>
       <NavLink to="/barber/turnos" className="btn-option">
         Mis turnos
