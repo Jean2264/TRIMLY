@@ -7,14 +7,14 @@ function BarberSideBar() {
       <NavLink to="/barber/turnos" className="btn-option">
         Inicio
       </NavLink>
-      <NavLink to="/barber/agenda" className="btn-option">
-        Mis servicios
-      </NavLink>
       <NavLink to="/barber/turnos" className="btn-option">
         Mis turnos
       </NavLink>
       <NavLink to="/barber/horarios" className="btn-option">
         Mis horarios
+      </NavLink>
+      <NavLink to="/barber/agenda" className="btn-option">
+        Mis servicios
       </NavLink>
       <NavLink className="btn-option">Cerrar sesión</NavLink>
     </nav>
