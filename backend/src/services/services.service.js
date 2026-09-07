@@ -4,6 +4,7 @@ import {
   fetchService,
   updateService,
   deleteService,
+  getServicesModal,
 } from "../repositories/services.repository.js";
 
 function validateServiceData(serviceData) {
@@ -96,4 +97,14 @@ export async function updateserviceInfo(serviceId, serviceData) {
 export async function deleteServiceSt(serviceId) {
   const service = await deleteService(serviceId);
   return service;
+}
+
+//mostrar services en el modal del barber
+
+export async function getModalServices(search = "", page = 1, limit = 20) {
+  const result = await getServicesModal(search, page, limit);
+  return {
+    ok: true,
+    ...result,
+  };
 }

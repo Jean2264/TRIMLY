@@ -168,3 +168,50 @@ export async function deleteService(serviceId) {
     success: true,
   };
 }
+
+//vista de servicio para agregar desde barber
+export async function getServicesModal(search = "", page = 1, limit = 20) {
+  const offset = (page - 1) * limit;
+
+  const searchValue = `%${search}%`;
+
+  const query = `
+  
+  SELECT
+    "idservicio",
+    "nombre",
+    "costo",
+    ROUND(EXTRACT(EPOCH FROM "duracion") / 60)::INTEGER AS "duracion"
+    FROM "servicio"
+    WHERE "estado"=TRUE
+    AND (
+        "nombre" ILIKE $1
+    )
+    ORDER BY "nombre" ASC
+    LIMIT $2
+    OFFSET $3;
+  `;
+
+  const countQuery = `
+  SELECT COUNT(*) AS total
+  FROM "servicio"
+  WHERE "estado"=TRUE
+  AND (
+      "nombre" ILIKE $1
+  );
+  `;
+
+  const [serviceResult, countResult] = await Promise.all([
+    pool.query(query, [searchValue, limit, offset]),
+    pool.query(countQuery, [searchValue]),
+  ]);
+
+  const totalRecord = Number(countResult.rows[0].total);
+
+  return {
+    srrvices: serviceResult.rows,
+    totalRecord,
+    page,
+    limit,
+  };
+}
