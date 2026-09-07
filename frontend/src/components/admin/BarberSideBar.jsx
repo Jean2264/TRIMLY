@@ -17,10 +17,10 @@ function BarberSideBar({ onClose }) {
       >
         Mis disponibles
       </NavLink>
-      <NavLink to="/barber/horarios" className="btn-option">
+      <NavLink to="/barber/horarios" className="btn-option" onClick={onClose}>
         Mis horarios
       </NavLink>
-      <NavLink to="/barber/servicios" className="btn-option">
+      <NavLink to="/barber/services" className="btn-option" onClick={onClose}>
         Mis servicios
       </NavLink>
       <NavLink className="btn-option">Cerrar sesión</NavLink>
