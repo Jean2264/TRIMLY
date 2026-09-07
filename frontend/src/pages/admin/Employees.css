@@ -1,62 +1,66 @@
-.employees{
-    width: 100%;
-    overflow-x: hidden;
+.employees {
+  width: 100%;
+  overflow-x: hidden;
 }
 
-.employees-header
-{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 24px;
-    padding: 1rem;
+.employees-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 1rem;
+  padding: 1rem;
 }
 
-.search-bar.search-bar{
-    max-width: 400px;
-    height: 40px;
+@media (max-width: 600) {
+  .employees-header {
+    padding: 0;
+  }
+}
+.search-bar.search-bar {
+  max-width: 400px;
+  height: 40px;
 }
 
-.search-bar.search-bar button{
-    height: 40px;
+.search-bar.search-bar button {
+  height: 40px;
 }
 
-.primary-button{
-    border: none;
-    width: auto;
-    height: 40px;
-    border-radius: 8px;
-    padding: .5rem;
-    color: var(--color-text-card);
-    background-color: var(--color-button-search);
+.primary-button {
+  border: none;
+  width: auto;
+  height: 40px;
+  border-radius: 8px;
+  padding: 0.5rem;
+  color: var(--color-text-card);
+  background-color: var(--color-button-search);
 }
 
-
-.employee-actions{
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.employee-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.employee-actions button{
-    border: none;
-    background: none;
-    padding: 6px;
-    cursor: pointer;
+.employee-actions button {
+  border: none;
+  background: none;
+  padding: 6px;
+  cursor: pointer;
 }
 
-.delete-success{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
+.delete-success {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
 
-.delete-error{
-     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
+.delete-error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }

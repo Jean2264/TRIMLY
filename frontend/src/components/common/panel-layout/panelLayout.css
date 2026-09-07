@@ -1,39 +1,69 @@
-.panel-layout{
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+.panel-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.panel-body{
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    
+.panel-body {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+/*modo cel*/
+.panel-sidebar {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 200px;
+  height: calc(100vh - 60px);
+  flex-shrink: 0;
+  box-shadow: 5px 0 10px rgba(0, 0, 0, 0.08);
+  background-color: var(--color-card-employee);
+  z-index: 100;
 }
 
-.panel-sidebar
-{
-    
-    width: 200px;
-    
-    flex-shrink: 0;
-   box-shadow: 5px 0 10px rgba(0,0,0,0.08);
-    background-color: var(--color-card-employee);
+/*lo muestro con la clase isopen*/
+.panel-sidebar.is-open {
+  display: block;
 }
 
-.panel-content
-{
-    flex: 1;
-    min-width: 0;
-    padding: 24px;
+.sidebar-overlay {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 60px);
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 90;
+}
+.panel-content {
+  flex: 1;
+  min-width: 0;
+  padding: 24px;
 }
 
-.panel-header{
-    position: relative;
-    z-index: 1000;
+.panel-header {
+  position: relative;
+  z-index: 1000;
 }
-.panel-header header{
-    box-shadow: var(--shadow-card);
-    background-color: var(--color-card-employee);
-   
+
+.panel-header header {
+  box-shadow: var(--shadow-card);
+  background-color: var(--color-card-employee);
+}
+
+/*md escritorio*/
+
+@media (min-width: 768px) {
+  .panel-sidebar {
+    display: block !important;
+    position: static;
+    height: auto;
+  }
+
+  .sidebar-overlay {
+    display: none !important;
+  }
 }
