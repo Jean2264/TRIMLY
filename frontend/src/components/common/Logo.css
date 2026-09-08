@@ -1,12 +1,9 @@
-
-.logo
-{
-    display: flex;
-    gap: 0.5rem;
+.logo {
+  display: flex;
+  gap: 0.5rem;
   background-color: transparent;
 }
 
-.logo span
-{
+.logo span {
   font-weight: 600;
 }
