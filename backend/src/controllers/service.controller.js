@@ -4,6 +4,7 @@ import {
   getServicebyId,
   updateserviceInfo,
   deleteServiceSt,
+  getModalServices,
 } from "../services/services.service.js";
 
 async function createServices(req, res) {
@@ -41,7 +42,33 @@ async function getServicesController(req, res) {
 
     res.status(200).json({
       services: services.services,
-      tottalRecors: services.totalRecords,
+      totalRecords: services.totalRecords,
+      page,
+      limit,
+      totalPage,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Error al obtener servicios",
+    });
+  }
+}
+
+//Para mostrar en modal barbero
+
+async function getServicesModal(req, res) {
+  try {
+    const search = req.query.search || "";
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 20;
+
+    const services = await getModalServices(search, page, limit);
+    const totalPage = Math.ceil(services.totalRecords / limit);
+
+    res.status(200).json({
+      services: services.services,
+      totalRecords: services.totalRecords,
       page,
       limit,
       totalPage,
@@ -128,4 +155,5 @@ export {
   seeService,
   updateService,
   deleteServiceState,
+  getServicesModal,
 };
