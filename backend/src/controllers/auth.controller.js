@@ -1,9 +1,18 @@
-import {loginUsuario} from "../services/auth.service.js";
+import { autenticarUsuario } from "../services/usuario.service";
 
-export async function login(req, res){
-    const {email, password}= req.body;
+export async function login(req, res) {
+  try {
+    const { mail, password } = req.body;
 
-    const usuario= await loginUsuario(email, password);
+    const usuario = await autenticarUsuario(mail, password);
 
-    res.json(usuario);
+    res.status(200).json({
+      mensaje: "Inicio sesion correcto",
+      usuario,
+    });
+  } catch (error) {
+    res.status(401).json({
+      mensaje: error.message,
+    });
+  }
 }
