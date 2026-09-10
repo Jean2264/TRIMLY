@@ -1,27 +1,211 @@
+/* CARD MODAL ESTILO TRIMLY */
 .activar-cuenta {
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  gap: 2rem;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  width: 100%;
+
+  background-color: #ffffff;
+
+  padding: 2.25rem 1.75rem 2rem;
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.2),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
+.btn-close-modal {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: #f4f4f5;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #71717a;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.btn-close-modal:hover {
+  background-color: #e4e4e7;
+  color: #18181b;
+}
+
+/* ENCABEZADO */
 .activar-cuenta-header {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   align-items: center;
-  justify-content: center;
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 .activar-cuenta-header .logo span {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #11131f;
 }
 
+.activar-cuenta-header h2 {
+  font-size: 1.2rem;
+  color: #11131f;
+  font-weight: 700;
+  margin: 0.35rem 0 0 0;
+}
+
+.activar-cuenta-subtitle {
+  font-size: 0.8rem;
+  color: #71717a;
+  margin: 0.2rem 0 0 0;
+  font-weight: 400;
+}
+
+/* FORMULARIO */
 .activar-cuenta-forma {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+/* SECCIÓN AVATAR */
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.hidden-input {
+  display: none;
+}
+
+.avatar-picker {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px dashed #d4d4d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  background-color: #fafafa;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
+}
+
+.avatar-picker:hover {
+  border-color: #6366f1;
+  background-color: #f4f4f5;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.avatar-placeholder {
+  font-size: 0.75rem;
+  color: #a1a1aa;
+  font-weight: 500;
+  text-align: center;
+}
+
+.btn-remove-avatar {
+  background: none;
+  border: none;
+  color: #ef4444;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 0.35rem;
+  padding: 0;
+}
+
+.btn-remove-avatar:hover {
+  text-decoration: underline;
+}
+
+/* INPUTS REDONDEADOS (MATCH CAPTURAS TRIMLY) */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #27272a;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #d4d4d8;
+  border-radius: 12px;
+  font-size: 0.825rem;
+  color: #18181b;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.form-input::placeholder {
+  color: #a1a1aa;
+}
+
+/* BORDE Y FOCO VIOLETA */
+.form-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
+}
+
+/* BOTÓN TRIMLY (OSCURO) */
+.form-submit-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #11131f;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
+  margin-top: 0.5rem;
+}
+
+.form-submit-btn:hover {
+  background-color: #1c1f33;
+}
+
+.form-submit-btn:active {
+  transform: scale(0.98);
+}
+
+.form-error {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin: 0;
+  text-align: center;
+  font-weight: 500;
 }
