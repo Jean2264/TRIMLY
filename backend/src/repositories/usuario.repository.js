@@ -1,32 +1,42 @@
-import pool from '../config/db.js';
+import pool from "../config/db.js";
 
-export async function obtenerUsuarios(){
-    const resultado= await pool.query(
-        "SELECT * FROM Usuario"
-    );
+export async function obtenerUsuarioPorMail(mail) {
+  const resultado = await pool.query(
+    `
+    SELECT
+      u."idusuario",
+      u."email",
+      u."passwordhash",
+      u."estado",
+      u."cuentaactivada",
 
-    return resultado.rows;
-}
+      e."idempleado",
+      e."idrol",
+      e."nombre" AS "nombreempleado",
+      e."apellido" AS "apellidoempleado",
 
+      r."nombre" AS "rol",
 
-export async function obtenerUsuarioPorEmail(email){
+      c."idcliente",
+      c."nombre" AS "nombrecliente",
+      c."apellido" AS "apellidocliente",
+      c."foto"
 
-    const result = await pool.query(
-       `Select 
-        u.IdUsuario,
-        u.Email,
-        u.Estado,
-        u.passwordhash,
-        c.IdCliente,
-        c.Nombre,
-        c.Apellido,
-        c.Foto
-        
+    FROM "usuario" u
 
-        from Usuario u
-        left join Cliente c on u.IdUsuario=c.IdCliente
-       
-       where Email=$1`, [email]
-    );
-    return result.rows[0];
+    LEFT JOIN "empleado" e
+      ON u."idusuario" = e."usuarioid"
+
+    LEFT JOIN "rol" r
+      ON e."idrol" = r."idrol"
+
+    LEFT JOIN "cliente" c
+      ON u."idusuario" = c."usuarioid"
+
+    WHERE u."email" = $1
+  `,
+    [mail],
+  );
+
+  return resultado.rows[0];
 }

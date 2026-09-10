@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import PublicLayout from "../layouts/PublicLayout";
 
 import Home from "../pages/public/Home";
-import Login from "../pages/public/Login";
+
 import ActivarCuenta from "../pages/public/ActivarCuenta";
 
 import Reservation from "../pages/public/Reservation";
@@ -15,7 +15,7 @@ function PublicRoutes() {
     <Routes>
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+
         <Route path="/activar-cuenta" element={<ActivarCuenta />} />
         <Route path="/reservation" element={<Reservation />} />
         <Route path="/employee" element={<EmployeeProfile />} />

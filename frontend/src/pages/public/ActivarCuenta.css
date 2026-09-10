@@ -1,0 +1,27 @@
+.activar-cuenta {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.activar-cuenta-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.activar-cuenta-header .logo span {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.activar-cuenta-forma {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
