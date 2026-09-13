@@ -1,68 +1,53 @@
-.home
-{
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    
-    
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  scrollbar-width: none;
 }
 
-.home .logo span{
-    font-size: 1.5rem;
-    font-weight: 600;
+.home .logo span {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
-.home-container section
-{
-   
-padding: 1rem;
+.home-container section {
+  padding: 1rem;
 }
 
-.employee .employee-card
-{
-    width: 200px;
-    
-    justify-content: start;
-    box-shadow: var(--shadow-card);
-    border: 1px solid var(--color-card-employee-border);
-    background: var(--color-card-employee);
-   
-  
-    ;
+.employee .employee-card {
+  flex-direction: column;
+
+  justify-content: start;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-card-employee-border);
+  background: var(--color-card-employee);
 }
 
-.employee .employee-card .employee-icon
-{
-    color:var(--color-text);
+.employee .employee-card .employee-icon {
+  color: var(--color-text);
 }
 
-.employee .employee-card .employee-info
-{
-    color:var(--color-text);
+.employee .employee-card .employee-info {
+  color: var(--color-text);
 }
 
-.employee .Employee-track
-{
-    width: 100%;
+.employee .Employee-track {
+  width: 100%;
 }
 
-section
-{
- display: flex;
- flex-direction: column;
-    gap: .2rem;
-    
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
 }
-section h2{
-font-size: 1.2rem;
+section h2 {
+  font-size: 1.2rem;
 }
-.section-header
-{
- 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.section-header h2{
-    font-size: 1.2rem;
+.section-header h2 {
+  font-size: 1.2rem;
 }

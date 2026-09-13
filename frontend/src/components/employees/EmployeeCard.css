@@ -1,53 +1,45 @@
-.employee-card{
-    
-    padding:  0.3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   
-    flex-direction: row;
-    border-radius: 10px;
-    flex-shrink: 0;
-    transition: all 0.2s ease;
-   gap: 0.5rem;
+.employee-card {
+  padding: 0.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: row;
+  border-radius: 10px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  gap: 0.5rem;
 }
 
-.employee-info{
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    
-  
+.employee-info {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 0;
 }
-
 
 /* Make image inside card not overflow */
-.employee-card img{
-    max-width: 60px;
-    height: auto;
-    border-radius: 6px;
+.employee-card img {
+  max-width: 60px;
+  height: auto;
+  border-radius: 6px;
 }
 /*  --color-search: #111827;
     --color-text-search:#F9FAFB;
     --color-text-card:#F9FAFB;*/
-.employee-card.selected 
-{
-  
-    background: var(--color-search);
-    transform: scale(1.03);
-   
+.employee-card.selected {
+  background: var(--color-search);
+  transform: scale(1.03);
 }
 
 .employee-card.selected .employee-info h4,
-.employee-card.selected .employee-info p{
-    color: var(--color-text-card);
+.employee-card.selected .employee-info p {
+  color: var(--color-text-card);
 }
-.employee-icon{
-    font-size: 40px;
-   
+.employee-icon {
+  font-size: 40px;
 }
 
-.employee-card.selected .employee-icon
-{
-    color:var(--color-text-card);
+.employee-card.selected .employee-icon {
+  color: var(--color-text-card);
 }

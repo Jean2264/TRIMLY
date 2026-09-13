@@ -1,6 +1,6 @@
 import pool from "../config/db.js";
 
-export async function obtenerUsuarioPorMail(mail) {
+export async function obtenerUsuarioPorMai(email) {
   const resultado = await pool.query(
     `
     SELECT
@@ -35,7 +35,7 @@ export async function obtenerUsuarioPorMail(mail) {
 
     WHERE u."email" = $1
   `,
-    [mail],
+    [email],
   );
 
   return resultado.rows[0];

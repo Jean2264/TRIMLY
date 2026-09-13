@@ -1,11 +1,8 @@
-import {
-  obtenerUsuarioPorEmail,
-  obtenerUsuarioPorMail,
-} from "../repositories/usuario.repository.js";
+import { obtenerUsuarioPorMai } from "../repositories/usuario.repository.js";
 import bcrypt from "bcrypt";
 
-export async function autenticarUsuario(mail, password) {
-  const usuario = await obtenerUsuarioPorMail(mail);
+export async function autenticarUsuario(email, password) {
+  const usuario = await obtenerUsuarioPorMail(email);
 
   if (!usuario) {
     throw new Error("Credenciales invalidos");
