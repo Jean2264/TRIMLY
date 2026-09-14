@@ -1,4 +1,4 @@
-import { autenticarUsuario } from "../services/usuario.service.js";
+import * as usuarioService from "../services/usuario.service.js";
 import { generarToken } from "../config/jwt.js";
 
 export async function login(req, res) {
