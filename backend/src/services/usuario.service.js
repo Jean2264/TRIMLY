@@ -1,25 +1,22 @@
-import { obtenerUsuarioPorMai } from "../repositories/usuario.repository.js";
 import bcrypt from "bcrypt";
+import * as usuarioRepository from "../repositories/usuario.repository.js";
 
-export async function autenticarUsuario(email, password) {
-  const usuario = await obtenerUsuarioPorMail(email);
-
-  if (!usuario) {
-    throw new Error("Credenciales invalidos");
+export async function loginUsuario(email, password) {
+  if (
+    typeof email !== "string" ||
+    typeof password !== "string" ||
+    email.trim() === "" ||
+    password.trim() === ""
+  ) {
+    return {
+      ok: false,
+      status: 400,
+      mensaje: "Email y contraseña obligatorios",
+    };
   }
 
-  if (!usuario.estado) {
-    throw new Error("Usuario inactivo");
-  }
+  const emailNormalizado = email.trim().toLowerCase();
 
-  if (!usuario.cuentaactivada) {
-    throw new Error("Cuenta no activada");
-  }
-
-  const passwordValida = await bcrypt.compare(password, usuario.passwordhash);
-
-  if (!passwordValida) {
-    throw new Error("Credenciales invalidos");
-  }
-  return usuario;
+  const usuario =
+    await usuarioRepository.buscarUsuarioParaLogin(emailNormalizado);
 }

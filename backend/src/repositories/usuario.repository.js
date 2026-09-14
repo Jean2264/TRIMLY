@@ -1,42 +1,35 @@
 import pool from "../config/db.js";
 
-export async function obtenerUsuarioPorMai(email) {
+export async function buscarUsuarioParaLogin(email) {
   const resultado = await pool.query(
     `
-    SELECT
-      u."idusuario",
-      u."email",
-      u."passwordhash",
-      u."estado",
-      u."cuentaactivada",
+      SELECT
+        u.IdUsuario AS "idUsuario",
+        u.Email AS "email",
+        u.PasswordHash AS "passwordHash",
+        u.Estado AS "usuarioActivo",
+        u.CuentaActivada AS "cuentaActivada",
 
-      e."idempleado",
-      e."idrol",
-      e."nombre" AS "nombreempleado",
-      e."apellido" AS "apellidoempleado",
+        c.IdCliente AS "idCliente",
+        c.Nombre AS "clienteNombre",
+        c.Apellido AS "clienteApellido",
+        c.Foto AS "clienteFoto",
 
-      r."nombre" AS "rol",
+        e.IdEmpleado AS "idEmpleado",
+        e.IdRol AS "idRol",
+        e.Nombre AS "empleadoNombre",
+        e.Apellido AS "empleadoApellido",
+        e.Foto AS "empleadoFoto",
 
-      c."idcliente",
-      c."nombre" AS "nombrecliente",
-      c."apellido" AS "apellidocliente",
-      c."foto"
-
-    FROM "usuario" u
-
-    LEFT JOIN "empleado" e
-      ON u."idusuario" = e."usuarioid"
-
-    LEFT JOIN "rol" r
-      ON e."idrol" = r."idrol"
-
-    LEFT JOIN "cliente" c
-      ON u."idusuario" = c."usuarioid"
-
-    WHERE u."email" = $1
-  `,
+        r.Nombre AS "rol"
+      FROM Usuario u
+      LEFT JOIN Cliente c ON c.UsuarioId = u.IdUsuario
+      LEFT JOIN Empleado e ON e.UsuarioId = u.IdUsuario
+      LEFT JOIN Rol r ON r.IdRol = e.IdRol
+      WHERE u.Email = $1
+    `,
     [email],
   );
 
-  return resultado.rows[0];
+  return resultado.rows[0] ?? null;
 }
