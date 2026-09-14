@@ -1,6 +1,6 @@
 :root {
   /* Colores default*/
-  --color-background: #f7f7f7;
+  --color-background: #ffffff;
   --color-button-card: rgba(255, 255, 255, 0.18);
   --color-shadow-button-card: 2px solid rgb(255, 255, 255, 0.2);
   --color-surface: #ffffff;
@@ -30,7 +30,7 @@
   --color-search-box: #ffffff;
   --color-serch-box-hover: #f1f5f9;
   --color-search-box-border: #e5e7eb;
-  --color-button-search: #0c0c0c;
+  --color-button-search: #043199;
   --color-button-search-disabled: #04040482;
 
   /*employee*/
