@@ -10,6 +10,8 @@ export async function insertEmployee(employeeData) {
     email,
     passwordHash,
     idRol,
+    tokenActivacionHash,
+    tokenActivacionExpiraEn,
   } = employeeData;
 
   const client = await pool.connect();
@@ -24,12 +26,14 @@ export async function insertEmployee(employeeData) {
         (
 
             "email",
-            "passwordhash"
+            "passwordhash",
+            "tokenactivacionhash",
+            "tokenactivacionexpiraen"
         )
-            VALUES  ($1, $2)
+            VALUES  ($1, $2, $3, $4)
             RETURNING "idusuario";
         `,
-      [email, passwordHash],
+      [email, passwordHash, tokenActivacionHash, tokenActivacionExpiraEn],
     );
 
     const usuarioId = usuariorResult.rows[0].idusuario;
