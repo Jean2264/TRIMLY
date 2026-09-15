@@ -17,8 +17,11 @@ async function createEmployees(req, res) {
     }
 
     res.status(201).json({
-      message: "Empleado creado correctamente",
+      message: result.correoEnviado
+        ? "Empleado creado y correo de activación enviado correctamente"
+        : "Empleado creado, pero no se pudo enviar el correo de activación",
       employee: result.employee,
+      correoEnviado: result.correoEnviado,
     });
   } catch (error) {
     console.error(error);

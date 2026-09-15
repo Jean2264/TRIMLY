@@ -7,6 +7,7 @@ import {
   updateEmployee,
   deleteEmployee,
 } from "../repositories/employees.repository.js";
+import { enviarCorreoActivacion } from "./email.service.js";
 
 function generateTemporaryPassword() {
   return crypto.randomBytes(6).toString("base64url");
@@ -92,7 +93,6 @@ export async function createEmployee(employeeData) {
   const employeeInsert = {
     ...employeeData,
     passwordHash,
-    activationData,
     idRol,
     tokenActivacionHash: activationData.tokenHash,
     tokenActivacionExpiraEn: activationData.expiresAt,
@@ -100,12 +100,22 @@ export async function createEmployee(employeeData) {
 
   //6. Crear usuario + empleado
   const employee = await insertEmployee(employeeInsert);
+  let correoEnviado = false;
+  try {
+    await enviarCorreoActivacion(employeeData.email, activationData.token);
+    correoEnviado = true;
+  } catch (error) {
+    console.error(
+      "El empleado fue creado, pero no se puedo enviar el correo de activacion: ",
+      error.message,
+    );
+  }
 
   console.log("Datos recibidos por el service:", employeeData);
   return {
     ok: true,
     employee,
-    temporaryPassword,
+    correoEnviado,
   };
 }
 
