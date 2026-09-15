@@ -8,8 +8,13 @@ CREATE TABLE Usuario
     Email VARCHAR(255) NOT NULL UNIQUE,
     PasswordHash VARCHAR(255) NOT NULL,
     Estado BOOLEAN NOT NULL DEFAULT TRUE,
+	CuentaActivada BOOLEAN NOT NULL DEFAULT FALSE,
     FechaAlta TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+alter table Usuario 
+add column TokenActivacionHash varchar(255),
+add column TokenActivacionExpiraEn TIMESTAMP
 
 -- ==========================================
 -- TABLA ROL
@@ -65,6 +70,47 @@ CREATE TABLE Empleado
         FOREIGN KEY (IdRol)
         REFERENCES Rol(IdRol)
 );
+
+
+-- ==========================================
+-- TABLA eMPLEADO/SERVICIO
+-- ==========================================
+CREATE TABLE EmpleadoServicio
+(
+    EmpleadoId INTEGER NOT NULL,
+    ServicioId INTEGER NOT NULL,
+
+    PRIMARY KEY (EmpleadoId, ServicioId),
+
+    CONSTRAINT FK_EmpleadoServicio_Empleado
+        FOREIGN KEY (EmpleadoId)
+        REFERENCES Empleado(IdEmpleado),
+
+    CONSTRAINT FK_EmpleadoServicio_Servicio
+        FOREIGN KEY (ServicioId)
+        REFERENCES Servicio(IdServicio)
+);
+
+
+
+-- ==========================================
+-- TABLA SERVICIO
+-- ==========================================
+
+CREATE TABLE Servicio
+(
+	IdServicio SERIAL PRIMARY KEY,
+	Nombre VARCHAR(100) NOT NULL,
+	Descripcion VARCHAR(200),
+	Costo DECIMAL(10,2) NOT NULL,
+	Foto VARCHAR(255),
+	Estado BOOLEAN NOT NULL DEFAULT TRUE,
+	Duracion INTERVAL NOT NULL,
+	FechaAlta TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
+ALTER TABLE Servicio
+add COLUMN CodServicio varchar(8) UNIQUE;
+delete  from Servicio
 
 -- ==========================================
 -- TABLA CLIENTE
@@ -127,5 +173,20 @@ VALUES
 );
 
 select * from Usuario
-update Usuario set Estado= true WHERE IdUsuario=1
+select * from Empleado
+select * from Servicio
+---delete  from Empleado
+--delete from Usuario WHERE IdUsuario>1
+--update Usuario set Estado= true WHERE IdUsuario=1
 select * from Cliente
+
+-- 1. Primero borrás los registros de la tabla hija ("empleado")
+--DELETE FROM "empleado" 
+--WHERE "usuarioid" > 1;
+
+-- 2. Ahora sí borrás los registros de la tabla padre ("usuario")
+--DELETE FROM "usuario" 
+--WHERE "idusuario" > 1;
+
+update Empleado
+Set Estado= True WHERE IdEmpleado=13
