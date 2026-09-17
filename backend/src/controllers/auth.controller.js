@@ -1,41 +1,53 @@
 import * as usuarioService from "../services/usuario.service.js";
+
 import { generarToken } from "../config/jwt.js";
 
 export async function login(req, res) {
   try {
     const { email, password } = req.body;
 
-    const usuario = await autenticarUsuario(email, password);
+    const resultado = await usuarioService.loginUsuario(email, password);
+
+    if (!resultado.ok) {
+      return res.status(resultado.status).json({
+        mensaje: resultado.mensaje,
+      });
+    }
+
+    const usuario = resultado.usuario;
 
     const payload = {
-      idUsuario: usuario.idusuario,
-      idEmpleado: usuario.idempleado,
-      idCliente: usuario.idcliente,
-      idRol: usuario.idrol,
+      idUsuario: usuario.idUsuario,
+      idEmpleado: usuario.idEmpleado,
+      idCliente: usuario.idCliente,
+      idRol: usuario.idRol,
       rol: usuario.rol,
     };
 
     const token = generarToken(payload);
 
-    res.status(200).json({
-      mensaje: "Inicio sesion correcto",
+    return res.status(200).json({
+      mensaje: "Inicio de sesión correcto",
       token,
       usuario: {
-        idUsuario: usuario.idusuario,
+        idUsuario: usuario.idUsuario,
         email: usuario.email,
-        idEmpleado: usuario.idempleado,
-        idCliente: usuario.idcliente,
-        idRol: usuario.idrol,
-        nombreEmpleado: usuario.nombreempleado,
-        apellidoEmpleado: usuario.apellidoempleado,
-        nombreCliente: usuario.nombrecliente,
-        apellidoCliente: usuario.apellidocliente,
-        foto: usuario.foto,
+        idEmpleado: usuario.idEmpleado,
+        idCliente: usuario.idCliente,
+        idRol: usuario.idRol,
+        rol: usuario.rol,
+        nombreEmpleado: usuario.empleadoNombre,
+        apellidoEmpleado: usuario.empleadoApellido,
+        nombreCliente: usuario.clienteNombre,
+        apellidoCliente: usuario.clienteApellido,
+        foto: usuario.empleadoFoto ?? usuario.clienteFoto ?? null,
       },
     });
   } catch (error) {
-    res.status(401).json({
-      mensaje: error.message,
+    console.error("Error en login:", error);
+
+    return res.status(500).json({
+      mensaje: "Error interno del servidor",
     });
   }
 }

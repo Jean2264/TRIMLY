@@ -28,41 +28,35 @@ function generarActivationData() {
   };
 }
 
-function ValidateEmployeeData(employeeData) {
+function validateEmployeeData(employeeData) {
   const errors = {};
 
-  // DNI
-  if (!/^\d{8}$/.test(employeeData.dni)) {
+  const { dni, nombre, apellido, telefono, experiencia, email } = employeeData;
+
+  if (!/^\d{8}$/.test(dni)) {
     errors.dni = "El DNI debe tener exactamente 8 dígitos.";
   }
 
-  // Nombre
-  if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]{1,100}$/.test(employeeData.nombre)) {
+  if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]{1,100}$/.test(nombre)) {
     errors.nombre =
       "El nombre debe contener solamente letras y tener como máximo 100 caracteres.";
   }
 
-  // Apellido
-  if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]{1,100}$/.test(employeeData.apellido)) {
+  if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]{1,100}$/.test(apellido)) {
     errors.apellido =
       "El apellido debe contener solamente letras y tener como máximo 100 caracteres.";
   }
 
-  //telefono
-  if (!/^\d{10,15}$/.test(employeeData.telefono)) {
+  if (!/^\d{10,15}$/.test(telefono)) {
     errors.telefono = "El teléfono debe tener entre 10 y 15 dígitos.";
   }
 
-  //experiecia
-  if (!/^\d{1,3}$/.test(employeeData.experiencia)) {
+  if (!/^\d{1,3}$/.test(String(experiencia))) {
     errors.experiencia =
       "La experiencia debe contener solamente números y tener como máximo 3 dígitos.";
   }
 
-  // Email
-  if (
-    !/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(employeeData.email)
-  ) {
+  if (!/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email)) {
     errors.email = "Ingresá un email válido.";
   }
 
@@ -70,7 +64,7 @@ function ValidateEmployeeData(employeeData) {
 }
 
 export async function createEmployee(employeeData) {
-  const errors = ValidateEmployeeData(employeeData);
+  const errors = validateEmployeeData(employeeData);
 
   if (Object.keys(errors).length > 0) {
     return {
