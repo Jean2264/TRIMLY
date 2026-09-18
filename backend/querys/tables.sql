@@ -16,6 +16,22 @@ alter table Usuario
 add column TokenActivacionHash varchar(255),
 add column TokenActivacionExpiraEn TIMESTAMP
 
+
+
+SELECT
+  "idusuario",
+  "email",
+  "cuentaactivada",
+  "tokenactivacionhash",
+  "tokenactivacionexpiraen"
+FROM "usuario"
+WHERE "idusuario" = 24;
+
+
+UPDATE Usuario
+SET CuentaActivada = TRUE
+WHERE Email = 'jean@gmail.com';
+
 -- ==========================================
 -- TABLA ROL
 -- ==========================================
