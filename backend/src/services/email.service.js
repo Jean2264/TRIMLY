@@ -11,7 +11,9 @@ export async function enviarCorreoActivacion(email, token) {
     from: "TRIMLY <onboarding@resend.dev>",
     to: [email],
     subject: "Activá tu cuenta de TRIMLY",
+
     text: `Activá tu cuenta desde este enlace: ${activationUrl.toString()}`,
+
     html: `
       <h1>Bienvenido a TRIMLY</h1>
       <p>Para activar tu cuenta, hacé clic en este enlace:</p>

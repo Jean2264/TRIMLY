@@ -9,10 +9,6 @@ import {
 } from "../repositories/employees.repository.js";
 import { enviarCorreoActivacion } from "./email.service.js";
 
-function generateTemporaryPassword() {
-  return crypto.randomBytes(6).toString("base64url");
-}
-
 //Genero el token para la activacion de cuenta
 function generarActivationData() {
   const token = crypto.randomBytes(32).toString("hex");
@@ -74,10 +70,11 @@ export async function createEmployee(employeeData) {
   }
 
   //2. generar contrasenia temporal
-  const temporaryPassword = generateTemporaryPassword();
+  const passwordHash = await bcrypt.hash(
+    crypto.randomBytes(32).toString("hex"),
+    10,
+  );
 
-  //3. generar hash
-  const passwordHash = await bcrypt.hash(temporaryPassword, 10);
   const activationData = generarActivationData();
 
   //4. rol barbero
