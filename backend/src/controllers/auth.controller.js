@@ -51,3 +51,28 @@ export async function login(req, res) {
     });
   }
 }
+
+export async function activarCuenta(req, res) {
+  try {
+    const { token, password, foto } = req.body;
+
+    const resultado = await usuarioService.activarCuenta(token, password, foto);
+
+    if (!resultado.ok) {
+      return res.status(resultado.status).json({
+        mensaje: resultado.mensaje,
+      });
+    }
+
+    return res.status(200).json({
+      mensaje: "Cuenta activada correctamente",
+      usuario: resultado.usuario,
+    });
+  } catch (error) {
+    console.error("Error al activar cuenta:", error);
+
+    return res.status(500).json({
+      mensaje: "Error interno del servidor",
+    });
+  }
+}

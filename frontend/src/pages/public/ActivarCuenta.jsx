@@ -1,100 +1,39 @@
 import "./ActivarCuenta.css";
 import Logo from "../../components/common/Logo";
-import PasswordStrength from "../../hooks/PasswordStrength";
-import { useActivarCuenta } from "./useActivarCuenta";
+
 function ActivarCuenta() {
-  const {
-    password,
-    setPassword,
-    confirmPassword,
-    setConfirmPassword,
-    formError,
-    imageUpload,
-    handleSubmit,
-  } = useActivarCuenta();
   return (
-    <div className="activar-cuenta">
+    <main className="activar-cuenta">
       <div className="activar-cuenta-header">
         <Logo />
-        <h2>Activacion de cuenta</h2>
+
+        <h1>Activación de cuenta</h1>
       </div>
 
-      <form className="activar-cuenta-forma" onSubmit={handleSubmit}>
-        <div className="avatar-section">
-          <div
-            className="avatar-picker"
-            onClick={() => imageUpload.fileInputRef.current?.click()}
-          >
-            <input
-              type="file"
-              accept="image/*"
-              ref={imageUpload.fileInputRef}
-              onChange={imageUpload.handleFileChange}
-              className="hidden-input"
-            />
-
-            {imageUpload.preview ? (
-              <img
-                src={imageUpload.preview}
-                alt="vista previa"
-                className="avatar-img"
-              />
-            ) : (
-              <span className="avatar-placeholder">Subir foto</span>
-            )}
+      <div className="activar-cuenta-content">
+        <div className="perfil-section">
+          <div className="avatar-picker">
+            <i className="bi bi-image"></i>
           </div>
 
-          {imageUpload.preview && (
-            <button
-              type="button"
-              onClick={imageUpload.removeFile}
-              className="btn-remove-avatar"
-            >
-              Quitar foto
-            </button>
-          )}
+          <button type="button">Subir imagen</button>
 
-          {imageUpload.error && (
-            <p className="form-error">{imageUpload.error}</p>
-          )}
+          <span>PNG, JPG o WEBP · Máx. 2 MB</span>
         </div>
 
-        <div className="form-group">
-          <label className="form-label" htmlFor="password">
-            <span>Contraseña</span>
-            <input
-              id="password"
-              className="form-input"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </label>
-          <PasswordStrength value={password} />
+        <div className="password-section">
+          <label>Contraseña</label>
+          <input id="password" type="password" />
         </div>
 
-        <div className="form-group">
-          <label className="form-label" htmlFor="confirmPassword">
-            <span>Confirmar contraseña</span>
-            <input
-              id="confirmPassword"
-              className="form-input"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </label>
+        <div className="confirm-password-section">
+          <label>Confirmar contraseña</label>
+          <input id="confirm-password" type="password" />
         </div>
 
-        {formError && <p className="form-error">{formError}</p>}
-
-        <button type="submit" className="form-submit-btn">
-          Activar cuenta
-        </button>
-      </form>
-    </div>
+        <div className="actions-section">{/**boton activar cuenta */}</div>
+      </div>
+    </main>
   );
 }
 

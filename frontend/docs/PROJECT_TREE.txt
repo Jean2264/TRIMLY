@@ -1,111 +1,785 @@
+TRIMLY - ÁRBOL DE ARQUITECTURA
+================================
+
+Este documento describe la estructura real del repositorio al 19/09/2026.
+La aplicación está dividida en un backend Node.js/Express y un frontend React/Vite.
+Las carpetas `node_modules` y el contenido interno de `.git` no se documentan porque
+son dependencias o metadatos generados, no código fuente del producto.
+
+
+1. RAÍZ DEL REPOSITORIO
+=======================
+
 TRIMLY/
-├── .git/
-├── backend/
-│   ├── .env
-│   ├── .env.example
-│   ├── .gitignore
-│   ├── nodemon.json
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── server.js
-│   ├── querys/
-│   │   └── tables.sql
-│   └── src/
-│       ├── app.js
-│       ├── config/
-│       │   ├── db.js
-│       │   └── jwt.js
-│       ├── controllers/
-│       │   ├── auth.controller.js
-│       │   ├── employees.controller.js
-│       │   ├── health.controller.js
-│       │   └── service.controller.js
-│       ├── database/
-│       │   └── test.js
-│       ├── repositories/
-│       │   ├── employees.repository.js
-│       │   ├── services.repository.js
-│       │   └── usuario.repository.js
-│       ├── routes/
-│       │   ├── auth.routes.js
-│       │   ├── employees.routes.js
-│       │   ├── health.routes.js
-│       │   └── service.routes.js
-│       └── services/
-│           ├── email.service.js
-│           ├── employees.service.js
-│           ├── services.service.js
-│           └── usuario.service.js
-├── frontend/
-│   ├── docs/
-│   │   ├── 01-vision-del-producto.md
-│   │   ├── 02-requerimientos.md
-│   │   ├── 03-modelo-datos.md
-│   │   ├── 04-DER.dio
-│   │   ├── 05-MR.dio
-│   │   ├── 06-modulos.md
-│   │   ├── 07-flujos.md
-│   │   ├── 08-pantallas.md
-│   │   ├── 09-componentes.md
-│   │   ├── 10-roadmap.md
-│   │   ├── CHANGELOG.md
-│   │   ├── DECISIONS.md
-│   │   └── PROJECT_TREE.txt
-│   ├── public/
-│   ├── src/
-│   │   ├── api/
-│   │   │   └── auth.api.js
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   ├── assets/
-│   │   │   └── img/
-│   │   ├── components/
-│   │   │   ├── admin/
-│   │   │   ├── common/
-│   │   │   │   ├── auth/
-│   │   │   │   ├── contacts/
-│   │   │   │   ├── employees/
-│   │   │   │   ├── reservation/
-│   │   │   │   ├── scheduled/
-│   │   │   │   ├── services/
-│   │   │   │   └── user/
-│   │   │   ├── employee-panel/
-│   │   │   ├── service-panel/
-│   │   │   ├── serviceImageload/
-│   │   │   ├── services-barber/
-│   │   │   └── ...
-│   │   ├── context/
-│   │   │   └── AuthProvider.jsx
-│   │   ├── hooks/
-│   │   │   ├── PasswordStrength.jsx
-│   │   │   └── useImageUpload.js
-│   │   ├── layouts/
-│   │   │   ├── AdminLayout.css
-│   │   │   ├── AdminLayout.jsx
-│   │   │   ├── BarberLayout.css
-│   │   │   ├── BarberLayout.jsx
-│   │   │   ├── PublicLayout.css
-│   │   │   └── PublicLayout.jsx
-│   │   ├── pages/
-│   │   │   ├── admin/
-│   │   │   ├── Barber/
-│   │   │   └── public/
-│   │   ├── routes/
-│   │   │   ├── AdminRoutes.jsx
-│   │   │   ├── BarberRoutes.jsx
-│   │   │   └── PublicRoutes.jsx
-│   │   ├── sections/
-│   │   │   ├── HomeTop.css
-│   │   │   └── HomeTop.jsx
-│   │   └── styles/
-│   │       ├── global.css
-│   │       └── themes/
-│   ├── .gitignore
-│   ├── eslint.config.js
-│   ├── index.html
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── README.md
-│   └── vite.config.js
+├── .git/                         Control de versiones del proyecto.
+├── backend/                      API REST, autenticación y acceso a PostgreSQL.
+├── frontend/                     Aplicación web React y documentación funcional.
+└── package-lock.json             Lockfile existente en la raíz; conserva dependencias
+                                  instaladas a nivel raíz, aunque los scripts de ejecución
+                                  están definidos en los package.json de backend y frontend.
+
+
+2. BACKEND
+==========
+
+backend/
+├── .env
+├── .env.example
+├── .gitignore
+├── nodemon.json
+├── package.json
 ├── package-lock.json
-└── .git/
+├── server.js
+├── querys/
+└── src/
+
+El backend utiliza módulos ES (`type: module`), Express 5, PostgreSQL mediante `pg`,
+JWT para sesiones, bcrypt para contraseñas, dotenv para configuración, CORS y Resend
+para el envío del correo de activación.
+
+2.1 Archivos de configuración y ejecución
+------------------------------------------
+
+backend/.env
+  Variables sensibles y específicas del entorno local: conexión a PostgreSQL,
+  secreto JWT y configuración del proveedor de correo. No debe versionarse ni
+  documentarse con sus valores reales.
+
+backend/.env.example
+  Plantilla de las variables que necesita el backend para poder ejecutarse en otro
+  entorno sin exponer credenciales.
+
+backend/.gitignore
+  Exclusiones del backend para Git, principalmente `.env`, dependencias y archivos
+  generados.
+
+backend/nodemon.json
+  Configuración de Nodemon para reiniciar el servidor durante el desarrollo cuando
+  cambian los archivos del backend.
+
+backend/package.json
+  Manifiesto del API. Define el script `dev` (Nodemon sobre `server.js`), habilita
+  módulos ES y declara Express, pg, bcrypt, jsonwebtoken, dotenv, cors, crypto,
+  resend y Nodemon.
+
+backend/package-lock.json
+  Versiones exactas y árbol de dependencias instaladas para reproducir el backend.
+
+backend/server.js
+  Punto de entrada del servidor. Importa la aplicación Express y la configuración
+  de base de datos, escucha en `0.0.0.0:3000` y deja la aplicación preparada para
+  recibir las rutas de health, autenticación, empleados y servicios.
+
+2.2 SQL y base de datos
+-----------------------
+
+backend/querys/
+  Scripts SQL usados para crear y probar el modelo relacional.
+
+backend/querys/tables.sql
+  Script de definición y carga manual de PostgreSQL. Declara las tablas Usuario,
+  Rol, Empleado, Servicio, EmpleadoServicio y Cliente; sus claves primarias,
+  relaciones, estados, fechas y campos de activación. También contiene alteraciones
+  para tokens de activación, código de servicio, datos iniciales de roles y consultas
+  de prueba/actualización usadas durante el desarrollo.
+
+backend/src/database/
+  Pruebas o utilidades directas relacionadas con la base de datos.
+
+backend/src/database/test.js
+  Script de prueba de conexión/operaciones de base de datos. Es una utilidad de
+  desarrollo y no forma parte del flujo HTTP principal.
+
+2.3 Núcleo de Express
+---------------------
+
+backend/src/app.js
+  Construye y exporta la instancia de Express. Habilita CORS y el parser JSON,
+  monta `/health`, `/auth`, `/employees` y `/services`, y conserva una respuesta
+  simple en `/` para comprobar que el servidor está iniciado.
+
+2.4 Configuración transversal
+-----------------------------
+
+backend/src/config/
+  Configuración reutilizable por repositorios y servicios.
+
+backend/src/config/db.js
+  Carga dotenv, crea el `Pool` de PostgreSQL con DB_HOST, DB_PORT, DB_NAME,
+  DB_USER y DB_PASSWORD, comprueba la conexión inicial y exporta el pool para
+  ejecutar consultas desde los repositorios.
+
+backend/src/config/jwt.js
+  Encapsula la creación de tokens JWT. `generarToken(payload)` firma el payload
+  con `JWT_SECRET` y una expiración de una hora.
+
+2.5 Rutas HTTP
+--------------
+
+backend/src/routes/
+  Define los routers Express. Cada router sólo conecta verbo/URL con un controller;
+  la lógica de negocio vive en `services` y el SQL en `repositories`.
+
+backend/src/routes/health.routes.js
+  Expone `GET /health/health` y lo conecta con el controller de estado del servidor.
+
+backend/src/routes/auth.routes.js
+  Expone `GET /auth/test` para comprobar la ruta, `POST /auth/login` para iniciar
+  sesión y `POST /auth/activar-cuenta` para completar la activación de un usuario.
+
+backend/src/routes/employees.routes.js
+  Expone el CRUD de empleados bajo `/employees`: `POST /`, `GET /`, `GET /:id`,
+  `PUT /:id` y `DELETE /:id` (la baja es lógica mediante estado).
+
+backend/src/routes/service.routes.js
+  Expone el CRUD de servicios bajo `/services`: alta, listado paginado/filtrado,
+  detalle por id, modificación y baja lógica.
+
+2.6 Controllers
+---------------
+
+backend/src/controllers/
+  Capa HTTP. Lee params, query y body, llama a un servicio de negocio y traduce el
+  resultado a códigos y respuestas JSON.
+
+backend/src/controllers/health.controller.js
+  Implementa `health`, que registra la solicitud y devuelve `{ status: "ok" }`.
+
+backend/src/controllers/auth.controller.js
+  Implementa `login` y `activarCuenta`. Delega credenciales y activación en
+  `usuario.service.js`; en el login genera el JWT y devuelve el usuario con sus
+  datos de cliente/empleado y rol.
+
+backend/src/controllers/employees.controller.js
+  Implementa alta, listado paginado con búsqueda, consulta individual, actualización
+  y baja de empleados. Maneja validaciones/resultados del servicio y errores HTTP.
+
+backend/src/controllers/service.controller.js
+  Implementa alta, listado paginado con búsqueda, consulta individual, actualización,
+  baja lógica y consulta resumida de servicios para el modal del barbero.
+
+2.7 Services de negocio
+-----------------------
+
+backend/src/services/
+  Capa de aplicación. Valida datos, coordina repositorios, hashing, tokens y correo,
+  sin exponer consultas SQL a los controllers.
+
+backend/src/services/usuario.service.js
+  Gestiona login y activación de cuentas. Busca el usuario, valida estado/cuenta,
+  compara contraseñas con bcrypt, genera/consume hashes de token con crypto, valida
+  expiración y actualiza contraseña/foto al activar.
+
+backend/src/services/employees.service.js
+  Valida y crea empleados, genera datos de activación, hashea contraseñas iniciales,
+  guarda el empleado mediante el repositorio y envía el correo de activación. También
+  encapsula listado paginado, detalle, edición y baja lógica.
+
+backend/src/services/services.service.js
+  Valida nombre, costo y duración; coordina alta, listado, detalle, edición y baja
+  de servicios. Incluye la consulta resumida/paginada usada por el modal del barbero.
+
+backend/src/services/email.service.js
+  Integra el proveedor Resend para enviar al empleado el enlace/token de activación
+  de cuenta.
+
+2.8 Repositories
+----------------
+
+backend/src/repositories/
+  Capa de persistencia. Usa el pool de PostgreSQL y concentra todas las consultas
+  SQL del dominio.
+
+backend/src/repositories/usuario.repository.js
+  Consulta usuarios para login con joins a Cliente, Empleado y Rol; busca usuarios
+  por hash de activación y actualiza la cuenta activada, contraseña, token y foto.
+
+backend/src/repositories/employees.repository.js
+  Inserta usuario y empleado dentro de una transacción, lista empleados activos con
+  búsqueda/paginación, obtiene uno por id, actualiza sus datos y realiza la baja
+  lógica cambiando `estado`.
+
+backend/src/repositories/services.repository.js
+  Inserta servicios y genera su código `C###` en una transacción; lista servicios
+  activos con búsqueda, orden y paginación; obtiene detalle, actualiza, da de baja
+  lógicamente y devuelve una vista reducida para selección del barbero.
+
+
+3. FRONTEND
+==========
+
+frontend/
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package.json
+├── package-lock.json
+├── README.md
+├── vite.config.js
+├── public/
+├── docs/
+└── src/
+
+El frontend es una SPA React 19 con Vite, React Router, Bootstrap Icons y Motion.
+`main.jsx` monta la aplicación con `BrowserRouter`; `App.jsx` combina el contexto
+de autenticación, las rutas públicas, administrativas y del barbero, y el modal global
+de autenticación.
+
+3.1 Archivos de proyecto
+------------------------
+
+frontend/.gitignore
+  Exclusiones de Vite/Node para dependencias, builds, variables locales y archivos
+  generados.
+
+frontend/eslint.config.js
+  Configuración ESLint para JavaScript/JSX, React Hooks, React Refresh y globals
+  de navegador.
+
+frontend/index.html
+  Documento HTML base de Vite. Define viewport, favicon `Frame_14.png`, fuente Inter,
+  título TRIMLY, el nodo `#root` y la entrada `/src/main.jsx`.
+
+frontend/package.json
+  Manifiesto de la SPA. Scripts: `dev`, `build`, `lint` y `preview`. Declara React,
+  React DOM, React Router, Motion y Bootstrap Icons, más Vite, Babel y plugins ESLint.
+
+frontend/package-lock.json
+  Lockfile con las versiones exactas de las dependencias del frontend.
+
+frontend/README.md
+  Instrucciones generales del proyecto frontend y comandos de desarrollo de Vite.
+
+frontend/vite.config.js
+  Configuración de Vite y del plugin React/Babel usado para desarrollar y compilar
+  la SPA.
+
+3.2 Recursos públicos
+---------------------
+
+frontend/public/
+  Archivos servidos directamente por Vite, sin pasar por el importador de React.
+
+frontend/public/favicon.svg
+  Favicon vectorial alternativo de la aplicación.
+
+frontend/public/Frame_14.png
+  Imagen usada como favicon principal en `index.html`.
+
+frontend/public/Frame9.png
+  Recurso gráfico de la identidad visual.
+
+frontend/public/Group_3.png
+  Recurso gráfico utilizado por la interfaz/branding.
+
+frontend/public/icons.svg
+  Sprite o conjunto de iconos SVG disponible como recurso público.
+
+frontend/public/logo.png
+  Logotipo rasterizado de TRIMLY.
+
+3.3 Documentación funcional y de diseño
+---------------------------------------
+
+frontend/docs/
+  Documentación de producto, requisitos, datos, flujos, pantallas, componentes,
+  decisiones, roadmap, cambios y arquitectura del repositorio.
+
+frontend/docs/01-vision-del-producto.md
+  Visión, problema, propuesta de valor y objetivos del producto.
+frontend/docs/01-vision-del-producto.pdf
+  Versión PDF de la visión del producto.
+frontend/docs/02-requerimientos.md
+  Requerimientos funcionales y no funcionales.
+frontend/docs/03-modelo-datos.md
+  Modelo conceptual/relacional y entidades del dominio.
+frontend/docs/04-DER.dio
+  Diagrama entidad-relación editable de la base de datos.
+frontend/docs/05-MR.dio
+  Diagrama del modelo relacional editable.
+frontend/docs/06-modulos.md
+  Descripción de módulos funcionales de la aplicación.
+frontend/docs/07-flujos.md
+  Flujos de uso y navegación principales.
+frontend/docs/08-pantallas.md
+  Inventario y descripción de pantallas.
+frontend/docs/09-componentes.md
+  Catálogo de componentes visuales y reutilizables.
+frontend/docs/10-roadmap.md
+  Evolución prevista del producto por versiones.
+frontend/docs/CHANGELOG.md
+  Lista de funcionalidades terminadas y pendientes.
+frontend/docs/DECISIONS.md
+  Registro de decisiones técnicas y de producto.
+frontend/docs/PROJECT_TREE.txt
+  Este documento: inventario arquitectónico detallado y actualizado del repositorio.
+
+
+4. FRONTEND/SRC
+===============
+
+frontend/src/
+├── api/             Acceso HTTP al backend.
+├── assets/          Imágenes importadas por módulos React.
+├── components/      Componentes reutilizables agrupados por dominio.
+├── context/         Estado global/contextos React.
+├── hooks/           Hooks y utilidades reutilizables.
+├── layouts/         Estructuras visuales con Outlet para rutas hijas.
+├── pages/           Pantallas de cada área de la aplicación.
+├── routes/          Árboles de rutas público, admin y barbero.
+├── sections/        Secciones compuestas de páginas públicas.
+├── styles/          Estilos globales y temas.
+├── App.jsx          Composición principal.
+└── main.jsx         Punto de montaje.
+
+4.1 Entrada, API, contexto y hooks
+----------------------------------
+
+frontend/src/main.jsx
+  Crea la raíz React en `#root`, aplica `StrictMode`, `BrowserRouter`, Bootstrap
+  Icons y estilos globales, y renderiza `App`.
+
+frontend/src/App.jsx
+  Composición raíz: envuelve todo en `AuthProvider`, monta `PublicRoutes`,
+  `AdminRoutes`, `BarberRoutes` y el `AuthModal` global.
+
+frontend/src/api/auth.api.js
+  Cliente HTTP mínimo para autenticación. Actualmente exporta `login(email, password)`
+  y realiza `POST http://localhost:3000/auth/login` enviando JSON.
+
+frontend/src/context/AuthProvider.jsx
+  Contexto de autenticación. Centraliza usuario/token y las acciones/estado que
+  consumen formularios y componentes de la aplicación.
+
+frontend/src/hooks/PasswordStrength.jsx
+  Hook/componente auxiliar para calcular o representar la fortaleza de una contraseña.
+
+frontend/src/hooks/useImageUpload.js
+  Hook para seleccionar/cargar una imagen y administrar su estado o representación
+  durante formularios de usuario, empleado o servicio.
+
+4.2 Layouts
+-----------
+
+frontend/src/layouts/PublicLayout.jsx
+  Layout de páginas públicas; renderiza un contenedor y el `Outlet` de la ruta hija.
+frontend/src/layouts/PublicLayout.css
+  Estilos del contenedor/layout público.
+
+frontend/src/layouts/AdminLayout.jsx
+  Layout administrativo basado en `PanelLayout`, con Header, AdminSidebar y Outlet.
+frontend/src/layouts/AdminLayout.css
+  Distribución, tamaños y apariencia del panel administrativo.
+
+frontend/src/layouts/BarberLayout.jsx
+  Layout del área del barbero basado en `PanelLayout`, Header, BarberSideBar y Outlet.
+frontend/src/layouts/BarberLayout.css
+  Estilos específicos del panel del barbero.
+
+4.3 Rutas
+----------
+
+frontend/src/routes/PublicRoutes.jsx
+  Agrupa las rutas públicas bajo `PublicLayout`: `/`, `/activar-cuenta`, `/reservation`,
+  `/employee` y `/reservation-success`.
+
+frontend/src/routes/AdminRoutes.jsx
+  Agrupa `/admin` bajo `AdminLayout`: dashboard, `/admin/employees`,
+  `/admin/services` y `/admin/clients`.
+
+frontend/src/routes/BarberRoutes.jsx
+  Agrupa `/barber` bajo `BarberLayout`: dashboard, reservas y servicios del barbero.
+  El sidebar también contempla enlaces futuros de disponibles y horarios.
+
+4.4 Secciones y páginas públicas
+--------------------------------
+
+frontend/src/sections/HomeTop.jsx
+  Encabezado/hero superior de la home pública.
+frontend/src/sections/HomeTop.css
+  Estilos del hero y su composición visual.
+
+frontend/src/pages/public/Home.jsx
+  Home pública: compone hero, carruseles de servicios y empleados, ubicación,
+  horarios, contactos y footer. Navega a reserva por servicio o a perfil por empleado.
+frontend/src/pages/public/Home.css
+  Layout, tarjetas, secciones y responsive de la home.
+
+frontend/src/pages/public/ActivarCuenta.jsx
+  Pantalla para completar la activación enviada por correo, configurar contraseña
+  y eventualmente cargar foto.
+frontend/src/pages/public/ActivarCuenta.css
+  Estilos del formulario y estado de activación.
+frontend/src/pages/public/useActivarCuenta.js
+  Hook de soporte para leer token/estado y ejecutar la activación de cuenta.
+
+frontend/src/pages/public/Reservation.jsx
+  Orquesta el flujo de reserva por pasos. Recupera el estado recibido desde Home o
+  perfil, mantiene empleado/servicio/día/horario seleccionados y coordina resumen,
+  contenido y navegación.
+frontend/src/pages/public/Reservation.css
+  Estilos del flujo, resumen y estados de confirmación.
+
+frontend/src/pages/public/ReservationSuccess.jsx
+  Pantalla final mostrada luego de completar una reserva.
+frontend/src/pages/public/ReservationSuccess.css
+  Estilos de confirmación de reserva.
+
+4.5 Páginas administrativas
+---------------------------
+
+frontend/src/pages/admin/Dashboard.jsx
+  Resumen administrativo con indicadores de turnos, clientes y servicios activos.
+frontend/src/pages/admin/Dashboard.css
+  Estilos del dashboard y sus tarjetas estadísticas.
+
+frontend/src/pages/admin/Employees.jsx
+  Pantalla de administración de empleados; integra listado, búsqueda/paginación y
+  acciones mediante componentes/modales de empleados.
+frontend/src/pages/admin/Employees.css
+  Estilos de la pantalla de empleados.
+
+frontend/src/pages/admin/Services.jsx
+  Pantalla de administración de servicios; presenta listado y acciones de alta,
+  edición y baja mediante el modal de servicio.
+frontend/src/pages/admin/Services.css
+  Estilos de la pantalla de servicios.
+
+frontend/src/pages/admin/Clientes.jsx
+  Pantalla de clientes del panel administrativo.
+frontend/src/pages/admin/Clientes.css
+  Estilos de la pantalla de clientes.
+
+frontend/src/pages/admin/Appointments.jsx
+  Pantalla reservada para la gestión administrativa de turnos/citas.
+
+4.6 Páginas del barbero
+-----------------------
+
+frontend/src/pages/Barber/DashboardBarber.jsx
+  Dashboard del barbero con resumen de reservas del día, reservas semanales y
+  turnos disponibles.
+frontend/src/pages/Barber/DashboardBarber.css
+  Estilos de sus tarjetas de resumen.
+
+frontend/src/pages/Barber/Reservas.jsx
+  Vista de reservas del barbero, actualmente con selector y contenedor de tarjetas.
+frontend/src/pages/Barber/Reservas.css
+  Estilos de la vista de reservas.
+
+frontend/src/pages/Barber/Servicios.jsx
+  Gestión/selección de servicios asociados al barbero.
+frontend/src/pages/Barber/Servicios.css
+  Estilos de la pantalla de servicios del barbero.
+
+frontend/src/pages/Barber/ServiceSelectCard.jsx
+  Tarjeta para seleccionar un servicio en el flujo del barbero.
+frontend/src/pages/Barber/ServiceSelectCard.css
+  Estilos de la tarjeta de selección.
+
+4.7 Componentes administrativos y de panel
+------------------------------------------
+
+frontend/src/components/admin/AdminSidebar.jsx
+  Navegación lateral del admin hacia dashboard, empleados, servicios, clientes y
+  turnos; acepta `onClose` para cerrar el menú en layouts responsivos.
+frontend/src/components/admin/AdminSidebar.css
+  Apariencia y estados de navegación del sidebar admin.
+
+frontend/src/components/admin/BarberSideBar.jsx
+  Navegación lateral del barbero hacia inicio, reservas, disponibles, horarios y
+  servicios, además de la opción visual de cerrar sesión.
+frontend/src/components/admin/BarberSideBar.css
+  Apariencia del sidebar del barbero.
+
+frontend/src/components/common/panel-layout/panelLayout.jsx
+  Layout genérico de panel: recibe header, sidebar y contenido, y organiza la
+  estructura compartida por AdminLayout y BarberLayout.
+frontend/src/components/common/panel-layout/panelLayout.css
+  Grid/flex, menú lateral, encabezado y área principal de los paneles.
+
+frontend/src/components/employee-panel/EmployeeModal.jsx
+  Modal de alta/edición de empleados, con campos de datos y acciones del panel.
+frontend/src/components/employee-panel/EmployeeModal.css
+  Estilos del modal y formulario de empleados.
+
+frontend/src/components/service-panel/ServiceModal.jsx
+  Modal administrativo para crear, editar o dar de baja servicios.
+frontend/src/components/service-panel/ServiceModal.css
+  Estilos del modal y formulario de servicios.
+
+frontend/src/components/serviceImageload/ServiceImageload.jsx
+  Control visual para cargar o previsualizar la imagen de un servicio.
+frontend/src/components/serviceImageload/ServiceImageload.css
+  Estilos del cargador/previsualizador de imágenes.
+
+frontend/src/components/services-barber/ServicesModal.jsx
+  Modal del área del barbero para buscar, paginar y seleccionar servicios existentes.
+frontend/src/components/services-barber/ServicesModal.css
+  Estilos del modal de selección de servicios.
+
+4.8 Componentes comunes
+-----------------------
+
+frontend/src/components/common/AuxModal.jsx
+  Estructura de modal auxiliar reutilizable.
+frontend/src/components/common/AuxModal.css
+  Estilos del modal auxiliar.
+frontend/src/components/common/Modal.jsx
+  Contenedor/base de modal genérico.
+frontend/src/components/common/BtnClose.jsx
+  Botón reutilizable para cerrar modales o paneles.
+frontend/src/components/common/BtnClose.css
+  Estilos del botón de cierre.
+frontend/src/components/common/Button.jsx
+  Botón común con props de texto, acción y apariencia.
+frontend/src/components/common/Button.css
+  Variantes visuales del botón común.
+frontend/src/components/common/Input.jsx
+  Campo de entrada reutilizable para formularios.
+frontend/src/components/common/Card.jsx
+  Contenedor/tarjeta genérica para agrupar contenido.
+frontend/src/components/common/CardSection.jsx
+  Sección visual tipo tarjeta utilizada en perfiles y páginas de contenido.
+frontend/src/components/common/CardSection.css
+  Estilos de las secciones tarjeta.
+frontend/src/components/common/DataTable.jsx
+  Tabla reutilizable para presentar registros administrativos.
+frontend/src/components/common/DataTable.css
+  Estilos de tabla, filas, encabezados y estados.
+frontend/src/components/common/Header.jsx
+  Encabezado general con branding, navegación y acceso de usuario/autenticación.
+frontend/src/components/common/Header.css
+  Estilos del encabezado global.
+frontend/src/components/common/Footer.jsx
+  Pie de página común con la marca TRIMLY.
+frontend/src/components/common/Footer.css
+  Estilos del pie de página.
+frontend/src/components/common/Logo.jsx
+  Representación reutilizable del logo.
+frontend/src/components/common/Logo.css
+  Tamaños y apariencia del logo.
+frontend/src/components/common/Greeting.jsx
+  Saludo reutilizable para encabezados de usuario/panel.
+frontend/src/components/common/Greeting.css
+  Estilos del saludo.
+frontend/src/components/common/location.jsx
+  Presenta la ubicación de la barbería y recursos/mapa asociados.
+frontend/src/components/common/Location.css
+  Estilos de ubicación.
+frontend/src/components/common/SearchBar.jsx
+  Campo de búsqueda reutilizable para listados.
+frontend/src/components/common/SearchBar.css
+  Estilos de la barra de búsqueda.
+frontend/src/components/common/Pagination.jsx
+  Controles de paginación para tablas y listados.
+frontend/src/components/common/Pagination.css
+  Estilos de paginación.
+frontend/src/components/common/PageNavigation.jsx
+  Navegación contextual para volver o desplazarse entre pantallas.
+frontend/src/components/common/PageNavigation.css
+  Estilos de la navegación de página.
+frontend/src/components/common/SeeMoreButton.jsx
+  Botón/enlace de acción para explorar más contenido desde una sección resumida.
+frontend/src/components/common/SeeMoreButton.css
+  Estilos del botón “ver más”.
+frontend/src/components/common/Snipper.jsx
+  Indicador visual de carga (spinner).
+frontend/src/components/common/StepIndicator.jsx
+  Indicador de progreso para flujos por pasos.
+
+4.9 Autenticación
+-----------------
+
+frontend/src/components/common/auth/AuthModal.jsx
+  Modal global que contiene/activa el flujo de autenticación.
+frontend/src/components/common/auth/AuthModal.css
+  Estilos del modal de autenticación.
+frontend/src/components/common/auth/LoginForm.jsx
+  Formulario de login; recoge email/contraseña y usa el contexto/API de autenticación.
+frontend/src/components/common/auth/LoginForm.css
+  Estilos del formulario de login.
+frontend/src/components/common/auth/RegisterForm.jsx
+  Formulario de registro de usuario.
+frontend/src/components/common/auth/RegisterForm.css
+  Estilos del formulario de registro.
+
+4.10 Usuario autenticado
+------------------------
+
+frontend/src/components/common/user/UserButton.jsx
+  Botón de acceso al menú/perfil del usuario.
+frontend/src/components/common/user/UserButton.css
+  Estilos del botón de usuario.
+frontend/src/components/common/user/UserHeader.jsx
+  Encabezado del área de usuario.
+frontend/src/components/common/user/UserHeader.css
+  Estilos del encabezado de usuario.
+frontend/src/components/common/user/UserPanel.jsx
+  Contenedor del panel/perfil del usuario.
+frontend/src/components/common/user/UserPanel.css
+  Estilos del panel de usuario.
+frontend/src/components/common/user/UserOptions.jsx
+  Opciones y acciones disponibles para el usuario.
+frontend/src/components/common/user/UserOptions.css
+  Estilos de las opciones.
+frontend/src/components/common/user/UserPersonal.jsx
+  Datos personales del usuario.
+frontend/src/components/common/user/UserPersonal.css
+  Estilos de los datos personales.
+frontend/src/components/common/user/UserFooter.jsx
+  Pie del área de usuario.
+frontend/src/components/common/user/UserFooter.css
+  Estilos del pie de usuario.
+
+4.11 Home: empleados, servicios, horarios y contactos
+------------------------------------------------------
+
+frontend/src/components/employees/EmployeeCard.jsx
+  Tarjeta resumida de un empleado/barbero.
+frontend/src/components/employees/EmployeeCard.css
+  Estilos de la tarjeta de empleado.
+frontend/src/components/employees/EmployeeCaroucel.jsx
+  Carrusel de empleados de la home.
+frontend/src/components/employees/EmployeeCaroucel.css
+  Estilos y desplazamiento del carrusel.
+frontend/src/components/employees/EmployeeInfo.jsx
+  Información descriptiva del empleado.
+frontend/src/components/employees/EmployeeInfo.css
+  Estilos de la información.
+frontend/src/components/employees/EmployeeProfile.jsx
+  Perfil detallado del empleado; recibe el empleado por navigation state, permite
+  seleccionar un servicio y navega al flujo de reserva.
+frontend/src/components/employees/EmployeeProfile.css
+  Estilos del perfil de empleado.
+frontend/src/components/employees/EmployeeProfileHeader.jsx
+  Cabecera visual del perfil, foto y datos principales.
+frontend/src/components/employees/EmployeeProfileHeader.css
+  Estilos de la cabecera del perfil.
+frontend/src/components/employees/EmployeeServiceCard.jsx
+  Tarjeta de servicio ofrecido por un empleado.
+frontend/src/components/employees/EmployeeServiceCard.css
+  Estilos de la tarjeta de servicio del empleado.
+frontend/src/components/employees/EmployeeServices.jsx
+  Lista/selector de servicios del empleado.
+frontend/src/components/employees/EmployeeServices.css
+  Estilos de la lista de servicios del empleado.
+
+frontend/src/components/services/ServiceCard.jsx
+  Tarjeta resumida de un servicio.
+frontend/src/components/services/ServiceCard.css
+  Estilos de la tarjeta de servicio.
+frontend/src/components/services/ServiceCarrousel.jsx
+  Carrusel de servicios de la home (el nombre del archivo conserva la grafía
+  `Carrousel`; la importación histórica usa el identificador `ServiceCaroucel`).
+frontend/src/components/services/ServiceCaroucel.css
+  Estilos del carrusel de servicios.
+frontend/src/components/services/ServiceInfo.jsx
+  Información ampliada de un servicio.
+
+frontend/src/components/scheduled/ScheduleCard.jsx
+  Tarjeta que comunica días/horarios de atención.
+frontend/src/components/scheduled/ScheduleCard.css
+  Estilos de horarios.
+frontend/src/components/scheduled/ScheduleRow.jsx
+  Fila individual de un horario.
+frontend/src/components/scheduled/ScheduleRow.css
+  Estilos de la fila de horario.
+
+frontend/src/components/contacts/ContactSection.jsx
+  Sección de contacto que agrupa tarjetas de contacto.
+frontend/src/components/contacts/ContactSection.css
+  Estilos de la sección de contacto.
+frontend/src/components/contacts/ContactCard.jsx
+  Tarjeta individual de un medio de contacto.
+frontend/src/components/contacts/ContactCard.css
+  Estilos de la tarjeta de contacto.
+
+4.12 Flujo de reservas
+----------------------
+
+frontend/src/components/reservation/ReservationStep.jsx
+  Contenedor de un paso de reserva; pasa estado seleccionado al header y contenido.
+frontend/src/components/reservation/ReservationStep.css
+  Estilos del paso de reserva.
+frontend/src/components/reservation/ReservationStepHeader.jsx
+  Título/indicador del paso actual.
+frontend/src/components/reservation/ReservationStepHeader.css
+  Estilos del encabezado de paso.
+frontend/src/components/reservation/StepContent.jsx
+  Selecciona el contenido según el paso: empleado, agenda/horario, confirmación o
+  resultado del flujo.
+frontend/src/components/reservation/ConfirmReservation.jsx
+  Presenta y confirma los datos finales de una reserva.
+frontend/src/components/reservation/ReservationSummary.jsx
+  Resumen de empleado, servicio, día y horario elegidos.
+frontend/src/components/reservation/ReservationSummary.css
+  Estilos del resumen.
+frontend/src/components/reservation/ReservationNavegation.jsx
+  Navegación anterior/siguiente del flujo; valida selecciones y cambia de paso o
+  redirige al resultado.
+frontend/src/components/reservation/ReservationNavegation.css
+  Estilos de los controles de navegación.
+frontend/src/components/reservation/SelectEmployee.jsx
+  Selector de empleado disponible.
+frontend/src/components/reservation/SelectEmployee.css
+  Estilos del selector de empleado.
+frontend/src/components/reservation/SelectDate.jsx
+  Selector de fecha.
+frontend/src/components/reservation/SelectDate.css
+  Estilos del selector de fecha.
+frontend/src/components/reservation/SelectSchedule.jsx
+  Selector/contenedor de la agenda disponible.
+frontend/src/components/reservation/SelectSchedule.css
+  Estilos de la agenda.
+frontend/src/components/reservation/SelectTime.jsx
+  Selector de horario.
+frontend/src/components/reservation/SelecTime.css
+  Estilos del selector de horario (el nombre del archivo conserva `SelecTime`).
+frontend/src/components/reservation/DayButton.jsx
+  Botón de día disponible.
+frontend/src/components/reservation/DayButton.css
+  Estados visuales del botón de día.
+frontend/src/components/reservation/TimeButton.jsx
+  Botón de horario disponible.
+frontend/src/components/reservation/TimeButton.css
+  Estados visuales del botón de horario.
+
+4.13 Estilos globales y temas
+-----------------------------
+
+frontend/src/styles/global.css
+  Reset/base global, tipografía, variables CSS, colores, espaciado y reglas comunes
+  usadas por toda la aplicación.
+frontend/src/styles/themes/light.css
+  Variables y estilos del tema claro.
+frontend/src/styles/themes/dark.css
+  Variables y estilos del tema oscuro.
+
+4.14 Imágenes importadas
+------------------------
+
+frontend/src/assets/img/barber.jpg
+  Imagen de barbero usada por componentes de la experiencia pública.
+frontend/src/assets/img/Google_Maps.jpg
+  Imagen/recurso visual asociado a la ubicación en Google Maps.
+frontend/src/assets/img/map.png
+  Mapa usado por el componente de ubicación.
+
+
+5. FLUJO ARQUITECTÓNICO RESUMIDO
+================================
+
+1. Vite sirve `frontend/index.html` y `src/main.jsx` monta React.
+2. `App.jsx` instala `AuthProvider` y renderiza los tres árboles de rutas.
+3. Cada ruta usa un layout y páginas/componentes especializados.
+4. Los componentes de autenticación llaman a `src/api/auth.api.js`.
+5. El backend arranca en `server.js`, configura Express en `src/app.js` y monta routers.
+6. Los controllers traducen HTTP a llamadas de services.
+7. Los services validan y coordinan repositorios, bcrypt, JWT y correo.
+8. Los repositories consultan PostgreSQL mediante `src/config/db.js`.
+9. El esquema y las relaciones principales están descritos en `querys/tables.sql`.
+
+Nota: el inventario refleja los archivos presentes actualmente. Algunas pantallas del
+panel y operaciones de reserva todavía funcionan como estructura visual/prototipo y
+no necesariamente tienen endpoints backend equivalentes implementados.
