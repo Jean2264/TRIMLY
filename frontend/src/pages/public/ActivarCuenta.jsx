@@ -1,7 +1,19 @@
 import "./ActivarCuenta.css";
+import { useState } from "react";
 import Logo from "../../components/common/Logo";
+import PasswordStrength from "../../hooks/PasswordStrength";
 
 function ActivarCuenta() {
+  const [password, setPassword] = useState("");
+  const passwordIsValid =
+    password.length >= 8 &&
+    /[a-z]/.test(password) &&
+    /[A-Z]/.test(password) &&
+    /\d/.test(password) &&
+    /[!-/:-@[-`{-~]/.test(password);
+
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowpassword] = useState(false);
   return (
     <main className="activar-cuenta">
       <div className="activar-cuenta-header">
@@ -23,15 +35,50 @@ function ActivarCuenta() {
 
         <div className="password-section">
           <label>Contraseña</label>
-          <input id="password" type="password" />
+          <div className="pass-group">
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <button
+              type="button"
+              className="ojo"
+              onClick={() => setShowpassword(!showPassword)}
+            >
+              <i className={showPassword ? "bi bi-eye-slash" : "bi bi-eye"} />
+            </button>
+          </div>
+          <PasswordStrength value={password} />
         </div>
 
         <div className="confirm-password-section">
           <label>Confirmar contraseña</label>
-          <input id="confirm-password" type="password" />
+          <div className="pass-group">
+            <input
+              id="confirm-password"
+              type={showPassword ? "text" : "password"}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+
+            <button
+              type="button"
+              className="ojo"
+              onClick={() => setShowpassword(!showPassword)}
+            >
+              <i className={showPassword ? "bi bi-eye-slash" : "bi bi-eye"} />
+            </button>
+          </div>
         </div>
 
-        <div className="actions-section">{/**boton activar cuenta */}</div>
+        <div className="actions-section">
+          <button type="submit" disabled={!passwordIsValid}>
+            Activar cuenta
+          </button>
+        </div>
       </div>
     </main>
   );

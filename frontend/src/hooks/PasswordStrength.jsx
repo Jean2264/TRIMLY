@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import "./PasswordStrength.css";
 
 // Configuración de muelles/resortes para las animaciones fluidas
 const CELL = { type: "spring", stiffness: 520, damping: 34, mass: 0.45 };
@@ -16,7 +17,7 @@ const SYMBOL = /[!-/:-@[-`{-~]/;
 
 // Reglas de validación por defecto
 export const defaultPasswordRules = [
-  { id: "length", label: "12 caracteres o más", test: (v) => v.length >= 12 },
+  { id: "length", label: "8 caracteres o más", test: (v) => v.length >= 8 },
   {
     id: "case",
     label: "Mayúsculas y minúsculas",
@@ -30,17 +31,42 @@ const defaultLabels = ["Vacía", "Débil", "Aceptable", "Buena", "Fuerte"];
 
 // Paleta de colores según la nota obtenida
 const TONES = {
-  none: { bar: "bg-stone-300", text: "text-stone-500" },
-  danger: { bar: "bg-red-500", text: "text-red-600" },
-  caution: { bar: "bg-amber-500", text: "text-amber-600" },
-  safe: { bar: "bg-emerald-500", text: "text-emerald-600" },
+  none: {
+    name: "none",
+    bar: "#d6d3d1",
+    text: "#78716c",
+  },
+
+  danger: {
+    name: "danger",
+    bar: "#ef4444",
+    text: "#dc2626",
+  },
+
+  caution: {
+    name: "caution",
+    bar: "#f59e0b",
+    text: "#d97706",
+  },
+
+  warning: {
+    name: "warning",
+    bar: "#ffea00",
+    text: "#ffff00",
+  },
+
+  safe: {
+    name: "safe",
+    bar: "#10b981",
+    text: "#059669",
+  },
 };
 
 function toneFor(score, max) {
   if (score === 0) return TONES.none;
-  const ratio = score / max;
-  if (ratio <= 0.34) return TONES.danger;
-  if (ratio <= 0.67) return TONES.caution;
+  if (score === 1) return TONES.danger;
+  if (score === 2) return TONES.caution;
+  if (score === 3) return TONES.warning;
   return TONES.safe;
 }
 
@@ -81,93 +107,39 @@ export function PasswordStrength({
   const tone = toneFor(score, max);
 
   return (
-    <div className="w-full mt-2">
-      {/* Barras de progreso con animación */}
-      <div
-        className="grid gap-1.5"
-        style={{ gridTemplateColumns: `repeat(${max}, minmax(0, 1fr))` }}
-      >
+    <div className="password-strength">
+      <div className="password-strength-bars">
         {Array.from({ length: max }, (_, i) => (
           <div
             key={i}
-            className="relative h-1.5 overflow-hidden rounded-[2px] bg-stone-200"
-          >
-            <motion.span
-              className={`absolute inset-0 origin-left rounded-[2px] transition-colors duration-200 ${tone.bar}`}
-              initial={false}
-              animate={{ scaleX: i < score ? 1 : 0 }}
-              transition={
-                reduced ? INSTANT : { ...CELL, delay: i < score ? i * 0.03 : 0 }
-              }
-            />
-          </div>
+            className={`password-strength-bar ${i < score ? tone.name : ""}`}
+          />
         ))}
       </div>
 
-      {/* Etiqueta de texto animada y alerta de patrón común */}
-      <div className="mt-2 flex h-5 items-center justify-between gap-3">
-        <span className="inline-grid text-[12.5px] font-medium leading-5">
-          {labels.map((text, i) => (
-            <motion.span
-              key={text}
-              className={`col-start-1 row-start-1 whitespace-nowrap transition-colors duration-200 ${tone.text}`}
-              initial={false}
-              animate={{
-                opacity: i === Math.min(score, labels.length - 1) ? 1 : 0,
-              }}
-              transition={reduced ? INSTANT : CROSSFADE}
-            >
-              {text}
-            </motion.span>
-          ))}
-        </span>
+      <span className={`password-strength-label ${tone.name}`}>
+        {labels[Math.min(score, labels.length - 1)]}
+      </span>
 
-        {guessable && (
-          <span className="whitespace-nowrap text-[11.5px] text-amber-600 font-medium">
-            Patrón muy fácil de adivinar
-          </span>
-        )}
-      </div>
-
-      {/* Lista de requisitos con checks animados */}
-      <ul className="mt-3 grid gap-1.5">
+      <ul className="password-strength-rules">
         {evaluated.map((rule) => (
-          <li key={rule.id} className="flex items-center gap-2">
-            <span className="relative grid size-[14px] shrink-0 place-items-center rounded-[4px] border border-stone-200 text-white">
-              <motion.span
-                className="absolute inset-0 rounded-[3px] bg-emerald-500"
-                initial={false}
-                animate={{ opacity: rule.met ? 1 : 0 }}
-                transition={reduced ? INSTANT : CROSSFADE}
-              />
-              <motion.svg
-                viewBox="0 0 12 12"
-                fill="none"
-                className="relative size-[9px]"
-                initial={false}
-                animate={{
-                  opacity: rule.met ? 1 : 0,
-                  scale: rule.met ? 1 : 0.6,
-                }}
-                transition={reduced ? INSTANT : CELL}
-              >
-                <path
-                  d="M2 6.2 4.7 8.9 10 3.3"
-                  stroke="currentColor"
-                  strokeWidth={1.9}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </motion.svg>
-            </span>
+          <li key={rule.id}>
             <span
-              className={`text-[12.5px] leading-5 ${rule.met ? "text-stone-700 font-medium" : "text-stone-400"}`}
+              className={`password-strength-check ${rule.met ? "met" : ""}`}
             >
-              {rule.label}
+              {rule.met ? "✓" : ""}
             </span>
+
+            <span>{rule.label}</span>
           </li>
         ))}
       </ul>
+
+      {guessable && (
+        <span className="password-strength-warning">
+          Patrón muy fácil de adivinar
+        </span>
+      )}
     </div>
   );
 }
