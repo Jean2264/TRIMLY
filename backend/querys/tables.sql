@@ -1,4 +1,51 @@
 -- ==========================================
+-- TABLA EMPRESA
+-- ==========================================
+
+CREATE TABLE Empresa
+(
+	IdEmpresa SERIAL PRIMARY KEY,
+	Nombre VARCHAR(150) NOT NULL,
+	Email VARCHAR(255) NOT NULL,
+	Telefono VARCHAR(30) ,
+	Direccion VARCHAR(255),
+	Slug VARCHAR(150) NOT NULL,
+	Estado BOOLEAN NOT NULL DEFAULT TRUE,
+
+	FechaAlta TIMESTAMP NOT NULL DEFAULT 
+	CURRENT_TIMESTAMP,
+
+	CONSTRAINT UQ_Empresa_Slug UNIQUE (Slug)
+)
+
+INSERT INTO Empresa
+(
+    Nombre,
+    Email,
+    Telefono,
+    Direccion,
+    Slug
+)
+VALUES
+(
+    'Melco Tatoo',
+    'melco@gmail.com',
+    '1122334455',
+    'Alejandro Korn',
+    'melco-tatoo'
+),
+(
+    'Barbería 48',
+    'barberia48@gmail.com',
+    '1166778899',
+    'San Vicente',
+    'barberia-48'
+);
+
+
+SELECT * FROM Empresa;
+
+-- ==========================================
 -- TABLA USUARIO
 -- ==========================================
 
@@ -157,8 +204,55 @@ CREATE TABLE Cliente
         REFERENCES Usuario(IdUsuario)
 );
 
+ALTER TABLE Cliente
+ADD COLUMN IdEmpresa INTEGER;
 
 
+ALTER TABLE Cliente ADD CONSTRAINT
+FK_Cliente_Empresa
+ FOREIGN KEY(IdEmpresa)
+ references Empresa(IdEmpresa);
+
+
+ UPDATE Cliente
+ SET IdEmpresa= 1
+ Where IdCliente=1;
+
+
+
+ SELECT
+    c.IdCliente,
+    c.UsuarioId,
+    c.IdEmpresa,
+    e.Nombre AS Empresa,
+    c.DNI,
+    c.Nombre,
+    c.Apellido
+FROM Cliente c
+INNER JOIN Empresa e
+    ON c.IdEmpresa = e.IdEmpresa;
+
+
+	SELECT 
+	 conname,
+	 pg_get_constraintdef(oid)
+	FROM pg_constraint
+	WHERE conrelid = 'cliente'::regclass;
+
+	alter table Cliente
+	drop constraint cliente_usuarioid_key;
+
+alter table Cliente
+add constraint UQ_Cliente_Empresa_UsuarioId
+unique (IdEmpresa, UsuarioId);
+	
+
+	
+SELECT * FROM Cliente
+
+
+
+--===========================
 
 INSERT INTO Usuario
 (
