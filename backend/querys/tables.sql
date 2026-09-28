@@ -135,6 +135,58 @@ CREATE TABLE Empleado
 );
 
 
+SELECT
+    conname,
+    pg_get_constraintdef(oid)
+FROM pg_constraint
+WHERE conrelid = 'empleado'::regclass;
+
+
+ALTER TABLE Empleado
+ADD COLUMN IdEmpresa INTEGER;
+
+ALTER TABLE Empleado
+ADD CONSTRAINT FK_Empleado_Empresa
+    FOREIGN KEY (IdEmpresa)
+    REFERENCES Empresa(IdEmpresa);
+
+	UPDATE Empleado
+SET IdEmpresa = 2
+WHERE IdEmpresa IS NULL;
+
+
+SELECT
+    e.IdEmpleado,
+    e.UsuarioId,
+    e.IdEmpresa,
+    em.Nombre AS Empresa,
+    e.DNI,
+    e.Nombre,
+    e.Apellido,
+    e.IdRol
+FROM Empleado e
+INNER JOIN Empresa em
+    ON e.IdEmpresa = em.IdEmpresa;
+
+
+ALTER TABLE Empleado
+DROP CONSTRAINT empleado_usuarioid_key;
+
+ALTER TABLE Empleado
+DROP CONSTRAINT empleado_dni_key;
+
+ALTER TABLE Empleado
+ADD CONSTRAINT UQ_Empleado_Empresa_UsuarioId
+UNIQUE (IdEmpresa, UsuarioId);
+
+ALTER TABLE Empleado
+ADD CONSTRAINT UQ_Empleado_Empresa_DNI
+UNIQUE (IdEmpresa, DNI);
+	
+	SELECT *
+FROM Empleado;
+
+
 -- ==========================================
 -- TABLA eMPLEADO/SERVICIO
 -- ==========================================
@@ -175,6 +227,38 @@ ALTER TABLE Servicio
 add COLUMN CodServicio varchar(8) UNIQUE;
 delete  from Servicio
 
+
+ALTER TABLE Servicio
+ADD COLUMN IdEmpresa INTEGER;
+
+
+ALTER TABLE Servicio ADD CONSTRAINT
+FK_Servicio_Empresa
+ FOREIGN KEY(IdEmpresa)
+ references Empresa(IdEmpresa);
+
+
+UPDATE Servicio
+SET IdEmpresa = 2
+WHERE IdEmpresa IS NULL;
+
+SELECT
+    s.IdServicio,
+    s.Nombre,
+    s.Costo,
+    s.IdEmpresa,
+    e.Nombre AS Empresa
+FROM Servicio s
+INNER JOIN Empresa e
+    ON s.IdEmpresa = e.IdEmpresa;
+
+SELECT *
+FROM Servicio;
+
+
+
+SELECT *
+FROM EmpleadoServicio;
 -- ==========================================
 -- TABLA CLIENTE
 -- ==========================================
