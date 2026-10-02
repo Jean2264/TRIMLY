@@ -1,0 +1,18 @@
+.location-section {
+  width: 100%;
+  padding: 48px 32px;
+}
+
+.location-section h2 {
+  margin-bottom: 16px;
+}
+
+.location-section a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  font-family: var(--font-secondary);
+  color: var(--color-text);
+  text-decoration: none;
+}
