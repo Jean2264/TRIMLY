@@ -1,46 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
 
 @import "./themes/light.css";
 /* @import "./themes/dark.css"; */
 /* @import "./themes/blue.css"; */
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* ==============================
+   RESET
+   ============================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-    background-color: var(--color-background);
-    color: var(--color-text);
-    font-family: "Inter", sans-serif;
+/* ==============================
+   VARIABLES GLOBALES
+   ============================== */
+
+:root {
+  /* Tipografía principal */
+  --font-primary: "Manrope", sans-serif;
+
+  /* Tipografía secundaria */
+  --font-secondary: RoobertPRO, AktivGroteskVF, sans-serif;
 }
 
-button{
-    cursor: pointer;
+/* ==============================
+   BODY
+   ============================== */
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+
+  font-family: var(--font-secondary);
 }
 
-img{
-    display: block;
-    max-width: 100%;
-}
-h1{
-    font-size: 2rem;
-    font-weight: 700;
+/* ==============================
+   TIPOGRAFÍA PRINCIPAL
+   ============================== */
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-primary);
 }
 
-h2{
-    font-size: 1.3rem;
-    font-weight: 600;
-  
+/* ==============================
+   ELEMENTOS GLOBALES
+   ============================== */
+
+button {
+  cursor: pointer;
 }
 
-h3{
-    font-size: 1.10rem;
-    font-weight: 600;
-}
-
-p{
-    font-size: .95rem;
-    font-weight: 400;
-    line-height: 1.5;
+a {
+  text-decoration: none;
+  color: inherit;
 }
