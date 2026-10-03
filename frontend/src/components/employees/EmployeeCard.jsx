@@ -14,8 +14,8 @@ function EmployeeCard({ employee, selected, onClick }) {
       )}
 
       <div className="employee-info">
-        <h4>{employee.name}</h4>
-        <p>{employee.experience} exp</p>
+        <span>{employee.name}</span>
+        <p>{employee.specialty} </p>
       </div>
       {/**{
                 isHome &&(

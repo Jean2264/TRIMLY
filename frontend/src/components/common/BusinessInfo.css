@@ -1,6 +1,6 @@
 .business-info {
   position: relative;
-  width: calc(100% - 64px);
+  width: 100%;
 }
 .business-info-header {
   display: flex;
@@ -14,24 +14,33 @@
   font-family: var(--font-secondary);
 }
 
+.business-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-secondary);
+}
+
+.business-status span {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 30px;
+  color: white;
+  font-size: 18px;
+}
+
 .business-status .open {
-  color: #43a047;
+  background-color: #43a047;
 }
 
 .business-status .closed {
-  color: #d32f2f;
+  background-color: #d32f2f;
+}
+
+.business-status p {
+  margin: 0;
 }
 @media (max-width: 768px) {
-  .business-info {
-    width: calc(100% - 32px);
-    margin: -40px auto 0;
-    padding: 24px 20px;
-
-    border-radius: 24px 24px 0 0;
-    position: relative;
-    z-index: 2;
-  }
-
   .business-info-header {
     flex-direction: column;
     align-items: flex-start;

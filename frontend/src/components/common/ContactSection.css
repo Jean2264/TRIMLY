@@ -1,0 +1,162 @@
+.contact-section {
+  width: 100%;
+  padding: 0;
+  align-self: center;
+}
+
+.contact-card {
+  width: 100%;
+
+  padding: 24px;
+
+  background: var(--color-surface);
+
+  border: 1px solid rgb(228, 228, 228);
+  border-radius: 16px;
+
+  box-shadow: var(--shadow-card);
+}
+
+/* =========================
+   HEADER
+   ========================= */
+
+.contact-header {
+  margin-bottom: 20px;
+}
+
+.contact-header h3 {
+  margin: 0 0 6px;
+
+  font-family: var(--font-primary);
+  font-size: 20px;
+  font-weight: 700;
+
+  color: var(--color-text);
+}
+
+.contact-header p {
+  margin: 0;
+
+  font-family: var(--font-secondary);
+  font-size: 14px;
+
+  color: #888;
+}
+
+/* =========================
+   CONTACTOS
+   ========================= */
+
+.contact-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.contact-item {
+  min-width: 220px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 14px;
+
+  border: 1px solid rgb(235, 235, 235);
+  border-radius: 12px;
+
+  text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.contact-item:hover {
+  transform: translateY(-2px);
+  background-color: rgba(0, 0, 0, 0.025);
+}
+
+/* =========================
+   ICONO
+   ========================= */
+
+.contact-icon {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background-color: rgb(38, 38, 38);
+  color: white;
+}
+
+.contact-icon i {
+  font-size: 18px;
+}
+
+/* =========================
+   INFORMACIÓN
+   ========================= */
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  min-width: 0;
+}
+
+.contact-info span {
+  font-family: var(--font-secondary);
+  font-size: 14px;
+  font-weight: 600;
+
+  color: var(--color-text);
+}
+
+.contact-info p {
+  margin: 0;
+
+  font-family: var(--font-secondary);
+  font-size: 13px;
+
+  color: #888;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 768px) {
+  .contact-card {
+    padding: 18px;
+    border-radius: 14px;
+  }
+
+  .contact-header h3 {
+    font-size: 18px;
+  }
+
+  .contact-list {
+    flex-direction: column;
+  }
+
+  .contact-item {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .contact-section {
+    width: 95%;
+  }
+}

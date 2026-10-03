@@ -1,17 +1,19 @@
-import "./ScheduleRow.css"
+import "./ScheduleRow.css";
 
+function ScheduleRow({ day, open, hours }) {
+  return (
+    <div className={`schedule-row ${!open ? "closed" : ""}`}>
+      <div className="schedule-day">
+        <i
+          className={`bi ${open ? "bi-calendar2-plus" : "bi-calendar2-x"}`}
+        ></i>
 
-function ScheduleRow()
-{
-    return(
+        <p>{day}</p>
+      </div>
 
-        <div className="Schedule-Row">
-            <button><i class="bi bi-calendar2"></i></button>
-            <p>Lunes a Viernes</p>
-            <p>09:00-21:00</p>
-
-        </div>
-    );
+      <p className="schedule-hours">{open ? hours : "Cerrado"}</p>
+    </div>
+  );
 }
 
 export default ScheduleRow;

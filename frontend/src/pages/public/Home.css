@@ -1,33 +1,90 @@
 .home {
   width: 100%;
   height: 100vh;
+
   display: flex;
   flex-direction: column;
+
+  overflow: hidden;
 }
+
+/* =========================
+   SCROLL PRINCIPAL
+   ========================= */
 
 .home-scroll {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  min-height: 0;
+
+  width: 100%;
+
   overflow-y: auto;
+  overflow-x: hidden;
+
   scrollbar-width: none;
+  scroll-behavior: smooth;
 }
 
 .home-scroll::-webkit-scrollbar {
   display: none;
 }
 
-.home-container {
+/* =========================
+   CONTENIDO DE HOME
+   ========================= */
+
+.home-page-content {
   width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
 }
 
+/* =========================
+   CONTENIDO DE SECCIONES
+   ========================= */
+
 .home-content {
+  width: 100%;
+
   display: flex;
   flex-direction: column;
+
   gap: 64px;
 }
 
 .home-section {
   width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+/* =========================
+   HEADER DE SECCIÓN
+   ========================= */
+
+.home-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px;
+}
+
+/* =========================
+   VER MÁS
+   ========================= */
+
+.see-more-button {
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.see-more-button:hover {
+  color: rgb(0, 119, 255);
+  transform: scale(1.05);
 }

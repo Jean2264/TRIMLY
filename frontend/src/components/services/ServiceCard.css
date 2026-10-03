@@ -1,28 +1,21 @@
 .service-card {
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  box-shadow: var(--shadow-card);
-
-  background-color: var(--color-background-card);
-  color: var(--color-text);
-
-  padding: 1rem;
-
-  min-width: 100px;
-  max-width: 280px;
-  min-height: 200px;
-  height: auto;
-
-  flex-shrink: 0;
-
   display: flex;
-  flex-direction: column;
+  width: 400px;
+  background-color: white;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 10px;
+  gap: 2rem;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 /*
 */
 .service-info {
   display: flex;
   flex-direction: column;
+  gap: 5px;
   flex: 1;
 }
 
@@ -31,8 +24,8 @@
 }
 
 .service-info h3 {
-  text-align: center;
-  margin-bottom: 0.2rem;
+  font-size: 14px;
+
   color: var(--color-text);
 }
 
@@ -41,24 +34,30 @@
   font-size: 14px;
 }
 
+.time {
+  color: #454545;
+}
+
 .price ins {
   text-decoration: none; /* elimina el subrayado */
-  color: #01b413; /* color destacado */
-  font-weight: bold;
-  font-size: 20px;
+  color: #000000; /* color destacado */
+  font-weight: 600;
+  font-size: 15px;
   margin-right: 0.2rem;
 }
 
-.service-info button {
-  margin-top: 1rem;
-  align-self: center;
-  width: 90%;
-  height: auto;
-  padding: 0.5rem;
+.submit {
+  background-color: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 10px;
 
-  background-color: var(--color-card-service-hover);
-  color: var(--color-text-service-sucess);
+  width: auto;
+  height: 40px;
+  line-height: 1;
 
-  border: 1px solid var(--color-text-service-sucess);
-  border-radius: 6px;
+  letter-spacing: -0.04em;
+}
+
+@media (max-width: 700px) {
 }

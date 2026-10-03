@@ -28,12 +28,12 @@ function BusinessInfo() {
       if (currentMinutes >= openMinutes && currentMinutes < closeMinutes) {
         setStatus({
           isOpen: true,
-          text: `Abierto · Hasta las ${schedule.close}`,
+          text: `Hasta las ${schedule.close}`,
         });
       } else {
         setStatus({
           isOpen: false,
-          text: `Cerrado · Abre a las ${schedule.open}`,
+          text: `Abre a las ${schedule.open}`,
         });
       }
     };
@@ -54,14 +54,15 @@ function BusinessInfo() {
         </div>
 
         <div className="business-status">
-          <span className={status.isOpen ? "open" : "closed"}>●</span>
+          <span className={status.isOpen ? "open" : "closed"}>
+            {status.isOpen ? "Abierto" : "Cerrado"}
+          </span>
 
           <p>{status.text}</p>
         </div>
-
         <div className="business-address">
           <i className="bi bi-geo-alt"></i>
-          <p>Avenida 25 de Mayo 286, San Vicente</p>
+          <p>Calle 811 550, Alejandro korn.</p>
         </div>
       </div>
     </section>

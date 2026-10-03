@@ -1,18 +1,147 @@
 .location-section {
   width: 100%;
-  padding: 48px 32px;
+  padding: 10px;
 }
 
-.location-section h2 {
-  margin-bottom: 16px;
+/* =========================
+   MAPA
+   ========================= */
+
+.location-map-link {
+  display: block;
+
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  text-decoration: none;
+  border: 2px solid var(--color-border);
+  border-radius: 24px;
+  overflow: hidden;
 }
 
-.location-section a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+.location-map {
+  display: block;
+
+  width: 100%;
+  height: 400px;
+}
+
+/* =========================
+   DIRECCIÓN
+   ========================= */
+
+.location-address {
+  margin: 12px 0 0;
 
   font-family: var(--font-secondary);
+  font-size: 16px;
+  line-height: 1.4;
+
   color: var(--color-text);
-  text-decoration: none;
+}
+
+/* =========================
+   PIN TRIMLY
+   ========================= */
+
+.trimly-marker {
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #000;
+
+  border-radius: 50% 50% 50% 0;
+
+  transform: rotate(-45deg);
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+
+  cursor: pointer;
+}
+
+.trimly-marker-inner {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #fff;
+
+  font-family: var(--font-primary);
+  font-size: 26px;
+  font-weight: 800;
+
+  transform: rotate(45deg);
+
+  user-select: none;
+}
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (max-width: 1024px) {
+  .location-map {
+    height: 300px;
+  }
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 768px) {
+  .location-map-link {
+    border-radius: 18px;
+  }
+
+  .location-map {
+    height: 200px;
+  }
+
+  .trimly-marker {
+    width: 46px;
+    height: 46px;
+  }
+
+  .trimly-marker-inner {
+    font-size: 23px;
+  }
+
+  .location-address {
+    margin-top: 10px;
+
+    font-size: 14px;
+  }
+}
+
+/* =========================
+   MOBILE PEQUEÑO
+   ========================= */
+
+@media (max-width: 480px) {
+  .location-map {
+    height: 180px;
+  }
+
+  .location-map-link {
+    border-radius: 16px;
+  }
+
+  .trimly-marker {
+    width: 42px;
+    height: 42px;
+  }
+
+  .trimly-marker-inner {
+    font-size: 21px;
+  }
 }

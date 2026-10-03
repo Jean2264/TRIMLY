@@ -1,45 +1,76 @@
 .employee-card {
   padding: 0.4rem;
+
   display: flex;
   justify-content: center;
   align-items: center;
 
-  flex-direction: row;
+  flex-direction: column;
+
   border-radius: 10px;
   flex-shrink: 0;
+
   transition: all 0.2s ease;
+
   gap: 0.5rem;
 }
 
 .employee-info {
   display: flex;
   flex-direction: column;
-  padding: 0;
+  align-items: center;
   gap: 0;
 }
 
-/* Make image inside card not overflow */
-.employee-card img {
-  max-width: 60px;
-  height: auto;
-  border-radius: 6px;
+.employee-info span {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.2;
 }
-/*  --color-search: #111827;
-    --color-text-search:#F9FAFB;
-    --color-text-card:#F9FAFB;*/
+
+.employee-info p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.1;
+}
+
+/* Imagen */
+.employee-card img {
+  max-width: 80px;
+  height: auto;
+  border-radius: 50%;
+}
+
+/* Estado seleccionado */
 .employee-card.selected {
   background: var(--color-search);
   transform: scale(1.03);
 }
 
-.employee-card.selected .employee-info h4,
+.employee-card.selected .employee-info span,
 .employee-card.selected .employee-info p {
   color: var(--color-text-card);
 }
+
+/* Icono cuando no hay imagen */
 .employee-icon {
-  font-size: 40px;
+  font-size: 56px;
 }
 
 .employee-card.selected .employee-icon {
   color: var(--color-text-card);
+}
+
+@media (max-width: 768px) {
+  .employee-icon {
+    font-size: 40px;
+  }
+
+  .employee-info span {
+    font-size: 16px;
+  }
+
+  .employee-info p {
+    font-size: 14px;
+  }
 }

@@ -1,7 +1,37 @@
 .top-section {
+  position: relative;
   width: 100%;
   padding: 24px 0;
+
   z-index: 1000;
+}
+
+.top-section-content {
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+}
+.top-section::after {
+  content: "";
+
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+
+  width: 100vw;
+  height: 1px;
+
+  background-color: var(--color-border);
+
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+
+  transition: transform 0.25s ease;
+}
+
+.top-section.scrolled::after {
+  transform: translateX(-50%) scaleX(1);
 }
 .home-navegation {
   display: flex;
