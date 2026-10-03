@@ -1,26 +1,52 @@
+.reservation-summary {
+  background-color: white;
+  border-radius: 10px;
 
+  gap: 1rem;
 
-.reservation-summary
-{
-    background-color: white;
-    border-radius: 10px;
-    padding: 1rem;
-    gap: 1rem;
-    box-shadow: var(--shadow-card);
-    display: flex;
-    flex-direction: column;
-    margin-top: 1rem;
-    
-    
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
 }
 
-.reservation-summary.confirmation
-{
-    margin-top: 0.2rem;
- box-shadow:none;
- background:none;
+.reservation-summary-header {
+  display: flex;
+  overflow: hidden;
+  padding: 10px;
+  gap: 10px;
+  border-bottom: 1px solid var(--color-border);
 }
-.reservation-summary h2{
-    text-align: center;
-    margin-bottom: 12px;
+
+.img {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+}
+
+.business-info {
+  display: flex;
+  flex-direction: column;
+
+  align-items: start;
+  gap: 5px;
+}
+.business-info h2 {
+  font-size: 18px;
+}
+
+.reservation-summary-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.reservation-summary-content p {
+  font-size: 15px;
+}
+
+.reservation-summary.confirmation {
+  margin-top: 0.2rem;
+  box-shadow: none;
+  background: none;
 }

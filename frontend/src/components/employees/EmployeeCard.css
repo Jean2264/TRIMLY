@@ -5,63 +5,147 @@
   justify-content: center;
   align-items: center;
 
-  flex-direction: column;
+  align-self: flex-start;
 
   border-radius: 10px;
   flex-shrink: 0;
 
   transition: all 0.2s ease;
 
-  gap: 0.5rem;
+  cursor: pointer;
 }
 
-.employee-info {
+/* =================================
+   HOME
+   ================================= */
+
+.employee-card.home {
+  width: 150px;
+  height: fit-content;
+  min-height: 0;
+  max-height: none;
+
   display: flex;
   flex-direction: column;
+
+  justify-content: flex-start;
   align-items: center;
+
+  gap: 0.3rem;
+}
+/* =================================
+   RESERVATION
+   ================================= */
+
+.employee-card.reservation {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+
+  justify-content: flex-start;
+  align-items: center;
+
+  gap: 12px;
+
+  background-color: white;
+  border: 1px solid var(--color-border);
+}
+
+/* =================================
+   INFORMACIÓN
+   ================================= */
+
+.employee-info {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
   gap: 0;
 }
 
 .employee-info span {
   margin: 0;
+
   font-size: 17px;
   line-height: 1.2;
+
+  color: var(--color-text);
 }
 
 .employee-info p {
   margin: 0;
+
   font-size: 14px;
-  line-height: 1.1;
+  line-height: 1.2;
+
+  color: #777;
+
+  white-space: nowrap;
 }
 
-/* Imagen */
+/* =================================
+   RESERVATION - INFORMACIÓN
+   ================================= */
+
+.employee-card.reservation .employee-info {
+  align-items: flex-start;
+}
+
+/* =================================
+   IMAGEN
+   ================================= */
+
 .employee-card img {
-  max-width: 80px;
-  height: auto;
+  width: 60px;
+  height: 60px;
+
+  object-fit: cover;
+
   border-radius: 50%;
 }
 
-/* Estado seleccionado */
-.employee-card.selected {
-  background: var(--color-search);
-  transform: scale(1.03);
-}
+/* =================================
+   ICONO
+   ================================= */
 
-.employee-card.selected .employee-info span,
-.employee-card.selected .employee-info p {
-  color: var(--color-text-card);
-}
-
-/* Icono cuando no hay imagen */
 .employee-icon {
   font-size: 56px;
 }
 
-.employee-card.selected .employee-icon {
-  color: var(--color-text-card);
+/* =================================
+   SELECCIONADO - RESERVATION
+   ================================= */
+
+.employee-card.reservation.selected {
+  background-color: white;
+
+  border: 1px solid #000;
+
+  transform: none;
 }
 
+.employee-card.reservation.selected .employee-info span,
+.employee-card.reservation.selected .employee-info p {
+  color: var(--color-text);
+}
+
+.employee-card.reservation.selected .employee-icon {
+  color: var(--color-text);
+}
+
+/* =================================
+   MOBILE
+   ================================= */
+
 @media (max-width: 768px) {
+  .employee-card.home {
+    width: 140px;
+  }
+
   .employee-icon {
     font-size: 40px;
   }

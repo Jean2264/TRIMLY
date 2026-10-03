@@ -178,7 +178,7 @@ function Home() {
                 </NavLink>
               </div>
 
-              <EmployeeCaroucel employees={employees} />
+              <EmployeeCaroucel variant="home" employees={employees} />
             </section>
 
             <section id="ubicacion" className="home-section">

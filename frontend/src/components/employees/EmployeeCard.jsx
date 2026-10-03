@@ -1,27 +1,21 @@
 import "./EmployeeCard.css";
-import SeeMoreButton from "../common/SeeMoreButton";
 
-function EmployeeCard({ employee, selected, onClick }) {
+function EmployeeCard({ employee, selected, onClick, variant = "home" }) {
   return (
     <div
-      className={`employee-card ${selected ? "selected" : ""}`}
+      className={`employee-card ${variant} ${selected ? "selected" : ""}`}
       onClick={onClick}
     >
       {employee.image ? (
-        <img src={employee.image} />
+        <img src={employee.image} alt={employee.name} />
       ) : (
         <i className="bi bi-person-circle employee-icon"></i>
       )}
 
       <div className="employee-info">
         <span>{employee.name}</span>
-        <p>{employee.specialty} </p>
+        <p>{employee.specialty}</p>
       </div>
-      {/**{
-                isHome &&(
-                    <SeeMoreButton/>
-                )
-              } */}
     </div>
   );
 }

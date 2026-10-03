@@ -1,27 +1,19 @@
-.Employee-Caroucel
-{
-     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: .5rem;
+.Employee-Caroucel {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+
+  align-items: flex-start;
+
+  gap: 0.5rem;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scrollbar-width: none;
 }
 
-.Employee-card {
-    width: 150px;
-   
-   
-    
+.Employee-Caroucel::-webkit-scrollbar {
+  display: none;
 }
-
-.Employee-track {
-    display: flex;
-   
-    flex-direction: row;
-   gap: 0.5rem;
-   overflow-x:auto;
-    overflow-y:hidden;
-    scrollbar-width: none;  
-      border-radius:10px;
-}
-
